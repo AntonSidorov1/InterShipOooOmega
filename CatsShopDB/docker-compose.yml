@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:13.3
+    container_name: postgres
+    environment:
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ../2. Init Database:/docker-entrypoint-initdb.d
+      - .:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
+    networks:
+      - postgres
+  
+  pgadmin:
+      container_name: pgadmin
+      image: dpage/pgadmin4
+      environment:
+        PGADMIN_DEFAULT_EMAIL: "user@cats.com"
+        PGADMIN_DEFAULT_PASSWORD: "password"
+        PGADMIN_CONFIG_SERVER_MODE: "False"
+      volumes:
+        - ./pgadmin:/var/lib/pgadmin
+      ports:
+        - "5050:80"
+      restart: unless-stopped
+      networks:
+        - postgres
+
+networks:
+  postgres:
+    driver: bridge
