@@ -1,8 +1,7 @@
-
-using System;
+using CatsShop.Classes.DataBaseConnection;
 using Npgsql;
 
-namespace CatsShop;
+namespace CatsShop.Classes.Users.Roles;
 
 public class RolesList : List<Role>
 {

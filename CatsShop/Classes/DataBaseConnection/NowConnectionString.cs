@@ -1,4 +1,4 @@
-namespace CatsShop;
+namespace CatsShop.Classes.DataBaseConnection;
 
 public static class NowConnectionString
 {

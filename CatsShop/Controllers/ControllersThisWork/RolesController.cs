@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
+using CatsShop.Classes.Users.Roles;
+using CatsShop.Classes.Users.Sessions;
 using Npgsql;
 
 namespace CatsShop.Controllers;

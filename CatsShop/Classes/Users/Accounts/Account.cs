@@ -1,7 +1,9 @@
-using System.Linq.Expressions;
+using CatsShop.Classes.DataBaseConnection;
+using CatsShop.Classes.Users.Roles;
+using CatsShop.Classes.Users.Sessions;
 using Npgsql;
 
-namespace CatsShop;
+namespace CatsShop.Classes.Users.Accounts;
 
 /// <summary>
 /// Аккаунт пользователя

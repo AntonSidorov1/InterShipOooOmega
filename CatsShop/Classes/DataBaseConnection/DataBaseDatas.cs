@@ -1,6 +1,6 @@
-namespace CatsShop;
-using System;
 using Npgsql;
+
+namespace CatsShop.Classes.DataBaseConnection;
 
 public class DataBaseDatas : DataBaseConnectionText
 {

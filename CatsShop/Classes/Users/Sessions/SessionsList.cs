@@ -1,7 +1,8 @@
-using System;
+using CatsShop.Classes.DataBaseConnection;
+using CatsShop.Classes.Users.Roles;
 using Npgsql;
 
-namespace CatsShop;
+namespace CatsShop.Classes.Users.Sessions;
 
 public class SessionsList : List<string>
 {
@@ -62,6 +63,12 @@ public class SessionsList : List<string>
             return false;
         }
     }
+
+    public bool UserIsAdmin(string session)
+        => GetRoleFromSession(session).Name.ToLower() == ("Администратор").ToLower();
+
+    public bool UserIsKlient(string session)
+        => GetRoleFromSession(session).Name.ToLower() == ("Клиент").ToLower();
 
     public Role GetRoleFromSession(string session)
     {

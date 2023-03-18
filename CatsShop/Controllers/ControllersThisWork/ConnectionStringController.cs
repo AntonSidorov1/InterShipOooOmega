@@ -1,3 +1,4 @@
+using CatsShop.Classes.DataBaseConnection;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CatsShop.Controllers;

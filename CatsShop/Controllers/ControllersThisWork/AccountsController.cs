@@ -1,3 +1,5 @@
+using CatsShop.Classes.Users.Accounts;
+using CatsShop.Classes.Users.Sessions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CatsShop.Controllers;

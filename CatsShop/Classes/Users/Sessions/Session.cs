@@ -1,4 +1,4 @@
-namespace CatsShop;
+namespace CatsShop.Classes.Users.Sessions;
 
 public class Key
 {
