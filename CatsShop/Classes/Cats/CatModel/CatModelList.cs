@@ -7,9 +7,19 @@ public class CatModelList : List<CatModel>
 {
 
 
-    public static CatModelList GetModelList() => new CatModelList();
+    public static CatModelList GetModelsList() => new CatModelList();
 
-    public void GetModelFromDB()
+    public static CatModelList GetModelsListFromDB()
+    {
+        CatModelList modelList = GetModelsList();
+        modelList.GetModelsFromDB();
+        return modelList;
+    }
+
+    public CatModelDatas GetDatasFromID(int id)
+        => Find(p => p.ID == id).Copy();
+    
+    public void GetModelsFromDB()
     {
         
         Clear();
@@ -30,7 +40,9 @@ public class CatModelList : List<CatModel>
                     CatModel species = new CatModel
                     {
                         ID = reader.GetInt32(reader.GetOrdinal("CatModelID")),
-                        Name = reader.GetString(reader.GetOrdinal("CatSpeciesName"))
+                        GenderID = reader.GetInt32(reader.GetOrdinal("CatGenderID")),
+                        SpeciesID = reader.GetInt32(reader.GetOrdinal("CatSpeciesID")),
+                        ColorID = reader.GetInt32(reader.GetOrdinal("CatColorID"))
                     };
                     Add(species);
                 }
