@@ -18,6 +18,7 @@ public class CatColorsController : ControllerBase
     }
 
 
+    
     [HttpGet("CatColorsList")]
     public CatColorsList GetList()
     {
@@ -27,7 +28,7 @@ public class CatColorsController : ControllerBase
     }
     
     
-    [HttpGet("{id}/CatColorsName")]
+    [HttpGet("{id}/GetName")]
     public string GetColor(int id)
     {
         CatColorsList colors = new CatColorsList();
@@ -35,20 +36,24 @@ public class CatColorsController : ControllerBase
         return colors.GetColorFromID(id).Name;
     }
     
-    [HttpGet("{name}/CatColorsID")]
-    public int GetColor(string name)
+    [HttpPut("GetColorID")]
+    public int GetColor(CatColorName name)
     {
         CatColorsList colors = new CatColorsList();
         colors.GetColorsFromDB();
-        return colors.GetColorFromName(name).ID;
+        return colors.GetColorFromName(name.Color).ID;
     }
 
-    [HttpPost("{color}/Add")]
-    public bool AddColor(string color, string session)
-        => CatColorsList.GetColors().AddColor(color, session);
+    [HttpPost("Add")]
+    public bool AddColor(CatColorName color, string session)
+        => CatColorsList.GetColors().AddColor(color.Color, session);
 
-    [HttpPut("/UpdateColor")]
-    public bool AddColor(CatColor color, string session)
+    [HttpPut("Update")]
+    public bool UpdateColor(CatColor color, string session)
         => CatColorsList.GetColors().UpdateColor(color, session);
+
+    [HttpDelete("{id}/Delete")]
+    public bool DeleteColor(int id, string session)
+        => CatColorsList.GetColors().DeleteColor(id, session);
 
 }

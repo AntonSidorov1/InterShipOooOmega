@@ -100,6 +100,36 @@ public class CatColorsList : List<CatColor>
             return false;
         }
     }
+
+    public bool DeleteColor(int id, string session)
+    {
+        GetColorsFromDB();
+        DataBaseDatas datas = NowConnectionString.ConnectionDatas;
+        NpgsqlConnection connection = datas.Connection;
+        connection.Open();
+        try
+        {
+            if (!SessionsList.GetSessions().UserIsAdmin(session))
+                throw new AggregateException("Пользователь должен быть администратор");
+            if (!HaveColorWithID(id))
+                throw new ArgumentException("Данного цвета не существует");
+            string name = GetColorFromID(id).Name;
+            
+
+            NpgsqlCommand command = new NpgsqlCommand("Delete From \"CatColor\" " +
+                                                      $"where \"CatColorID\" = {id}", connection);
+            
+            command.ExecuteNonQuery();
+
+            connection.Close();
+            return true;
+        }
+        catch (Exception e)
+        {
+            connection.Close();
+            return false;
+        }
+    }
     
     public bool UpdateColor(CatColor color, string session)
     {

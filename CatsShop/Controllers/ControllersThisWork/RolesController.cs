@@ -47,11 +47,11 @@ public class RolesController : ControllerBase
     }
     
     
-    [HttpGet("{name}/RoleID")]
-    public int GetRoleFromName(string name)
+    [HttpPut("RoleID")]
+    public int GetRoleFromName(RoleName role)
     {
         roles.GetRolesFromDB();
-        return roles.GetRoleFromName(name).ID;
+        return roles.GetRoleFromName(role.Role).ID;
     }
 
 

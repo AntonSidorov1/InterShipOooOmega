@@ -35,12 +35,12 @@ public class CatGendersController : ControllerBase
         return genders.GetGenderFromID(id).Name;
     }
     
-    [HttpGet("{name}/CatGendersID")]
-    public int GetGender(string name)
+    [HttpPut("CatGendersID")]
+    public int GetGender(CatGenderName name)
     {
         CatGendersList genders = new CatGendersList();
         genders.GetGendersFromDB();
-        return genders.GetGenderFromName(name).ID;
+        return genders.GetGenderFromName(name.CatGender).ID;
     }
     
 }
