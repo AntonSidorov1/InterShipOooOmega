@@ -5,7 +5,7 @@
 -- Dumped from database version 13.3 (Debian 13.3-1.pgdg100+1)
 -- Dumped by pg_dump version 15.2
 
--- Started on 2023-03-18 21:13:49
+-- Started on 2023-03-20 21:19:59
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -341,19 +341,25 @@ INSERT INTO public."Cat" ("CatID", "CatModelID", "CatAge") OVERRIDING SYSTEM VAL
 -- Data for Name: CatColor; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (2, 'Red');
-INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (3, 'Orange');
-INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (4, 'Yellow');
-INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (5, 'Green');
-INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (6, 'SkyBlue');
-INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (7, 'Blue');
-INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (8, 'Violet');
-INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (9, 'Purple');
-INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (10, 'Pink');
-INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (11, 'Brown');
-INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (12, 'Black');
-INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (13, 'Gray');
-INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (14, 'White');
+INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (2, 'Красный');
+INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (3, 'Оранжевый');
+INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (4, 'Жёлтый');
+INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (5, 'Зелёный');
+INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (6, 'Голубой');
+INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (7, 'Синий');
+INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (8, 'Фиолетовый');
+INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (9, 'Пурпурный');
+INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (10, 'Розовый');
+INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (11, 'Коричневый');
+INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (12, 'Чёрный');
+INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (13, 'Серый');
+INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (14, 'Белый');
+INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (15, 'Бежевый');
+INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (16, 'Каштановый');
+INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (17, 'Бирюзовый');
+INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (18, 'Салатовый');
+INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (19, 'Каралловый');
+INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM VALUE VALUES (20, 'Малиновый');
 
 
 --
@@ -379,6 +385,7 @@ INSERT INTO public."CatModel" ("CatModelID", "CatColorID", "CatGenderID", "CatSp
 INSERT INTO public."CatModel" ("CatModelID", "CatColorID", "CatGenderID", "CatSpeciesID") OVERRIDING SYSTEM VALUE VALUES (6, 9, 9, 3);
 INSERT INTO public."CatModel" ("CatModelID", "CatColorID", "CatGenderID", "CatSpeciesID") OVERRIDING SYSTEM VALUE VALUES (7, 14, 9, 3);
 INSERT INTO public."CatModel" ("CatModelID", "CatColorID", "CatGenderID", "CatSpeciesID") OVERRIDING SYSTEM VALUE VALUES (8, 5, 10, 2);
+INSERT INTO public."CatModel" ("CatModelID", "CatColorID", "CatGenderID", "CatSpeciesID") OVERRIDING SYSTEM VALUE VALUES (9, 4, 10, 4);
 
 
 --
@@ -387,10 +394,10 @@ INSERT INTO public."CatModel" ("CatModelID", "CatColorID", "CatGenderID", "CatSp
 -- Data for Name: CatSpecies; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public."CatSpecies" ("CatSpeciesID", "CatSpeciesName") OVERRIDING SYSTEM VALUE VALUES (1, 'Kurl');
-INSERT INTO public."CatSpecies" ("CatSpeciesID", "CatSpeciesName") OVERRIDING SYSTEM VALUE VALUES (2, 'Bombey');
-INSERT INTO public."CatSpecies" ("CatSpeciesID", "CatSpeciesName") OVERRIDING SYSTEM VALUE VALUES (3, 'ToyGer');
-INSERT INTO public."CatSpecies" ("CatSpeciesID", "CatSpeciesName") OVERRIDING SYSTEM VALUE VALUES (4, 'Burmilla');
+INSERT INTO public."CatSpecies" ("CatSpeciesID", "CatSpeciesName") OVERRIDING SYSTEM VALUE VALUES (1, 'Американский кёрл');
+INSERT INTO public."CatSpecies" ("CatSpeciesID", "CatSpeciesName") OVERRIDING SYSTEM VALUE VALUES (2, 'Бомбейская кошка');
+INSERT INTO public."CatSpecies" ("CatSpeciesID", "CatSpeciesName") OVERRIDING SYSTEM VALUE VALUES (3, 'Тойгер');
+INSERT INTO public."CatSpecies" ("CatSpeciesID", "CatSpeciesName") OVERRIDING SYSTEM VALUE VALUES (4, 'Бурмилла');
 
 
 --
@@ -403,6 +410,7 @@ INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionDateAdded
 INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionDateAdded", "PozitionDateOfChanged", "PozitionCost") OVERRIDING SYSTEM VALUE VALUES (2, 3, '2023-03-17', '2023-03-17', '$150.00');
 INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionDateAdded", "PozitionDateOfChanged", "PozitionCost") OVERRIDING SYSTEM VALUE VALUES (3, 3, '2023-03-17', '2023-03-17', '$180.40');
 INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionDateAdded", "PozitionDateOfChanged", "PozitionCost") OVERRIDING SYSTEM VALUE VALUES (4, 1, '2023-03-17', '2023-03-17', '$180.40');
+INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionDateAdded", "PozitionDateOfChanged", "PozitionCost") OVERRIDING SYSTEM VALUE VALUES (6, 9, '2023-03-20', '2023-03-20', '$500.00');
 
 
 --
@@ -437,6 +445,26 @@ INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('0367678767
 INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('54612594989492102122', 3);
 INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('53979114191271306414', 10);
 INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('21601270030899681645', 11);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('06673882410197854262', 1);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('57236247655260275507', 3);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('45583950737261727528', 3);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('53701760692692260880', 1);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('39748098428066034193', 3);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('38632658253870814936', 3);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('53746956852754405844', 1);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('04734626783287303331', 3);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('03515616396782346542', 1);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('37989303812260425184', 3);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('40658165312873165814', 3);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('04895299363805580625', 10);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('45774459078801392547', 10);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('91532070144367718867', 10);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('69816104809149302125', 10);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('50573856498985645451', 10);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('27815305419269345122', 10);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('18054701593969466209', 10);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('15263625218420402688', 10);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('99788682342588528420', 10);
 
 
 --
@@ -460,7 +488,7 @@ INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") 
 -- Name: CatColor_CatColorID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."CatColor_CatColorID_seq"', 14, true);
+SELECT pg_catalog.setval('public."CatColor_CatColorID_seq"', 21, true);
 
 
 --
@@ -478,7 +506,7 @@ SELECT pg_catalog.setval('public."CatGender_CatGenderID_seq"', 10, true);
 -- Name: CatModel_CatModelID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."CatModel_CatModelID_seq"', 8, true);
+SELECT pg_catalog.setval('public."CatModel_CatModelID_seq"', 12, true);
 
 
 --
@@ -487,7 +515,7 @@ SELECT pg_catalog.setval('public."CatModel_CatModelID_seq"', 8, true);
 -- Name: CatSpecies_CatSpeciesID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."CatSpecies_CatSpeciesID_seq"', 4, true);
+SELECT pg_catalog.setval('public."CatSpecies_CatSpeciesID_seq"', 7, true);
 
 
 --
@@ -496,7 +524,7 @@ SELECT pg_catalog.setval('public."CatSpecies_CatSpeciesID_seq"', 4, true);
 -- Name: Cat_CatID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Cat_CatID_seq"', 10, true);
+SELECT pg_catalog.setval('public."Cat_CatID_seq"', 13, true);
 
 
 --
@@ -505,7 +533,7 @@ SELECT pg_catalog.setval('public."Cat_CatID_seq"', 10, true);
 -- Name: Pozition_PozitionID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Pozition_PozitionID_seq"', 4, true);
+SELECT pg_catalog.setval('public."Pozition_PozitionID_seq"', 6, true);
 
 
 --
@@ -689,7 +717,7 @@ REVOKE USAGE ON SCHEMA public FROM PUBLIC;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2023-03-18 21:13:50
+-- Completed on 2023-03-20 21:20:03
 
 --
 -- PostgreSQL database dump complete
