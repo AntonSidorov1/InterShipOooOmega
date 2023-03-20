@@ -6,6 +6,15 @@ namespace CatsShop.Classes.Cats.CatsGender.CatGender;
 
 public class CatGendersList : List<CatGender>
 {
+	public static CatGendersList GetGenderList()
+		=> new CatGendersList();
+
+	public static CatGendersList GetGenderListFromDB()
+	{
+		CatGendersList genderList = new CatGendersList();
+		genderList.GetGendersFromDB();
+		return genderList;
+	}
     
     public void GetGendersFromDB()
     {

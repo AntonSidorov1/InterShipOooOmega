@@ -7,6 +7,13 @@ namespace CatsShop.Classes.Cats.CatSpecies;
 public class CatSpeciesList : List<CatSpecies>
 {
     public static CatSpeciesList GetSpecies() => new CatSpeciesList();
+	
+	public static CatSpeciesList GetSpeciesListFromDB()
+	{
+		CatSpeciesList speciesList = GetSpecies();
+		speciesList.GetSpeciesFromDB();
+		return speciesList;
+	}
     
     
     public void GetSpeciesFromDB()
@@ -56,10 +63,10 @@ public class CatSpeciesList : List<CatSpecies>
     public CatSpecies GetSpeciesFromName(CatSpeciesName name)
     => GetSpeciesFromName(name.Species);
 
-public bool AddSpecies(CatSpeciesName species, string session) 
-=> AddSpecies(species.Species, session);
+	public bool AddSpecies(CatSpeciesName species, string session) 
+		=> AddSpecies(species.Species, session);
 
-    
+		
     public bool AddSpecies(string speciesName, string session)
     {
         DataBaseDatas datas = NowConnectionString.ConnectionDatas;

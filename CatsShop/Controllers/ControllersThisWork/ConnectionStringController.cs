@@ -17,6 +17,7 @@ public class ConnectionStringController : ControllerBase
     [HttpGet("GetConnectionString")]
     public DataBaseConnectionText Get()
     {
+        //NowConnectionString.ConnectionDatas.FromSettings();
         return NowConnectionString.ConnectionDatas.Copy();
     }
    
@@ -26,6 +27,7 @@ public class ConnectionStringController : ControllerBase
         try
         {
             NowConnectionString.ConnectionDatas = new DataBaseDatas(connectionText);
+            NowConnectionString.ConnectionDatas.SaveSettings();
             return true;
         }
         catch (Exception e)

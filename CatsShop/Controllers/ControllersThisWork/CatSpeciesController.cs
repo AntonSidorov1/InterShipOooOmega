@@ -1,4 +1,5 @@
 using CatsShop.Classes.Cats.CatColor;
+using CatsShop.Classes.Cats.CatModel;
 using CatsShop.Classes.Cats.CatSpecies;
 using Microsoft.AspNetCore.Mvc;
 
@@ -54,6 +55,11 @@ public class CatSpeciesController : ControllerBase
     [HttpDelete("{id}/Delete")]
     public bool DeleteSpecies(int id, string session)
         => CatSpeciesList.GetSpecies().DeleteSpecies(id, session);
+
+	[HttpGet("CatModelSpecies/{id}")]
+	public CatSpecies GetSpeciesFromModel(int id)
+		=> CatModelList.GetModelsListFromDB().GetDatasFromID(id).GetSpecies();
+		
 
 
 }

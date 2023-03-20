@@ -7,7 +7,7 @@ namespace CatsShop.Classes.DataBaseConnection
 
 
 
-        private string host = "localhost";
+        private string host = "";
 
         public string Host
         {
@@ -15,7 +15,7 @@ namespace CatsShop.Classes.DataBaseConnection
             set => host = value;
         }
 
-        private string database = "CatsShop";
+        private string database = "";
 
         public string Database
         {
@@ -23,7 +23,7 @@ namespace CatsShop.Classes.DataBaseConnection
             set => database = value;
         }
 
-        private string username = "postgres";
+        private string username = "";
 
         public string UserName
         {
@@ -31,7 +31,7 @@ namespace CatsShop.Classes.DataBaseConnection
             set => username = value;
         }
 
-        private string password = "password";
+        private string password = "";
 
         public string Password
         {
@@ -39,7 +39,7 @@ namespace CatsShop.Classes.DataBaseConnection
             set => password = value;
         }
 
-        private int port = 5432;
+        private int port = 0;
 
         public int Port
         {

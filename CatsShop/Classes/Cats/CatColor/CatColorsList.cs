@@ -10,6 +10,15 @@ public class CatColorsList : List<CatColor>
 
     public static CatColorsList GetColors() => new CatColorsList();
 
+	public static CatColorsList CatColorsListFromDB()
+	{
+		CatColorsList colorsList = GetColors();
+		colorsList.GetColorsFromDB();
+		return colorsList;		
+	}
+    
+
+
     public bool HaveColorWithID(int id)
     {
         bool have = true;

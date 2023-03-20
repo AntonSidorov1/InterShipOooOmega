@@ -1,4 +1,5 @@
 using Npgsql;
+using Microsoft.Extensions.Configuration;
 
 namespace CatsShop.Classes.DataBaseConnection;
 
@@ -13,12 +14,59 @@ public class DataBaseDatas : DataBaseConnectionText
         Password = "password";
     }
 
+    public static DataBaseDatas GetConnectionStringFromDatas()
+    {
+        DataBaseDatas dataBaseDatas = new DataBaseDatas();
+        dataBaseDatas.FromSettings();
+        return dataBaseDatas;
+    }
+
+    public void FromSettings()
+    {
+        
+        ConfigurationBuilder bulder = new ConfigurationBuilder();
+        bulder.AddJsonFile("appsettings.json");
+        IConfigurationSection app = bulder.Build().GetSection("ConnctionString");
+        Host = app["host"]?? "localhost";
+        string port = app["port"] ?? "5432";
+        Port = Convert.ToInt32(port);
+        Database = app["database"] ?? "CatsShop";
+        UserName = app["username"] ?? "postgres";
+        Password = app["password"] ?? "password";
+
+    }
+
+
+    public void SaveSettings()
+    {
+        ConfigurationBuilder bulder = new ConfigurationBuilder();
+        bulder.AddJsonFile("appsettings.json");
+        IConfigurationRoot root = bulder.Build();
+        IConfigurationSection app = root.GetSection("ConnctionString");
+        app["host"] = Host;
+        app["port"] = Port.ToString();
+        app["database"] = Database;
+        app["username"] = UserName;
+        app["password"] = Password;
+        root.Reload();
+
+
+        
+    }
+
+
     public DataBaseDatas(DataBaseConnectionText connectionText) : base(connectionText)
     {
         
     }
-    
-    public static DataBaseDatas GetDataBase() => new DataBaseDatas();
+
+    public static DataBaseDatas GetDataBaseWithoutConnectionString() => new DataBaseDatas();
+    public static DataBaseDatas GetDataBase()
+    {
+        DataBaseDatas dataBaseDatas = new DataBaseDatas();
+        dataBaseDatas.FromSettings();
+        return dataBaseDatas;
+    }
     
     public NpgsqlConnectionStringBuilder ConnectionBuilder
     {

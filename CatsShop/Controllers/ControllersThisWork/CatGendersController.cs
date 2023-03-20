@@ -1,4 +1,5 @@
 
+using CatsShop.Classes.Cats.CatModel;
 using CatsShop.Classes.Cats.CatsGender.CatGender;
 using Microsoft.AspNetCore.Mvc;
 namespace CatsShop.Controllers;
@@ -42,5 +43,12 @@ public class CatGendersController : ControllerBase
         genders.GetGendersFromDB();
         return genders.GetGenderFromName(name.CatGender).ID;
     }
+	
+		
+	[HttpGet("CatModelGender/{id}")]
+	public CatGender GetGenderFromModel(int id)
+		=> CatModelList.GetModelsListFromDB().GetDatasFromID(id).GetGender();
+		
+
     
 }
