@@ -1,5 +1,8 @@
 namespace CatsShop.Classes.Users.Roles;
 
+/// <summary>
+/// Роль пользователя в системе
+/// </summary>
 public class Role
 {
     public Role() : this(0, "Role")

@@ -5,22 +5,31 @@ using CatsShop.Classes.Cats.CatSpecies;
 namespace CatsShop.Classes.Cats.CatModel
 {
     /// <summary>
-    /// Модель котика
+    /// Модель котика (полная информация)
     /// </summary>
     public class CatModelFullDatas : CatModel
     {
+		/// <summary>
+		/// Цвет
+		/// </summary>
         public string Color
 		{
 			get => GetColor().Name;
 			set => ColorID = CatColorsList.CatColorsListFromDB().GetColorFromName(value).ID;
 		}
 		
+		/// <summary>
+		/// Пол
+		/// </summary>
 		public string Gender
 		{
 			get => GetGender().Name;
 			set => GenderID = CatGendersList.GetGenderListFromDB().GetGenderFromName(value).ID;
 		}
 
+		/// <summary>
+		/// Порода
+		/// </summary>
 		public string Species
 		{
 			get => GetSpecies().Name;

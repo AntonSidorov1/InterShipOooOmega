@@ -5,11 +5,22 @@ using Npgsql;
 
 namespace CatsShop.Classes.Cats.CatColor;
 
+/// <summary>
+/// Список цветов котика
+/// </summary>
 public class CatColorsList : List<CatColor>
 {
 
+    /// <summary>
+    /// Получить список цветов котика
+    /// </summary>
+    /// <returns></returns>
     public static CatColorsList GetColors() => new CatColorsList();
 
+    /// <summary>
+    /// Получить список цветов из базы данных
+    /// </summary>
+    /// <returns></returns>
 	public static CatColorsList CatColorsListFromDB()
 	{
 		CatColorsList colorsList = GetColors();
@@ -18,7 +29,11 @@ public class CatColorsList : List<CatColor>
 	}
     
 
-
+    /// <summary>
+    /// Существует ли цвет с данным ID
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public bool HaveColorWithID(int id)
     {
         bool have = true;
@@ -26,7 +41,7 @@ public class CatColorsList : List<CatColor>
         NpgsqlConnection connection = datas.Connection;
         connection.Open();
 
-        NpgsqlCommand command = new NpgsqlCommand("Select Count(*) From \"CatColor\"", connection);
+        NpgsqlCommand command = new NpgsqlCommand($"Select Count(*) From \"CatColor\" where CatColorID = {id}", connection);
 
 
         
@@ -42,7 +57,10 @@ public class CatColorsList : List<CatColor>
         connection.Close();
         return have;
     }
-    
+
+    /// <summary>
+    /// Получить список цветов из базы данных
+    /// </summary>
     public void GetColorsFromDB()
     {
         
@@ -77,10 +95,27 @@ public class CatColorsList : List<CatColor>
         connection.Close();
     }
 
-
+    /// <summary>
+    /// Получить цвет по его ID
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public CatColor GetColorFromID(int id) => Find(p => p.ID == id);
+
+    /// <summary>
+    /// Поулить цвет по его названию
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
     public CatColor GetColorFromName(string name) => Find(p => p.Name == name);
 
+    /// <summary>
+    /// Добавить цвет
+    /// </summary>
+    /// <param name="colorName"></param>
+    /// <param name="session"></param>
+    /// <returns></returns>
+    /// <exception cref="AggregateException"></exception>
     public bool AddColor(string colorName, string session)
     {
         DataBaseDatas datas = NowConnectionString.ConnectionDatas;
@@ -110,6 +145,14 @@ public class CatColorsList : List<CatColor>
         }
     }
 
+    /// <summary>
+    /// Удалить цвет
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="session"></param>
+    /// <returns></returns>
+    /// <exception cref="AggregateException"></exception>
+    /// <exception cref="ArgumentException"></exception>
     public bool DeleteColor(int id, string session)
     {
         GetColorsFromDB();
@@ -140,6 +183,14 @@ public class CatColorsList : List<CatColor>
         }
     }
     
+    /// <summary>
+    /// Обновить цвет
+    /// </summary>
+    /// <param name="color"></param>
+    /// <param name="session"></param>
+    /// <returns></returns>
+    /// <exception cref="AggregateException"></exception>
+    /// <exception cref="ArgumentException"></exception>
     public bool UpdateColor(CatColor color, string session)
     {
         GetColorsFromDB();

@@ -4,18 +4,33 @@ using Npgsql;
 
 namespace CatsShop.Classes.Cats.CatSpecies;
 
+/// <summary>
+/// Список пород котиков
+/// </summary>
 public class CatSpeciesList : List<CatSpecies>
 {
+    /// <summary>
+    /// Получить список пород
+    /// </summary>
+    /// <returns></returns>
     public static CatSpeciesList GetSpecies() => new CatSpeciesList();
 	
+    /// <summary>
+    /// Получить список пород из базы данных
+    /// </summary>
+    /// <returns></returns>
 	public static CatSpeciesList GetSpeciesListFromDB()
 	{
 		CatSpeciesList speciesList = GetSpecies();
 		speciesList.GetSpeciesFromDB();
 		return speciesList;
 	}
-    
-    
+
+
+    /// <summary>
+    /// Получить список пород из базы данных
+    /// </summary>
+    /// <returns></returns>
     public void GetSpeciesFromDB()
     {
         
@@ -52,21 +67,42 @@ public class CatSpeciesList : List<CatSpecies>
         connection.Close();
     }
 
-
+    /// <summary>
+    /// Получить породу по её ID
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public CatSpecies GetSpeciesFromID(int id)
     {
         return Find(p => p.ID == id);
     }
 
+    /// <summary>
+    /// Получить породу по её названию
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
     public CatSpecies GetSpeciesFromName(string name) => Find(p => p.Name == name);
     
     public CatSpecies GetSpeciesFromName(CatSpeciesName name)
     => GetSpeciesFromName(name.Species);
 
+    /// <summary>
+    /// Добавить породу
+    /// </summary>
+    /// <param name="species"></param>
+    /// <param name="session"></param>
+    /// <returns></returns>
 	public bool AddSpecies(CatSpeciesName species, string session) 
 		=> AddSpecies(species.Species, session);
 
-		
+		/// <summary>
+        /// Добавить породу
+        /// </summary>
+        /// <param name="speciesName"></param>
+        /// <param name="session"></param>
+        /// <returns></returns>
+        /// <exception cref="AggregateException"></exception>
     public bool AddSpecies(string speciesName, string session)
     {
         DataBaseDatas datas = NowConnectionString.ConnectionDatas;
@@ -96,7 +132,11 @@ public class CatSpeciesList : List<CatSpecies>
         }
     }
 
-    
+    /// <summary>
+    /// Сущестует ли порода с данным ID
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public bool HaveSpeciesWithID(int id)
     {
         try
@@ -111,7 +151,14 @@ public class CatSpeciesList : List<CatSpecies>
         }
     }
 
-    
+    /// <summary>
+    /// Изменить породу
+    /// </summary>
+    /// <param name="species"></param>
+    /// <param name="session"></param>
+    /// <returns></returns>
+    /// <exception cref="AggregateException"></exception>
+    /// <exception cref="ArgumentException"></exception>
     public bool UpdateSpecies(CatSpecies species, string session)
     {
         GetSpeciesFromDB();
@@ -144,7 +191,14 @@ public class CatSpeciesList : List<CatSpecies>
         }
     }
 
-    
+    /// <summary>
+    /// Удалить породу
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="session"></param>
+    /// <returns></returns>
+    /// <exception cref="AggregateException"></exception>
+    /// <exception cref="ArgumentException"></exception>
     public bool DeleteSpecies(int id, string session)
     {
         GetSpeciesFromDB();

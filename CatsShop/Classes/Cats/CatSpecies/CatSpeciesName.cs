@@ -1,5 +1,8 @@
 namespace CatsShop.Classes.Cats.CatSpecies;
 
+/// <summary>
+/// Порода котика
+/// </summary>
 public class CatSpeciesName
 {
     

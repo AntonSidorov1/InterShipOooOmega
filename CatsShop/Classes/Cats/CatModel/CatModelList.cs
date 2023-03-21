@@ -4,12 +4,22 @@ using Npgsql;
 
 namespace CatsShop.Classes.Cats.CatModel;
 
+/// <summary>
+/// Список моделей котиков
+/// </summary>
 public class CatModelList : List<CatModel>
 {
 
-
+    /// <summary>
+    /// Получить список
+    /// </summary>
+    /// <returns></returns>
     public static CatModelList GetModelsList() => new CatModelList();
 
+    /// <summary>
+    /// Получить список из базы данных
+    /// </summary>
+    /// <returns></returns>
     public static CatModelList GetModelsListFromDB()
     {
         CatModelList modelList = GetModelsList();
@@ -17,14 +27,28 @@ public class CatModelList : List<CatModel>
         return modelList;
     }
 
+    /// <summary>
+    /// Получить модель по её ID
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public CatModelDatas GetDatasFromID(int id)
         => Find(p => p.ID == id).Copy();
 
+    /// <summary>
+    /// Получить модель по её ID
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public CatModel GetModelFromID(int id)
     {
         return GetDatasFromID(id).CopyWithID(id);
     }
 
+    /// <summary>
+    /// Получить список моделей с полной информацией о них
+    /// </summary>
+    /// <returns></returns>
     public List<CatModelFullDatas> GetListFullDatas()
     {
         List<CatModelFullDatas> datas = new List<CatModelFullDatas>();
@@ -34,7 +58,11 @@ public class CatModelList : List<CatModel>
         }
         return datas;
     }
-    
+
+    /// <summary>
+    /// Получить список из базы данных
+    /// </summary>
+    /// <returns></returns>
     public void GetModelsFromDB()
     {
         
@@ -73,6 +101,12 @@ public class CatModelList : List<CatModel>
         connection.Close();
     }
 
+    /// <summary>
+    /// Добавить модель (ввод текстовых значений параметров)
+    /// </summary>
+    /// <param name="catModel"></param>
+    /// <param name="session"></param>
+    /// <returns></returns>
     public bool AddModel(CatModelDatasName catModel, string session)
     {
         try
@@ -85,7 +119,12 @@ public class CatModelList : List<CatModel>
         }
     }
 
-		
+    /// <summary>
+    /// Добавить модель
+    /// </summary>
+    /// <param name="catModel"></param>
+    /// <param name="session"></param>
+    /// <returns></returns>	
     public bool AddModel(CatModelDatas model, string session)
     {
         DataBaseDatas datas = NowConnectionString.ConnectionDatas;
@@ -114,7 +153,11 @@ public class CatModelList : List<CatModel>
         }
     }
 
-    
+    /// <summary>
+    /// Существует ли модель с данными параметрами
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public bool HaveModelWithID(int id)
     {
         try
@@ -129,6 +172,13 @@ public class CatModelList : List<CatModel>
         }
     }
 
+    /// <summary>
+    /// Изменить модель (ввод текстовых значений параметров)
+    /// </summary>
+    /// <param name="catModel"></param>
+    /// <param name="session"></param>
+    /// <param name="modelID"></param>
+    /// <returns></returns>
     public bool UpdateModel(CatModelDatasName catModel, string session, int modelID)
     {
         try
@@ -141,6 +191,14 @@ public class CatModelList : List<CatModel>
         }
     }
    
+    /// <summary>
+    /// Изменить модель
+    /// </summary>
+    /// <param name="model"></param>
+    /// <param name="session"></param>
+    /// <returns></returns>
+    /// <exception cref="AggregateException"></exception>
+    /// <exception cref="ArgumentException"></exception>
     public bool UpdateModel(CatModel model, string session)
     {
         GetModelsFromDB();
@@ -183,6 +241,14 @@ public class CatModelList : List<CatModel>
         }
     }
 
+    /// <summary>
+    /// Удалить модель
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="session"></param>
+    /// <returns></returns>
+    /// <exception cref="AggregateException"></exception>
+    /// <exception cref="ArgumentException"></exception>
     public bool DeleteModel(int id, string session)
     {
         GetModelsFromDB();

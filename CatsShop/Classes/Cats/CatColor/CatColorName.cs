@@ -1,5 +1,8 @@
 namespace CatsShop.Classes.Cats.CatColor;
 
+/// <summary>
+/// Цвет котика
+/// </summary>
 public class CatColorName
 {
     private string color = "";

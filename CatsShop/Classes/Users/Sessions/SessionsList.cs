@@ -4,11 +4,22 @@ using Npgsql;
 
 namespace CatsShop.Classes.Users.Sessions;
 
+/// <summary>
+/// Список ключей сессии
+/// </summary>
 public class SessionsList : List<string>
 {
-
+    /// <summary>
+    /// Получить список
+    /// </summary>
+    /// <returns></returns>
     public static SessionsList GetSessions() => new SessionsList();
 
+    /// <summary>
+    /// Удалить аккаунт с данным ключом сессии
+    /// </summary>
+    /// <param name="session"></param>
+    /// <returns></returns>
     public bool DropAccount(string session)
     {
         try
@@ -34,9 +45,19 @@ public class SessionsList : List<string>
         }
     }
 
+    /// <summary>
+    /// Изменить пароль у аккаунта с данным ключом сессии
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
     public bool ChangePassword(Key key)
         => ChangePassword(key.Session, key.Password);
 
+    /// <summary>
+    /// Изменить пароль у аккаунта с данным ключом сессии
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
     public bool ChangePassword(string session, string password)
     {
         try
@@ -64,12 +85,27 @@ public class SessionsList : List<string>
         }
     }
 
+    /// <summary>
+    /// Пользователь с данным ключом сессии - администратор?
+    /// </summary>
+    /// <param name="session"></param>
+    /// <returns></returns>
     public bool UserIsAdmin(string session)
         => GetRoleFromSession(session).Name.ToLower() == ("Администратор").ToLower();
 
+    /// <summary>
+    /// Пользователь с данным ключом сессии - клиент?
+    /// </summary>
+    /// <param name="session"></param>
+    /// <returns></returns>
     public bool UserIsKlient(string session)
         => GetRoleFromSession(session).Name.ToLower() == ("Клиент").ToLower();
 
+    /// <summary>
+    /// Получить роль пользователя по его ключу сессии
+    /// </summary>
+    /// <param name="session"></param>
+    /// <returns></returns>
     public Role GetRoleFromSession(string session)
     {
         int userID = GetUserIDFromSession(session);
@@ -90,6 +126,11 @@ public class SessionsList : List<string>
 
     }
 
+    /// <summary>
+    /// Закрыть сессию
+    /// </summary>
+    /// <param name="session"></param>
+    /// <returns></returns>
     public bool CloseSessionInDB(string session)
     {
         try
@@ -113,6 +154,11 @@ public class SessionsList : List<string>
         }
     }
 
+    /// <summary>
+    /// Получить логин пользователя по его ключу сессии
+    /// </summary>
+    /// <param name="session"></param>
+    /// <returns></returns>
     public string GetLoginFromSession(string session)
     {
         try
@@ -139,7 +185,12 @@ public class SessionsList : List<string>
         }
     }
 
-
+    /// <summary>
+    /// Получить ID пользователя по его ключу сессии
+    /// </summary>
+    /// <param name="session"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
     public int GetUserIDFromSession(string session)
     {
         DataBaseDatas datas = NowConnectionString.ConnectionDatas;
@@ -163,12 +214,19 @@ public class SessionsList : List<string>
         return userID;
     }
 
+    /// <summary>
+    /// Существует ли сессия с данным ключом
+    /// </summary>
+    /// <param name="session"></param>
     public void GetSessionsFromDB(string session)
     {
         GetSessionsFromDB(GetUserIDFromSession(session));
     }
     
-    
+    /// <summary>
+    /// Получить список сессий пользователя по его ID 
+    /// </summary>
+    /// <param name="userID"></param>
     public void GetSessionsFromDB(int userID)
     {
         

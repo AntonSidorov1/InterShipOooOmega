@@ -1,7 +1,9 @@
 namespace CatsShop.Classes.DataBaseConnection
 {
 
-
+    /// <summary>
+    /// Строка подключения к базе данных
+    /// </summary>
     public class DataBaseConnectionText
     {
 
@@ -9,6 +11,9 @@ namespace CatsShop.Classes.DataBaseConnection
 
         private string host = "";
 
+        /// <summary>
+        /// Сервер базы данных
+        /// </summary>
         public string Host
         {
             get => host;
@@ -17,6 +22,9 @@ namespace CatsShop.Classes.DataBaseConnection
 
         private string database = "";
 
+        /// <summary>
+        /// Сама база данных
+        /// </summary>
         public string Database
         {
             get => database;
@@ -25,6 +33,9 @@ namespace CatsShop.Classes.DataBaseConnection
 
         private string username = "";
 
+        /// <summary>
+        /// Имя пользователя базы данныз
+        /// </summary>
         public string UserName
         {
             get => username;
@@ -33,6 +44,9 @@ namespace CatsShop.Classes.DataBaseConnection
 
         private string password = "";
 
+        /// <summary>
+        /// Пароль для подключения к базе данных
+        /// </summary>
         public string Password
         {
             get => password;
@@ -41,6 +55,9 @@ namespace CatsShop.Classes.DataBaseConnection
 
         private int port = 0;
 
+        /// <summary>
+        /// Порт сервера, на котором расположена база данных
+        /// </summary>
         public int Port
         {
             get => port;

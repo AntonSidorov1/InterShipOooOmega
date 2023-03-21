@@ -3,6 +3,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace CatsShop.Classes.DataBaseConnection;
 
+/// <summary>
+/// Строка подключения к базе данных
+/// </summary>
 public class DataBaseDatas : DataBaseConnectionText
 {
     public DataBaseDatas() : base()
@@ -14,6 +17,10 @@ public class DataBaseDatas : DataBaseConnectionText
         Password = "password";
     }
 
+    /// <summary>
+    /// Получить строку подключения из файла конфигурации
+    /// </summary>
+    /// <returns></returns>
     public static DataBaseDatas GetConnectionStringFromDatas()
     {
         DataBaseDatas dataBaseDatas = new DataBaseDatas();
@@ -21,6 +28,9 @@ public class DataBaseDatas : DataBaseConnectionText
         return dataBaseDatas;
     }
 
+    /// <summary>
+    /// Получить данные строки подключения из файла конфигурации
+    /// </summary>
     public void FromSettings()
     {
         
@@ -36,7 +46,9 @@ public class DataBaseDatas : DataBaseConnectionText
 
     }
 
-
+    /// <summary>
+    /// Сохранить строку подключения в файл конфигурации
+    /// </summary>
     public void SaveSettings()
     {
         ConfigurationBuilder bulder = new ConfigurationBuilder();
@@ -60,20 +72,35 @@ public class DataBaseDatas : DataBaseConnectionText
         
     }
 
+    /// <summary>
+    /// Получить объект класса без заполненных данных строки подключения
+    /// </summary>
+    /// <returns></returns>
     public static DataBaseDatas GetDataBaseWithoutConnectionString() => new DataBaseDatas();
+
+    /// <summary>
+    /// Получить строку подключения из файла конфигурации
+    /// </summary>
+    /// <returns></returns>
     public static DataBaseDatas GetDataBase()
     {
         DataBaseDatas dataBaseDatas = new DataBaseDatas();
-        dataBaseDatas.FromSettings();
+        //dataBaseDatas.FromSettings();
         return dataBaseDatas;
     }
     
+    /// <summary>
+    /// Возращает или задаёт объект построителя строки подключения к базе данных
+    /// </summary>
     public NpgsqlConnectionStringBuilder ConnectionBuilder
     {
         get => GetConnectionBuilder();
         set => SetConnectionBuilder(value);
     }
 
+    /// <summary>
+    /// Возращает или задаёт текст строки подключения
+    /// </summary>
     public string ConnectionString
     {
         get
@@ -95,12 +122,19 @@ public class DataBaseDatas : DataBaseConnectionText
         }
     }
 
+    /// <summary>
+    /// Возращает или задаёт объект для подключения к базе данных
+    /// </summary>
     public NpgsqlConnection Connection
     {
         get => new NpgsqlConnection(ConnectionString);
         set => ConnectionString = value.ConnectionString;
     }
 
+    /// <summary>
+    /// Получает данные из построителя строки подключения
+    /// </summary>
+    /// <param name="builder"></param>
     public void SetConnectionBuilder(NpgsqlConnectionStringBuilder builder)
     {
         NpgsqlConnectionStringBuilder datas = builder;
@@ -111,6 +145,10 @@ public class DataBaseDatas : DataBaseConnectionText
         Password = datas.Password;
     }
 
+    /// <summary>
+    /// Возвращает построитель строки подключения из данных
+    /// </summary>
+    /// <returns></returns>
     public NpgsqlConnectionStringBuilder GetConnectionBuilder()
     {
         DataBaseDatas datas = this;

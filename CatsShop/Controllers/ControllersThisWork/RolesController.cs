@@ -6,6 +6,9 @@ using Npgsql;
 
 namespace CatsShop.Controllers;
 
+/// <summary>
+/// Функции API Для работы с ролями
+/// </summary>
 [ApiController]
 [Route("cats/api/users/[controller]")]
 public class RolesController : ControllerBase
@@ -39,6 +42,11 @@ public class RolesController : ControllerBase
             .ToArray();
     }
 
+    /// <summary>
+    /// Получить названия роли по её ID
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpGet("{id}/RoleName")]
     public string GetRoleFromID(int id)
     {
@@ -46,7 +54,11 @@ public class RolesController : ControllerBase
         return roles.GetRoleFromID(id).Name;
     }
     
-    
+    /// <summary>
+    /// Получить ID роли по её названию
+    /// </summary>
+    /// <param name="role"></param>
+    /// <returns></returns>
     [HttpPut("RoleID")]
     public int GetRoleFromName(RoleName role)
     {
@@ -54,7 +66,11 @@ public class RolesController : ControllerBase
         return roles.GetRoleFromName(role.Role).ID;
     }
 
-
+    /// <summary>
+    /// Получить роль авторизированного пользователя, по его ключу сессии
+    /// </summary>
+    /// <param name="session"></param>
+    /// <returns></returns>
     [HttpGet("SessionRole")]
     public Role GetRole(string session) => SessionsList.GetSessions().GetRoleFromSession(session);
 }

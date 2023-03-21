@@ -5,11 +5,22 @@ using Npgsql;
 
 namespace CatsShop.Classes.Cats.Cats
 {
+    /// <summary>
+    /// Список котиков
+    /// </summary>
     public class CatsList : List<Cat>
     {
-        
+        /// <summary>
+        /// Получить список
+        /// </summary>
+        /// <returns></returns>
         public static CatsList GetCatsList() => new CatsList();
 
+
+        /// <summary>
+        /// Получить список из базы данных
+        /// </summary>
+        /// <returns></returns>
         public static CatsList GetCatsListFromDB()
         {
             CatsList modelList = GetCatsList();
@@ -17,15 +28,29 @@ namespace CatsShop.Classes.Cats.Cats
             return modelList;
         }
 
+        /// <summary>
+        /// Получить котика по его ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public CatDatas GetCatDatasFromID(int id)
             => Find(p => p.ID == id).Copy();
 
+        /// <summary>
+        /// Получить котика по его ID 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Cat GetCatFromID(int id)
         {
             return GetCatDatasFromID(id).CopyWithID(id);
         }
 
-
+        /// <summary>
+        /// Существует ли котик с данным ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public bool HaveCatWithID(int id)
         {
             try
@@ -40,7 +65,9 @@ namespace CatsShop.Classes.Cats.Cats
             }
         }
 
-
+        /// <summary>
+        /// Получить список из базы данных
+        /// </summary>
         public void GetCatsFromDB()
         {
 
@@ -78,7 +105,13 @@ namespace CatsShop.Classes.Cats.Cats
             connection.Close();
         }
 
-
+        /// <summary>
+        /// Добавить котика
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="session"></param>
+        /// <returns></returns>
+        /// <exception cref="AggregateException"></exception>
         public bool AddCat(CatDatas model, string session)
         {
             DataBaseDatas datas = NowConnectionString.ConnectionDatas;
@@ -107,6 +140,12 @@ namespace CatsShop.Classes.Cats.Cats
             }
         }
 
+        /// <summary>
+        /// Изменить котика
+        /// </summary>
+        /// <param name="cat"></param>
+        /// <param name="session"></param>
+        /// <returns></returns>
         public bool UpdateCat(Cat cat, string session)
         {
             try
@@ -119,6 +158,15 @@ namespace CatsShop.Classes.Cats.Cats
             }
         }
 
+        /// <summary>
+        /// Изменить котика
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="session"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="AggregateException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public bool UpdateCat(CatDatas model, string session, int id)
         {
             GetCatsFromDB();
@@ -155,6 +203,14 @@ namespace CatsShop.Classes.Cats.Cats
             }
         }
 
+        /// <summary>
+        /// Удалить котика
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="session"></param>
+        /// <returns></returns>
+        /// <exception cref="AggregateException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public bool DeleteCat(int id, string session)
         {
             GetCatsFromDB();

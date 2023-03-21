@@ -3,8 +3,14 @@ using Npgsql;
 
 namespace CatsShop.Classes.Users.Roles;
 
+/// <summary>
+/// Список ролей пользователя в системе
+/// </summary>
 public class RolesList : List<Role>
 {
+    /// <summary>
+    /// Получить список ролей из базы данных
+    /// </summary>
     public void GetRolesFromDB()
     {
         
@@ -39,11 +45,21 @@ public class RolesList : List<Role>
         connection.Close();
     }
 
+    /// <summary>
+    /// Получить роль ро её ID
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public Role GetRoleFromID(int id)
     {
         return Find(p => p.ID == id);
     }
     
+    /// <summary>
+    /// Получить роль по её названию
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
     public Role GetRoleFromName(string name)
     {
         return Find(p => p.Name.ToLower() == name.ToLower());

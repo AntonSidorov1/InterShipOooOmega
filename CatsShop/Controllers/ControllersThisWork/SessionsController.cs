@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CatsShop.Controllers;
 
-
+/// <summary>
+/// Функции API для работы с сессиями
+/// </summary>
 [ApiController]
 [Route("cats/api/users/[controller]")]
 public class SessionsController
@@ -15,7 +17,11 @@ public class SessionsController
         _datas = datas;
     }
     
-    
+    /// <summary>
+    /// Авторизироваться по логину и паролю, и получить ключ сессии
+    /// </summary>
+    /// <param name="account"></param>
+    /// <returns></returns>
     [HttpPost("SignIn")]
     public string Set(Account account)
     {
@@ -23,6 +29,11 @@ public class SessionsController
 
     }
 
+    /// <summary>
+    /// Получить список сессий, по ключу сессии авторизированного пользователя
+    /// </summary>
+    /// <param name="session"></param>
+    /// <returns></returns>
     [HttpGet("SessionsList")]
     public SessionsList GetSessions(string session)
     {
@@ -31,6 +42,11 @@ public class SessionsController
         return sessions;
     }
 
+    /// <summary>
+    /// Закрыть сессию
+    /// </summary>
+    /// <param name="session"></param>
+    /// <returns></returns>
     [HttpDelete("CloseSession")]
     public bool CloseSession(string session) => SessionsList.GetSessions().CloseSessionInDB(session);
 

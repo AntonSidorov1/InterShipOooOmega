@@ -6,17 +6,32 @@ using Npgsql;
 
 namespace CatsShop.Classes.Position
 {
+    /// <summary>
+    /// Список позиций котиков
+    /// </summary>
     public class PozitionsList : List<PozitionWithDates>
     {
-
+        /// <summary>
+        /// Получить список
+        /// </summary>
+        /// <returns></returns>
         public static PozitionsList GetPositionsList() => new PozitionsList();
 
-
+        /// <summary>
+        /// Получить позицию по её ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public PozitionWithDates GetPositionFromID(int id)
         {
             return Find(p => p.ID == id);
         }
 
+        /// <summary>
+        /// Существует ли позиция с данным ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public bool HavePositionWithID(int id)
         {
             try
@@ -31,17 +46,30 @@ namespace CatsShop.Classes.Position
             }
         }
 
-
+        /// <summary>
+        /// Получить котика в позиции
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Cat GetCatFromPozition(int id)
         {
             return CatsList.GetCatsListFromDB().GetCatFromID(GetPositionFromID(id).CatID);
         }
 
+        /// <summary>
+        /// Получить модель котика в позиции
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public CatModelFullDatas GetCatModelFromPozition(int id)
         {
             return CatModelFullDatas.GetModel(CatModelList.GetModelsListFromDB().GetModelFromID(GetCatFromPozition(id).ModelID));
         }
 
+        /// <summary>
+        /// Получить список из базы данных
+        /// </summary>
+        /// <returns></returns>
         public static PozitionsList GetPositionsListFromDB()
         {
             PozitionsList modelList = GetPositionsList();
@@ -49,10 +77,17 @@ namespace CatsShop.Classes.Position
             return modelList;
         }
 
+        /// <summary>
+        /// Получить список позиций с данным котиком
+        /// </summary>
+        /// <param name="catID"></param>
+        /// <returns></returns>
         public List<PozitionWithDates> GetPositionForCat(int catID) => FindAll(p => p.CatID == catID);
 
 
-
+        /// <summary>
+        /// Получить список из базы данных
+        /// </summary>
         public void GetPositionsFromDB()
         {
 
@@ -93,7 +128,13 @@ namespace CatsShop.Classes.Position
             connection.Close();
         }
 
-
+        /// <summary>
+        /// Добавить позицию
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="session"></param>
+        /// <returns></returns>
+        /// <exception cref="AggregateException"></exception>
         public bool AddPozition(PozitionDatas model, string session)
         {
             DataBaseDatas datas = NowConnectionString.ConnectionDatas;
@@ -125,6 +166,12 @@ namespace CatsShop.Classes.Position
             }
         }
 
+        /// <summary>
+        /// Изменить позицию
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="session"></param>
+        /// <returns></returns>
         public bool UpdatePozition(Pozition position, string session)
         {
             try
@@ -137,6 +184,15 @@ namespace CatsShop.Classes.Position
             }
         }
 
+        /// <summary>
+        /// Изменить позицию
+        /// </summary>
+        /// <param name="pozition"></param>
+        /// <param name="session"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="AggregateException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public bool UpdatePozition(PozitionDatas pozition, string session, int id)
         {
             GetPositionsFromDB();
@@ -184,7 +240,14 @@ namespace CatsShop.Classes.Position
             }
         }
 
-
+        /// <summary>
+        /// Удалить позицию
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="session"></param>
+        /// <returns></returns>
+        /// <exception cref="AggregateException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public bool DeletePozition(int id, string session)
         {
             GetPositionsFromDB();

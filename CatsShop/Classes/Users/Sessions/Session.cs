@@ -1,10 +1,16 @@
 namespace CatsShop.Classes.Users.Sessions;
 
+/// <summary>
+/// Ключ сессии пользователя
+/// </summary>
 public class Key
 {
     
     private string key = "";
 
+    /// <summary>
+    /// Ключ сессии
+    /// </summary>
     public string Session
     {
         get => key;
@@ -13,6 +19,9 @@ public class Key
 
     private string password = "";
 
+    /// <summary>
+    /// Пароль
+    /// </summary>
     public string Password
     {
         get => password;
