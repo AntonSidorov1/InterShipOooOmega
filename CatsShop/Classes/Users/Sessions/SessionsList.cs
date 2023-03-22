@@ -215,7 +215,7 @@ public class SessionsList : List<string>
     }
 
     /// <summary>
-    /// Существует ли сессия с данным ключом
+    /// Получить список сессий пользователя по его ключу сессии
     /// </summary>
     /// <param name="session"></param>
     public void GetSessionsFromDB(string session)
