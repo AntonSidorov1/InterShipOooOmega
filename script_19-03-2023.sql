@@ -5,7 +5,7 @@
 -- Dumped from database version 13.3 (Debian 13.3-1.pgdg100+1)
 -- Dumped by pg_dump version 15.2
 
--- Started on 2023-03-20 21:19:59
+-- Started on 2023-03-23 13:22:53
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -19,7 +19,7 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 3038 (class 1262 OID 16384)
+-- TOC entry 3056 (class 1262 OID 16384)
 -- Name: CatsShop; Type: DATABASE; Schema: -; Owner: postgres
 --
 
@@ -54,6 +54,72 @@ ALTER SCHEMA public OWNER TO postgres;
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
+
+--
+-- TOC entry 219 (class 1259 OID 24792)
+-- Name: Buy; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Buy" (
+    "BuyID" integer NOT NULL,
+    "BuyClientID" integer NOT NULL,
+    "BuyPozitionID" integer NOT NULL,
+    "BuyDate" date DEFAULT now() NOT NULL
+);
+
+
+ALTER TABLE public."Buy" OWNER TO postgres;
+
+--
+-- TOC entry 203 (class 1259 OID 16397)
+-- Name: User; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."User" (
+    "UserID" integer NOT NULL,
+    "UserLogin" character varying(100) NOT NULL,
+    "UserPassword" character varying(100) NOT NULL,
+    "UserRoleID" integer DEFAULT 1 NOT NULL
+);
+
+
+ALTER TABLE public."User" OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 24808)
+-- Name: BuyUser; Type: VIEW; Schema: public; Owner: postgres
+--
+
+CREATE VIEW public."BuyUser" AS
+ SELECT "Buy"."BuyID",
+    "Buy"."BuyClientID",
+    "Buy"."BuyPozitionID",
+    "Buy"."BuyDate",
+    "User"."UserID",
+    "User"."UserLogin",
+    "User"."UserPassword",
+    "User"."UserRoleID"
+   FROM public."Buy",
+    public."User"
+  WHERE ("Buy"."BuyClientID" = "User"."UserID");
+
+
+ALTER TABLE public."BuyUser" OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 24790)
+-- Name: Buy_BuyID_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."Buy" ALTER COLUMN "BuyID" ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public."Buy_BuyID_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
 
 --
 -- TOC entry 205 (class 1259 OID 16412)
@@ -271,21 +337,6 @@ CREATE TABLE public."Session" (
 ALTER TABLE public."Session" OWNER TO postgres;
 
 --
--- TOC entry 203 (class 1259 OID 16397)
--- Name: User; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public."User" (
-    "UserID" integer NOT NULL,
-    "UserLogin" character varying(100) NOT NULL,
-    "UserPassword" character varying(100) NOT NULL,
-    "UserRoleID" integer DEFAULT 1 NOT NULL
-);
-
-
-ALTER TABLE public."User" OWNER TO postgres;
-
---
 -- TOC entry 217 (class 1259 OID 16499)
 -- Name: UserRole; Type: VIEW; Schema: public; Owner: postgres
 --
@@ -319,7 +370,18 @@ ALTER TABLE public."User" ALTER COLUMN "UserID" ADD GENERATED ALWAYS AS IDENTITY
 
 
 --
--- TOC entry 3021 (class 0 OID 16412)
+-- TOC entry 3050 (class 0 OID 24792)
+-- Dependencies: 219
+-- Data for Name: Buy; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public."Buy" ("BuyID", "BuyClientID", "BuyPozitionID", "BuyDate") OVERRIDING SYSTEM VALUE VALUES (1, 1, 1, '2023-03-22');
+INSERT INTO public."Buy" ("BuyID", "BuyClientID", "BuyPozitionID", "BuyDate") OVERRIDING SYSTEM VALUE VALUES (2, 1, 3, '2023-03-22');
+INSERT INTO public."Buy" ("BuyID", "BuyClientID", "BuyPozitionID", "BuyDate") OVERRIDING SYSTEM VALUE VALUES (3, 5, 4, '2023-03-22');
+
+
+--
+-- TOC entry 3037 (class 0 OID 16412)
 -- Dependencies: 205
 -- Data for Name: Cat; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -336,7 +398,7 @@ INSERT INTO public."Cat" ("CatID", "CatModelID", "CatAge") OVERRIDING SYSTEM VAL
 
 
 --
--- TOC entry 3023 (class 0 OID 16419)
+-- TOC entry 3039 (class 0 OID 16419)
 -- Dependencies: 207
 -- Data for Name: CatColor; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -363,7 +425,7 @@ INSERT INTO public."CatColor" ("CatColorID", "CatColorName") OVERRIDING SYSTEM V
 
 
 --
--- TOC entry 3025 (class 0 OID 16426)
+-- TOC entry 3041 (class 0 OID 16426)
 -- Dependencies: 209
 -- Data for Name: CatGender; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -373,7 +435,7 @@ INSERT INTO public."CatGender" ("CatGenderID", "CatGenderName") OVERRIDING SYSTE
 
 
 --
--- TOC entry 3029 (class 0 OID 16440)
+-- TOC entry 3045 (class 0 OID 16440)
 -- Dependencies: 213
 -- Data for Name: CatModel; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -389,7 +451,7 @@ INSERT INTO public."CatModel" ("CatModelID", "CatColorID", "CatGenderID", "CatSp
 
 
 --
--- TOC entry 3027 (class 0 OID 16433)
+-- TOC entry 3043 (class 0 OID 16433)
 -- Dependencies: 211
 -- Data for Name: CatSpecies; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -401,20 +463,20 @@ INSERT INTO public."CatSpecies" ("CatSpeciesID", "CatSpeciesName") OVERRIDING SY
 
 
 --
--- TOC entry 3031 (class 0 OID 16472)
+-- TOC entry 3047 (class 0 OID 16472)
 -- Dependencies: 215
 -- Data for Name: Pozition; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionDateAdded", "PozitionDateOfChanged", "PozitionCost") OVERRIDING SYSTEM VALUE VALUES (1, 2, '2023-03-17', '2023-03-17', '$150.00');
 INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionDateAdded", "PozitionDateOfChanged", "PozitionCost") OVERRIDING SYSTEM VALUE VALUES (2, 3, '2023-03-17', '2023-03-17', '$150.00');
 INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionDateAdded", "PozitionDateOfChanged", "PozitionCost") OVERRIDING SYSTEM VALUE VALUES (3, 3, '2023-03-17', '2023-03-17', '$180.40');
 INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionDateAdded", "PozitionDateOfChanged", "PozitionCost") OVERRIDING SYSTEM VALUE VALUES (4, 1, '2023-03-17', '2023-03-17', '$180.40');
 INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionDateAdded", "PozitionDateOfChanged", "PozitionCost") OVERRIDING SYSTEM VALUE VALUES (6, 9, '2023-03-20', '2023-03-20', '$500.00');
+INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionDateAdded", "PozitionDateOfChanged", "PozitionCost") OVERRIDING SYSTEM VALUE VALUES (1, 2, '2023-03-17', '2023-03-20', '$100.00');
 
 
 --
--- TOC entry 3017 (class 0 OID 16387)
+-- TOC entry 3033 (class 0 OID 16387)
 -- Dependencies: 201
 -- Data for Name: Role; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -424,7 +486,7 @@ INSERT INTO public."Role" ("RoleID", "RoleName") OVERRIDING SYSTEM VALUE VALUES 
 
 
 --
--- TOC entry 3032 (class 0 OID 16485)
+-- TOC entry 3048 (class 0 OID 16485)
 -- Dependencies: 216
 -- Data for Name: Session; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -465,10 +527,15 @@ INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('2781530541
 INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('18054701593969466209', 10);
 INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('15263625218420402688', 10);
 INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('99788682342588528420', 10);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('91507833454946929009', 1);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('96229035879236458891', 10);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('26468052000318398746', 5);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('39543918685023296780', 1);
+INSERT INTO public."Session" ("SessionKey", "SessionUserID") VALUES ('71074358591389817763', 1);
 
 
 --
--- TOC entry 3019 (class 0 OID 16397)
+-- TOC entry 3035 (class 0 OID 16397)
 -- Dependencies: 203
 -- Data for Name: User; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -480,10 +547,21 @@ INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") 
 INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") OVERRIDING SYSTEM VALUE VALUES (3, 'anton1', 'password', 2);
 INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") OVERRIDING SYSTEM VALUE VALUES (10, 'user', 'password', 2);
 INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") OVERRIDING SYSTEM VALUE VALUES (11, 'user1', 'password', 1);
+INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") OVERRIDING SYSTEM VALUE VALUES (13, '123', '123', 1);
+INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") OVERRIDING SYSTEM VALUE VALUES (14, '12345', '12345', 1);
 
 
 --
--- TOC entry 3040 (class 0 OID 0)
+-- TOC entry 3058 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: Buy_BuyID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."Buy_BuyID_seq"', 3, true);
+
+
+--
+-- TOC entry 3059 (class 0 OID 0)
 -- Dependencies: 206
 -- Name: CatColor_CatColorID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -492,7 +570,7 @@ SELECT pg_catalog.setval('public."CatColor_CatColorID_seq"', 21, true);
 
 
 --
--- TOC entry 3041 (class 0 OID 0)
+-- TOC entry 3060 (class 0 OID 0)
 -- Dependencies: 208
 -- Name: CatGender_CatGenderID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -501,7 +579,7 @@ SELECT pg_catalog.setval('public."CatGender_CatGenderID_seq"', 10, true);
 
 
 --
--- TOC entry 3042 (class 0 OID 0)
+-- TOC entry 3061 (class 0 OID 0)
 -- Dependencies: 212
 -- Name: CatModel_CatModelID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -510,7 +588,7 @@ SELECT pg_catalog.setval('public."CatModel_CatModelID_seq"', 12, true);
 
 
 --
--- TOC entry 3043 (class 0 OID 0)
+-- TOC entry 3062 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: CatSpecies_CatSpeciesID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -519,7 +597,7 @@ SELECT pg_catalog.setval('public."CatSpecies_CatSpeciesID_seq"', 7, true);
 
 
 --
--- TOC entry 3044 (class 0 OID 0)
+-- TOC entry 3063 (class 0 OID 0)
 -- Dependencies: 204
 -- Name: Cat_CatID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -528,7 +606,7 @@ SELECT pg_catalog.setval('public."Cat_CatID_seq"', 13, true);
 
 
 --
--- TOC entry 3045 (class 0 OID 0)
+-- TOC entry 3064 (class 0 OID 0)
 -- Dependencies: 214
 -- Name: Pozition_PozitionID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -537,7 +615,7 @@ SELECT pg_catalog.setval('public."Pozition_PozitionID_seq"', 6, true);
 
 
 --
--- TOC entry 3046 (class 0 OID 0)
+-- TOC entry 3065 (class 0 OID 0)
 -- Dependencies: 200
 -- Name: Role_RoleID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -546,16 +624,25 @@ SELECT pg_catalog.setval('public."Role_RoleID_seq"', 3, true);
 
 
 --
--- TOC entry 3047 (class 0 OID 0)
+-- TOC entry 3066 (class 0 OID 0)
 -- Dependencies: 202
 -- Name: User_UserID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."User_UserID_seq"', 12, true);
+SELECT pg_catalog.setval('public."User_UserID_seq"', 15, true);
 
 
 --
--- TOC entry 2867 (class 2606 OID 16423)
+-- TOC entry 2890 (class 2606 OID 24797)
+-- Name: Buy BuyPK; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Buy"
+    ADD CONSTRAINT "BuyPK" PRIMARY KEY ("BuyID");
+
+
+--
+-- TOC entry 2878 (class 2606 OID 16423)
 -- Name: CatColor CatColorPK; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -564,7 +651,7 @@ ALTER TABLE ONLY public."CatColor"
 
 
 --
--- TOC entry 2869 (class 2606 OID 16430)
+-- TOC entry 2880 (class 2606 OID 16430)
 -- Name: CatGender CatGenderPK; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -573,7 +660,7 @@ ALTER TABLE ONLY public."CatGender"
 
 
 --
--- TOC entry 2873 (class 2606 OID 16444)
+-- TOC entry 2884 (class 2606 OID 16444)
 -- Name: CatModel CatModelPK; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -582,7 +669,7 @@ ALTER TABLE ONLY public."CatModel"
 
 
 --
--- TOC entry 2865 (class 2606 OID 16416)
+-- TOC entry 2876 (class 2606 OID 16416)
 -- Name: Cat CatPK; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -591,7 +678,7 @@ ALTER TABLE ONLY public."Cat"
 
 
 --
--- TOC entry 2871 (class 2606 OID 16437)
+-- TOC entry 2882 (class 2606 OID 16437)
 -- Name: CatSpecies CatSpeciesPK; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -600,7 +687,7 @@ ALTER TABLE ONLY public."CatSpecies"
 
 
 --
--- TOC entry 2875 (class 2606 OID 16477)
+-- TOC entry 2886 (class 2606 OID 16477)
 -- Name: Pozition PozitionPK; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -609,7 +696,7 @@ ALTER TABLE ONLY public."Pozition"
 
 
 --
--- TOC entry 2859 (class 2606 OID 16394)
+-- TOC entry 2870 (class 2606 OID 16394)
 -- Name: Role RolePK; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -618,7 +705,7 @@ ALTER TABLE ONLY public."Role"
 
 
 --
--- TOC entry 2877 (class 2606 OID 16489)
+-- TOC entry 2888 (class 2606 OID 16489)
 -- Name: Session SessionPK; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -627,7 +714,7 @@ ALTER TABLE ONLY public."Session"
 
 
 --
--- TOC entry 2861 (class 2606 OID 16402)
+-- TOC entry 2872 (class 2606 OID 16402)
 -- Name: User UserPK; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -636,7 +723,7 @@ ALTER TABLE ONLY public."User"
 
 
 --
--- TOC entry 2863 (class 2606 OID 16404)
+-- TOC entry 2874 (class 2606 OID 16404)
 -- Name: User UserUK; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -645,7 +732,25 @@ ALTER TABLE ONLY public."User"
 
 
 --
--- TOC entry 2880 (class 2606 OID 16445)
+-- TOC entry 2898 (class 2606 OID 24798)
+-- Name: Buy BuyClientConstraint; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Buy"
+    ADD CONSTRAINT "BuyClientConstraint" FOREIGN KEY ("BuyClientID") REFERENCES public."User"("UserID") ON UPDATE CASCADE ON DELETE CASCADE NOT VALID;
+
+
+--
+-- TOC entry 2899 (class 2606 OID 24803)
+-- Name: Buy BuyPozitionID; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Buy"
+    ADD CONSTRAINT "BuyPozitionID" FOREIGN KEY ("BuyPozitionID") REFERENCES public."Pozition"("PozitionID") ON UPDATE CASCADE ON DELETE CASCADE NOT VALID;
+
+
+--
+-- TOC entry 2893 (class 2606 OID 16445)
 -- Name: CatModel CatColorConstraint; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -654,7 +759,7 @@ ALTER TABLE ONLY public."CatModel"
 
 
 --
--- TOC entry 2883 (class 2606 OID 16478)
+-- TOC entry 2896 (class 2606 OID 16478)
 -- Name: Pozition CatConstraint; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -663,7 +768,7 @@ ALTER TABLE ONLY public."Pozition"
 
 
 --
--- TOC entry 2879 (class 2606 OID 16460)
+-- TOC entry 2892 (class 2606 OID 16460)
 -- Name: Cat CatModelConstraint; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -672,7 +777,7 @@ ALTER TABLE ONLY public."Cat"
 
 
 --
--- TOC entry 2881 (class 2606 OID 16455)
+-- TOC entry 2894 (class 2606 OID 16455)
 -- Name: CatModel CatSpeciesConstraint; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -681,7 +786,7 @@ ALTER TABLE ONLY public."CatModel"
 
 
 --
--- TOC entry 2884 (class 2606 OID 16490)
+-- TOC entry 2897 (class 2606 OID 16490)
 -- Name: Session UserConstraint; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -690,7 +795,7 @@ ALTER TABLE ONLY public."Session"
 
 
 --
--- TOC entry 2878 (class 2606 OID 16405)
+-- TOC entry 2891 (class 2606 OID 16405)
 -- Name: User UserRole; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -699,7 +804,7 @@ ALTER TABLE ONLY public."User"
 
 
 --
--- TOC entry 2882 (class 2606 OID 16450)
+-- TOC entry 2895 (class 2606 OID 16450)
 -- Name: CatModel catGenderConstraint; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -708,7 +813,7 @@ ALTER TABLE ONLY public."CatModel"
 
 
 --
--- TOC entry 3039 (class 0 OID 0)
+-- TOC entry 3057 (class 0 OID 0)
 -- Dependencies: 4
 -- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
 --
@@ -717,7 +822,7 @@ REVOKE USAGE ON SCHEMA public FROM PUBLIC;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2023-03-20 21:20:03
+-- Completed on 2023-03-23 13:23:05
 
 --
 -- PostgreSQL database dump complete
