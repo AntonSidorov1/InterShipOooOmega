@@ -592,6 +592,347 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "Pozitions",
+			"item": [
+				{
+					"name": "GetList",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Pozitions}}/List",
+							"host": [
+								"{{Pozitions}}"
+							],
+							"path": [
+								"List"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPozition",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Pozitions}}/3/Get",
+							"host": [
+								"{{Pozitions}}"
+							],
+							"path": [
+								"3",
+								"Get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCatIntoPozition",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Pozitions}}/3/Cat",
+							"host": [
+								"{{Pozitions}}"
+							],
+							"path": [
+								"3",
+								"Cat"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCatModelIntoPozition",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Pozitions}}/3/CatModel",
+							"host": [
+								"{{Pozitions}}"
+							],
+							"path": [
+								"3",
+								"CatModel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddPozition (pass)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"catID\" : 3,\r\n    \"cost\": 400\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Pozitions}}/Add?session=99788682342588528420",
+							"host": [
+								"{{Pozitions}}"
+							],
+							"path": [
+								"Add"
+							],
+							"query": [
+								{
+									"key": "session",
+									"value": "99788682342588528420"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddPozition (fail)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"catID\" : 3,\r\n    \"cost\": 400\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Pozitions}}/Add?session=72634502140285742755",
+							"host": [
+								"{{Pozitions}}"
+							],
+							"path": [
+								"Add"
+							],
+							"query": [
+								{
+									"key": "session",
+									"value": "72634502140285742755"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Buys",
+			"item": [
+				{
+					"name": "BuyPozition (pass)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{Buy}}/BuyPozition/3?session=72634502140285742755",
+							"host": [
+								"{{Buy}}"
+							],
+							"path": [
+								"BuyPozition",
+								"3"
+							],
+							"query": [
+								{
+									"key": "session",
+									"value": "72634502140285742755"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuyPozition (fail)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Status code is 500\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{Buy}}/BuyPozition/3?session=99788682342588528420",
+							"host": [
+								"{{Buy}}"
+							],
+							"path": [
+								"BuyPozition",
+								"3"
+							],
+							"query": [
+								{
+									"key": "session",
+									"value": "99788682342588528420"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	],
 	"variable": [
@@ -606,6 +947,14 @@
 		{
 			"key": "Sessions",
 			"value": "{{cat}}/users/Sessions"
+		},
+		{
+			"key": "Pozitions",
+			"value": "{{cat}}/positions/Pozitions"
+		},
+		{
+			"key": "Buy",
+			"value": "{{cat}}/Buys"
 		}
 	]
 }
