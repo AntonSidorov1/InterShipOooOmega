@@ -38,7 +38,7 @@ namespace CatsShop.Controllers.ControllersThisWork
         [HttpGet("{id}/Datas")]
         public CatDatas GetDatas(int id)
         {
-            return CatsList.GetCatsListFromDB().GetCatDatasFromID(id);
+            return GetList().GetCatDatasFromID(id);
         }
 
         // <summary>
@@ -49,7 +49,7 @@ namespace CatsShop.Controllers.ControllersThisWork
         [HttpGet("{id}/Get")]
         public Cat GetCat(int id)
         {
-            return CatsList.GetCatsListFromDB().GetCatFromID(id);
+            return GetList().GetCatFromID(id);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace CatsShop.Controllers.ControllersThisWork
         [HttpPut("UpdateCat")]
         public bool Update(Cat cat, string session)
         {
-            return CatsList.GetCatsListFromDB().UpdateCat(cat, session);
+            return Update(cat, session, cat.ID);
         }
 
         /// <summary>
