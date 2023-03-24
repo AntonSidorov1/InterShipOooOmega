@@ -2,6 +2,7 @@
 using CatsShop.Classes.Cats.Cats;
 using CatsShop.Classes.Position;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.Design.Serialization;
 
 namespace CatsShop.Controllers.ControllersThisWork
 {
@@ -9,7 +10,7 @@ namespace CatsShop.Controllers.ControllersThisWork
     /// Функции API для работы с котиками
     /// </summary>
     [ApiController]
-    [Route("cats/api/cats/[controller]")]
+    [Route("cats/api/cats/[controller]", Name = "Cats")]
     public class CatsController : ControllerBase
     {
 
@@ -24,7 +25,7 @@ namespace CatsShop.Controllers.ControllersThisWork
         /// Получить список
         /// </summary>
         /// <returns></returns>
-        [HttpGet("List")]
+        [HttpGet("List", Name = "CatsList")]
         public CatsList GetList()
         {
             return CatsList.GetCatsListFromDB();
