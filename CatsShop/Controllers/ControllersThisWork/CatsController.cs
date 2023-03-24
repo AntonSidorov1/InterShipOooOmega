@@ -54,6 +54,17 @@ namespace CatsShop.Controllers.ControllersThisWork
         }
 
         /// <summary>
+        /// Оптимальный метод получения котика
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        public Cat? GetCatOptimized(int id)
+        {
+            return GetList().FirstOrDefault(c => c.ID == id);
+        }
+
+        /// <summary>
         /// Добавить котика
         /// </summary>
         /// <param name="cat"></param>

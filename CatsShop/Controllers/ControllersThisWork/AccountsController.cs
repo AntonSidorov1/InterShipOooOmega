@@ -1,6 +1,7 @@
 using CatsShop.Classes.Users.Accounts;
 using CatsShop.Classes.Users.Sessions;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace CatsShop.Controllers;
 
@@ -46,6 +47,32 @@ public class AccountsController : ControllerBase
     [HttpPut("ChangePassword")]
     public bool ChangePassword(Key key)
         => SessionsList.GetSessions().ChangePassword(key);
+
+    /// <summary>
+    /// Оптимальный метод обновления пароля - возвращаются статус-коды
+    /// </summary>
+    /// <param name="session"></param>
+    /// <param name="password"></param>
+    /// <returns></returns>
+    [HttpPatch("ChangePassword")]
+    public ActionResult ChangePassword(string session, [FromBody] string password)
+    {
+        SessionsList sessions = SessionsList.GetSessions();
+        if (!sessions.HaveSession(session))
+        {
+            return this.StatusCode((int)HttpStatusCode.NoContent);
+        }
+        try
+        {
+            sessions.ChangePassword(session, password);
+            return this.Ok();
+        }
+        catch
+        {
+            return this.StatusCode((int)HttpStatusCode.NotFound);
+        }
+    }
+
     
     /// <summary>
     /// Удалить аккаунт авторизированного пользователя

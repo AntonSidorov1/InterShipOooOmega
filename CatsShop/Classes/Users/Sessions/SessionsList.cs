@@ -155,6 +155,26 @@ public class SessionsList : List<string>
     }
 
     /// <summary>
+    /// Существует ли данная сессия
+    /// </summary>
+    /// <param name="session"></param>
+    /// <returns></returns>
+    public bool HaveSession(string session)
+    {
+        try
+        {
+            GetUserIDFromSession(session);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+
+
+    /// <summary>
     /// Получить логин пользователя по его ключу сессии
     /// </summary>
     /// <param name="session"></param>
