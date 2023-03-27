@@ -7,7 +7,7 @@ namespace CatsShop.Controllers;
 /// Функции API для строки подключения к базе данных
 /// </summary>
 [ApiController]
-[Route("cats/api/connection/[controller]")]
+[Route("api/database-connection/[controller]")]
 public class ConnectionStringController : ControllerBase
 {
     private readonly ILogger<ConnectionStringController> _datas;
@@ -20,7 +20,7 @@ public class ConnectionStringController : ControllerBase
     /// Получение строки подключения
     /// </summary>
     /// <returns></returns>
-    [HttpGet("GetConnectionString")]
+    [HttpGet]
     public DataBaseConnectionText Get()
     {
         //NowConnectionString.ConnectionDatas.FromSettings();
@@ -32,7 +32,7 @@ public class ConnectionStringController : ControllerBase
     /// </summary>
     /// <param name="connectionText"></param>
     /// <returns></returns>
-    [HttpPost("SetConnectionString")]
+    [HttpPut]
     public bool Set(DataBaseConnectionText connectionText)
     {
         try

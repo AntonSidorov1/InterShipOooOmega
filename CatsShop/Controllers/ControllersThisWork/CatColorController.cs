@@ -1,5 +1,6 @@
 using CatsShop.Classes.Cats.CatColor;
 using CatsShop.Classes.Cats.CatModel;
+using CatsShop.Classes.Cats.Cats;
 using CatsShop.Classes.Cats.CatsGender.CatGender;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +10,7 @@ namespace CatsShop.Controllers;
 /// Функции API для работы с цветами котиков
 /// </summary>
 [ApiController]
-[Route("cats/api/cats/[controller]")]
+[Route("api/[controller]")]
 public class CatColorsController : ControllerBase
 {
     
@@ -26,7 +27,7 @@ public class CatColorsController : ControllerBase
     /// Получить список цветов
     /// </summary>
     /// <returns></returns>
-    [HttpGet("CatColorsList")]
+    [HttpGet]
     public CatColorsList GetList()
     {
         CatColorsList colors = new CatColorsList();
@@ -39,12 +40,12 @@ public class CatColorsController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpGet("{id}/GetName")]
-    public string GetColor(int id)
+    [HttpGet("By-ID/{id}")]
+    public CatColor GetColor(int id)
     {
         CatColorsList colors = new CatColorsList();
         colors.GetColorsFromDB();
-        return colors.GetColorFromID(id).Name;
+        return colors.GetColorFromID(id);
     }
     
     /// <summary>
@@ -52,13 +53,52 @@ public class CatColorsController : ControllerBase
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    [HttpPut("GetColorID")]
-    public int GetColor(CatColorName name)
+    [HttpGet("By-Name/{name}")]
+    public CatColor GetColor(string name)
     {
         CatColorsList colors = new CatColorsList();
         colors.GetColorsFromDB();
-        return colors.GetColorFromName(name.Color).ID;
+        return colors.GetColorFromName(name);
     }
+
+    /// <summary>
+    /// Получить цвет по ID модели котика
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet("By-Model/{id}")]
+    public ActionResult<CatColor> GetColorFromModel(int id)
+    {
+        try
+        {
+            return Ok(CatModelList.GetModelsListFromDB().GetDatasFromID(id).GetColor());
+        }
+        catch
+        {
+            return NotFound();
+        }
+    }
+
+    /// <summary>
+    /// Получить цвет по ID котика
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet("By-Cat/{id}")]
+    public ActionResult<CatColor> GetColorFromCat(int id)
+    {
+        try
+        {
+            int modelID = CatsList.GetCatsListFromDB().GetCatFromID(id).ModelID;
+            return GetColorFromModel(modelID);
+        }
+        catch
+        {
+            return NotFound();
+        }
+    }
+
+
 
     /// <summary>
     /// Добавить цвет
@@ -89,15 +129,6 @@ public class CatColorsController : ControllerBase
     [HttpDelete("{id}/Delete")]
     public bool DeleteColor(int id, string session)
         => CatColorsList.GetColors().DeleteColor(id, session);
-		
-    /// <summary>
-    /// Получить цвет по ID модели котика
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-	[HttpGet("CatModelColor/{id}")]
-	public CatColor GetColorFromModel(int id)
-		=> CatModelList.GetModelsListFromDB().GetDatasFromID(id).GetColor();
-		
+	
 
 }

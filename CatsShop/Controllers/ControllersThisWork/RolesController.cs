@@ -48,7 +48,7 @@ public class RolesController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpGet("{id}")]
+    [HttpGet("By-ID/{id}")]
     public ActionResult<Role?> GetRoleFromID(int id)
     {
         try
@@ -70,7 +70,7 @@ public class RolesController : ControllerBase
     /// </summary>
     /// <param name="role"></param>
     /// <returns></returns>
-    [HttpGet("{name}/ID")]
+    [HttpGet("By-Name/{name}")]
     public Role? GetRoleFromName(string name)
     {
         roles.GetRolesFromDB();

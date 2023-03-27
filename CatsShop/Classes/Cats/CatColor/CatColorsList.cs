@@ -107,7 +107,7 @@ public class CatColorsList : List<CatColor>
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    public CatColor GetColorFromName(string name) => Find(p => p.Name == name);
+    public CatColor GetColorFromName(string name) => Find(p => p.Name.ToLower() == name.ToLower());
 
     /// <summary>
     /// Добавить цвет

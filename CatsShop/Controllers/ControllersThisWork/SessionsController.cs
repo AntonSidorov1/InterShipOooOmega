@@ -23,7 +23,7 @@ public class SessionsController : ControllerBase
     /// </summary>
     /// <param name="account"></param>
     /// <returns></returns>
-    [HttpPost("SignIn")]
+    [HttpPost("Sign-In")]
     public ActionResult<string?> Set(User account)
     {
         string session = account.SignIn();
@@ -58,7 +58,7 @@ public class SessionsController : ControllerBase
     /// </summary>
     /// <param name="session"></param>
     /// <returns></returns>
-    [HttpPost("SihnOut")]
+    [HttpPost("Sign-Out")]
     public ActionResult<bool> CloseSession([FromBody] string session)
     {
         return SessionsList.GetSessions().CloseSessionInDB(session) ? Ok(true): Unauthorized(false);

@@ -72,6 +72,6 @@ public class CatGendersList : List<CatGender>
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    public CatGender GetGenderFromName(string name) => Find(p => p.Name == name);
+    public CatGender GetGenderFromName(string name) => Find(p => p.Name.ToLower() == name.ToLower());
 
 }

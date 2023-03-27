@@ -32,3 +32,5 @@ D:\RiderProjects\Practice\CatsShop\CatsShop\obj\Debug\net7.0\CatsShop.pdb
 D:\RiderProjects\Practice\CatsShop\CatsShop\obj\Debug\net7.0\CatsShop.genruntimeconfig.cache
 D:\RiderProjects\Practice\CatsShop\CatsShop\obj\Debug\net7.0\ref\CatsShop.dll
 D:\RiderProjects\Practice\CatsShop\CatsShop\bin\Debug\net7.0\Npgsql.dll
+D:\RiderProjects\Practice\CatsShop\CatsShop\bin\Debug\net7.0\CatsShop.xml
+D:\RiderProjects\Practice\CatsShop\CatsShop\obj\Debug\net7.0\CatsShop.xml

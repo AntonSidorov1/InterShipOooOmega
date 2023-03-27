@@ -1,18 +1,20 @@
 
 using CatsShop.Classes.Cats.CatModel;
+using CatsShop.Classes.Cats.Cats;
 using CatsShop.Classes.Cats.CatsGender.CatGender;
+using CatsShop.Classes.Transformers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+
 namespace CatsShop.Controllers;
 
 /// <summary>
 /// Функции API для работы с полами котиков
 /// </summary>
 [ApiController]
-[Route("cats/api/cats/[controller]")]
+[Route("api/[controller]")]
 public class CatGendersController : ControllerBase
 {
-    
-    
     
     private readonly ILogger<CatGendersController> _datas;
     public CatGendersController(ILogger<CatGendersController> datas)
@@ -24,7 +26,7 @@ public class CatGendersController : ControllerBase
     /// Получить список полов
     /// </summary>
     /// <returns></returns>
-    [HttpGet("CatGendersList")]
+    [HttpGet]
     public CatGendersList GetList()
     {
         CatGendersList genders = new CatGendersList();
@@ -37,12 +39,12 @@ public class CatGendersController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpGet("{id}/CatGendersName")]
-    public string GetGender(int id)
+    [HttpGet("By-ID/{id}")]
+    public CatGender GetGender(int id)
     {
         CatGendersList genders = new CatGendersList();
         genders.GetGendersFromDB();
-        return genders.GetGenderFromID(id).Name;
+        return genders.GetGenderFromID(id);
     }
     
     /// <summary>
@@ -50,12 +52,12 @@ public class CatGendersController : ControllerBase
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    [HttpPut("CatGendersID")]
-    public int GetGender(CatGenderName name)
+    [HttpGet("By-Name/{name}")]
+    public CatGender GetGender(string name)
     {
         CatGendersList genders = new CatGendersList();
         genders.GetGendersFromDB();
-        return genders.GetGenderFromName(name.CatGender).ID;
+        return genders.GetGenderFromName(name);
     }
 
     /// <summary>
@@ -63,10 +65,38 @@ public class CatGendersController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpGet("CatModelGender/{id}")]
-	public CatGender GetGenderFromModel(int id)
-		=> CatModelList.GetModelsListFromDB().GetDatasFromID(id).GetGender();
-		
+    [HttpGet("By-Model/{id}")]
+    public ActionResult<CatGender?> GetGenderFromModel(int id)
+    {
+        try
+        {
+            return Ok(CatModelList.GetModelsListFromDB().GetDatasFromID(id).GetGender());
+        }
+        catch (Exception ex)
+        {
+            return NotFound(null);
+        }
+    }
 
-    
+    /// <summary>
+    /// Получить пол котика по ID котика
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet("By-Cat/{id}")]
+    public ActionResult<CatGender?> GetGenderFromCat(int id)
+    {
+        try
+        {
+            int modelID = CatsList.GetCatsListFromDB().GetCatFromID(id).ModelID;
+            return Ok(CatModelList.GetModelsListFromDB().GetDatasFromID(modelID).GetGender());
+        }
+        catch (Exception ex)
+        {
+            return NotFound(null);
+        }
+    }
+
+
+
 }
