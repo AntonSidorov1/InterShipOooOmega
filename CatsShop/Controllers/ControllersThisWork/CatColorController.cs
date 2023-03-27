@@ -128,7 +128,7 @@ public class CatColorsController : ControllerBase
     /// <returns></returns>
     [HttpPut("{id}")]
     [RoleAutorithation(RoleConstraint = RoleDB.Admin, SaveSession = true, SaveAccount = false)]
-    public ActionResult<bool> UpdateColor(int id, string colorName)
+    public ActionResult<bool> UpdateColor(int id, [FromBody]string colorName)
     {
         try
         {
@@ -144,12 +144,21 @@ public class CatColorsController : ControllerBase
     /// <summary>
     /// Удалить цвет
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="session"></param>
     /// <returns></returns>
-    [HttpDelete("{id}/Delete")]
-    public bool DeleteColor(int id, string session)
-        => CatColorsList.GetColors().DeleteColor(id, session);
-	
+    [HttpDelete("{id}")]
+    [RoleAutorithation(RoleConstraint = RoleDB.Admin, SaveSession = true, SaveAccount = false)]
+    public ActionResult<bool> DeleteColor(int id)
+    {
+        try
+        {
+            string session = SessionNow.Session;
+            return CatColorsList.GetColors().DeleteColor(id, session) ? Ok(true) : NotFound(false);
+        }
+        catch
+        {
+            return StatusCode((int)HttpStatusCode.Forbidden, false);
+        }
+    }
+
 
 }

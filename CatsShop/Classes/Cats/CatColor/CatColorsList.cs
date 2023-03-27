@@ -41,7 +41,7 @@ public class CatColorsList : List<CatColor>
         NpgsqlConnection connection = datas.Connection;
         connection.Open();
 
-        NpgsqlCommand command = new NpgsqlCommand($"Select Count(*) From \"CatColor\" where CatColorID = {id}", connection);
+        NpgsqlCommand command = new NpgsqlCommand($"Select Count(*) From \"CatColor\" where \"CatColorID\" = {id}", connection);
 
 
         
