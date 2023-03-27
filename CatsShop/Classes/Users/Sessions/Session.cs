@@ -17,15 +17,12 @@ public class Key
         set => key = value;
     }
 
-    private string password = "";
+    DateTime timeOpen = DateTime.Now;
 
-    /// <summary>
-    /// Пароль
-    /// </summary>
-    public string Password
+    public DateTime TimeOpen
     {
-        get => password;
-        set => password = value;
+        get => timeOpen;
+        set => timeOpen = value;
     }
 
 }

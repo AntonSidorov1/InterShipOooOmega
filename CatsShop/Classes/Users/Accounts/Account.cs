@@ -8,28 +8,17 @@ namespace CatsShop.Classes.Users.Accounts;
 /// <summary>
 /// Аккаунт пользователя
 /// </summary>
-public class Account
+public class Account : User
 {
-    private string login = "";
-
-    /// <summary>
-    /// Логин пользователя
-    /// </summary>
-    public string Login
-    {
-        get => login;
-        set => login = value;
-    }
     
-    private string password = "";
 
-    /// <summary>
-    /// Пароль пользователя
-    /// </summary>
-    public string Password
+
+    int roleID = 0;
+
+    public int RoleID
     {
-        get => password;
-        set => password = value;
+        get => roleID;
+        set => roleID = value;
     }
 
     public bool AddAccountToDB(string session, int roleID)
@@ -70,8 +59,8 @@ public class Account
 
             NpgsqlParameterCollection parameters = commandAdd.Parameters;
             parameters.Clear();
-            parameters.AddWithValue("@login", login);
-            parameters.AddWithValue("@password", password);
+            parameters.AddWithValue("@login", Login);
+            parameters.AddWithValue("@password", Password);
             commandAdd.ExecuteNonQuery();
             
             connection.Close();
@@ -98,8 +87,8 @@ public class Account
 
             NpgsqlParameterCollection parameters = command.Parameters;
             parameters.Clear();
-            parameters.AddWithValue("@login", login);
-            parameters.AddWithValue("@password", password);
+            parameters.AddWithValue("@login", Login);
+            parameters.AddWithValue("@password", Password);
             int count = Convert.ToInt32(command.ExecuteScalar());
             if (count != 1)
             {
@@ -112,8 +101,8 @@ public class Account
             
             parameters = command.Parameters;
             parameters.Clear();
-            parameters.AddWithValue("@login", login);
-            parameters.AddWithValue("@password", password);
+            parameters.AddWithValue("@login", Login);
+            parameters.AddWithValue("@password", Password);
             
             int userID = Convert.ToInt32(command.ExecuteScalar());
 

@@ -8,6 +8,16 @@ namespace CatsShop.Classes.Users.Roles;
 /// </summary>
 public class RolesList : List<Role>
 {
+    public static RolesList GetRoles() => new RolesList();
+
+    public static RolesList GetListFromDB()
+    {
+        RolesList roles = GetRoles();
+        roles.GetRolesFromDB();
+        return roles;
+    }
+
+
     /// <summary>
     /// ѕолучить список ролей из базы данных
     /// </summary>

@@ -3,6 +3,7 @@ using System;
 using CatsShop.Classes.Users.Roles;
 using CatsShop.Classes.Users.Sessions;
 using Npgsql;
+using System.Net;
 
 namespace CatsShop.Controllers;
 
@@ -10,7 +11,7 @@ namespace CatsShop.Controllers;
 /// Функции API Для работы с ролями
 /// </summary>
 [ApiController]
-[Route("cats/api/users/[controller]")]
+[Route("api/[controller]")]
 public class RolesController : ControllerBase
 {
 
@@ -30,7 +31,7 @@ public class RolesController : ControllerBase
     /// Получить список ролей
     /// </summary>
     /// <returns></returns>
-   [HttpGet("RolesList")]
+   [HttpGet]
     public IEnumerable<Role> Get()
     {
         roles.GetRolesFromDB();
@@ -47,11 +48,21 @@ public class RolesController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpGet("{id}/RoleName")]
-    public string GetRoleFromID(int id)
+    [HttpGet("{id}")]
+    public ActionResult<Role?> GetRoleFromID(int id)
     {
-        roles.GetRolesFromDB();
-        return roles.GetRoleFromID(id).Name;
+        try
+        {
+            roles.GetRolesFromDB();
+            Role? role = roles.FirstOrDefault(role => role.ID == id);
+            if (role == null)
+                throw new ArgumentNullException("Роли с данным ID не существует");
+            return Ok(role);
+        }
+        catch
+        {
+            return StatusCode((int)HttpStatusCode.NotFound);
+        }
     }
     
     /// <summary>
@@ -59,18 +70,18 @@ public class RolesController : ControllerBase
     /// </summary>
     /// <param name="role"></param>
     /// <returns></returns>
-    [HttpPut("RoleID")]
-    public int GetRoleFromName(RoleName role)
+    [HttpGet("{name}/ID")]
+    public Role? GetRoleFromName(string name)
     {
         roles.GetRolesFromDB();
-        return roles.GetRoleFromName(role.Role).ID;
+        return roles.FirstOrDefault(r => r.Name.ToLower() == name.ToLower());
     }
 
-    /// <summary>
-    /// Получить роль авторизированного пользователя, по его ключу сессии
-    /// </summary>
-    /// <param name="session"></param>
-    /// <returns></returns>
-    [HttpGet("SessionRole")]
-    public Role GetRole(string session) => SessionsList.GetSessions().GetRoleFromSession(session);
+    ///// <summary>
+    ///// Получить роль авторизированного пользователя, по его ключу сессии
+    ///// </summary>
+    ///// <param name="session"></param>
+    ///// <returns></returns>
+    //[HttpGet("SessionRole")]
+    //public Role GetRole(string session) => SessionsList.GetSessions().GetRoleFromSession(session);
 }

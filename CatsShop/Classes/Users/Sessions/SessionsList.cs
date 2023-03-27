@@ -7,7 +7,7 @@ namespace CatsShop.Classes.Users.Sessions;
 /// <summary>
 /// Список ключей сессии
 /// </summary>
-public class SessionsList : List<string>
+public class SessionsList : List<Key>
 {
     /// <summary>
     /// Получить список
@@ -45,13 +45,21 @@ public class SessionsList : List<string>
         }
     }
 
-    /// <summary>
-    /// Изменить пароль у аккаунта с данным ключом сессии
-    /// </summary>
-    /// <param name="key"></param>
-    /// <returns></returns>
-    public bool ChangePassword(Key key)
-        => ChangePassword(key.Session, key.Password);
+    public void DeleteOldSession()
+    {
+        DataBaseDatas datas = NowConnectionString.ConnectionDatas;
+        NpgsqlConnection connection = datas.Connection;
+        connection.Open();
+
+        NpgsqlCommand command = new NpgsqlCommand("Delete From \"Session\" " +
+            "where Extract(Hour From now() - \"TimeOpen\") > 5; ", connection);
+
+
+        command.ExecuteNonQuery();
+
+        connection.Close();
+    }
+
 
     /// <summary>
     /// Изменить пароль у аккаунта с данным ключом сессии
@@ -60,6 +68,7 @@ public class SessionsList : List<string>
     /// <returns></returns>
     public bool ChangePassword(string session, string password)
     {
+        DeleteOldSession();
         try
         {
             int userID = GetUserIDFromSession(session);
@@ -108,6 +117,7 @@ public class SessionsList : List<string>
     /// <returns></returns>
     public Role GetRoleFromSession(string session)
     {
+        DeleteOldSession();
         int userID = GetUserIDFromSession(session);
         DataBaseDatas datas = NowConnectionString.ConnectionDatas;
         NpgsqlConnection connection = datas.Connection;
@@ -133,6 +143,7 @@ public class SessionsList : List<string>
     /// <returns></returns>
     public bool CloseSessionInDB(string session)
     {
+        DeleteOldSession();
         try
         {
             int userID = GetUserIDFromSession(session);
@@ -161,6 +172,7 @@ public class SessionsList : List<string>
     /// <returns></returns>
     public bool HaveSession(string session)
     {
+        DeleteOldSession();
         try
         {
             GetUserIDFromSession(session);
@@ -181,6 +193,7 @@ public class SessionsList : List<string>
     /// <returns></returns>
     public string GetLoginFromSession(string session)
     {
+        DeleteOldSession();
         try
         {
             string login = "";
@@ -213,6 +226,7 @@ public class SessionsList : List<string>
     /// <exception cref="ArgumentException"></exception>
     public int GetUserIDFromSession(string session)
     {
+        DeleteOldSession();
         DataBaseDatas datas = NowConnectionString.ConnectionDatas;
         NpgsqlConnection connection = datas.Connection;
         connection.Open();
@@ -249,13 +263,13 @@ public class SessionsList : List<string>
     /// <param name="userID"></param>
     public void GetSessionsFromDB(int userID)
     {
-        
+        DeleteOldSession();
         Clear();
         DataBaseDatas datas = NowConnectionString.ConnectionDatas;
         NpgsqlConnection connection = datas.Connection;
         connection.Open();
 
-        NpgsqlCommand command = new NpgsqlCommand("Select \"SessionKey\" From \"Session\"" +
+        NpgsqlCommand command = new NpgsqlCommand("Select * From \"Session\"" +
                                                   $"where \"SessionUserID\" = {userID}", connection);
 
         
@@ -266,7 +280,10 @@ public class SessionsList : List<string>
             {
                 while (reader.Read())
                 {
-                    Add(reader.GetString(reader.GetOrdinal("SessionKey")));
+                    Key key = new Key();
+                    key.Session = reader.GetString(reader.GetOrdinal("SessionKey"));
+                    key.TimeOpen = reader.GetDateTime(reader.GetOrdinal("TimeOpen"));
+                    Add(key);
                 }
             }
         }

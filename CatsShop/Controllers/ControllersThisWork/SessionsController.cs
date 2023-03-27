@@ -1,5 +1,6 @@
 using CatsShop.Classes.Users.Accounts;
 using CatsShop.Classes.Users.Sessions;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CatsShop.Controllers;
@@ -8,8 +9,8 @@ namespace CatsShop.Controllers;
 /// Функции API для работы с сессиями
 /// </summary>
 [ApiController]
-[Route("cats/api/users/[controller]")]
-public class SessionsController
+[Route("api/[controller]")]
+public class SessionsController : ControllerBase
 {
     private readonly ILogger<SessionsController> _datas;
     public SessionsController(ILogger<SessionsController> datas)
@@ -23,9 +24,10 @@ public class SessionsController
     /// <param name="account"></param>
     /// <returns></returns>
     [HttpPost("SignIn")]
-    public string Set(Account account)
+    public ActionResult<string?> Set(User account)
     {
-        return account.SignIn();
+        string session = account.SignIn();
+        return (session != "null") ? this.Ok(session):this.NotFound(null);
 
     }
 
@@ -34,12 +36,21 @@ public class SessionsController
     /// </summary>
     /// <param name="session"></param>
     /// <returns></returns>
-    [HttpGet("SessionsList")]
-    public SessionsList GetSessions(string session)
+    [HttpGet]
+    [Autorization(SaveSession = true, SaveAccount = false)]
+    public ActionResult<SessionsList?> GetSessions()
     {
-        SessionsList sessions = SessionsList.GetSessions();
-        sessions.GetSessionsFromDB(session);
-        return sessions;
+        try
+        {
+            string session = SessionNow.Session;
+            SessionsList sessions = SessionsList.GetSessions();
+            sessions.GetSessionsFromDB(session);
+            return Ok(sessions);
+        }
+        catch
+        {
+            return this.Unauthorized(null);
+        }
     }
 
     /// <summary>
@@ -47,7 +58,10 @@ public class SessionsController
     /// </summary>
     /// <param name="session"></param>
     /// <returns></returns>
-    [HttpDelete("CloseSession")]
-    public bool CloseSession(string session) => SessionsList.GetSessions().CloseSessionInDB(session);
+    [HttpPost("SihnOut")]
+    public ActionResult<bool> CloseSession([FromBody] string session)
+    {
+        return SessionsList.GetSessions().CloseSessionInDB(session) ? Ok(true): Unauthorized(false);
+    }
 
 }
