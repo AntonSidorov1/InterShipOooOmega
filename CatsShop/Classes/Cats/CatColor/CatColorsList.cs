@@ -109,9 +109,11 @@ public class CatColorsList : List<CatColor>
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    public CatColor GetColorFromName(string name) => Find(p => p.Name.ToLower() == name.ToLower());
+    public CatColor GetColorFromName(string name) 
+        => Find(p => p.Name.ToLower().Replace('_', ' ').Replace('-', ' ').Trim() == name.ToLower().Replace('_', ' ').Replace('-', ' ').Trim());
 
-    public bool HaveColor(string name) => GetCatColors().Any(color => color.Name.ToLower() == name.ToLower());
+    public bool HaveColor(string name) 
+        => GetCatColors().Any(color => color.Name.ToLower().Replace('_', ' ').Replace('-', ' ').Trim() == name.ToLower().Replace('_', ' ').Replace('-', ' ').Trim());
 
     /// <summary>
     /// Добавить цвет

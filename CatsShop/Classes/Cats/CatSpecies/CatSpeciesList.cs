@@ -9,6 +9,12 @@ namespace CatsShop.Classes.Cats.CatSpecies;
 /// </summary>
 public class CatSpeciesList : List<CatSpecies>
 {
+
+    public CatSpeciesList GetCatSpeciesList() => this;
+
+    public bool HaveSpecies(string name)
+        => GetCatSpeciesList().Any(color => color.Name.ToLower().Replace('_', ' ').Replace('-', ' ').Trim() == name.ToLower().Replace('_', ' ').Replace('-', ' ').Trim());
+
     /// <summary>
     /// Получить список пород
     /// </summary>
@@ -82,7 +88,8 @@ public class CatSpeciesList : List<CatSpecies>
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    public CatSpecies GetSpeciesFromName(string name) => Find(p => p.Name == name);
+    public CatSpecies GetSpeciesFromName(string name) 
+        => Find(p => p.Name.ToLower().Replace('_', ' ').Replace('-', ' ').Trim() == name.ToLower().Replace('_', ' ').Replace('-', ' ').Trim());
     
     public CatSpecies GetSpeciesFromName(CatSpeciesName name)
     => GetSpeciesFromName(name.Species);
@@ -105,6 +112,10 @@ public class CatSpeciesList : List<CatSpecies>
         /// <exception cref="AggregateException"></exception>
     public bool AddSpecies(string speciesName, string session)
     {
+        GetSpeciesFromDB();
+
+        if(HaveSpecies(speciesName)) { return false; }
+
         DataBaseDatas datas = NowConnectionString.ConnectionDatas;
         NpgsqlConnection connection = datas.Connection;
         connection.Open();
@@ -151,17 +162,22 @@ public class CatSpeciesList : List<CatSpecies>
         }
     }
 
+
+    public bool UpdateSpecies(CatSpecies species, string session)
+        => UpdateSpecies(species.ID, species.Name, session);
+
     /// <summary>
     /// Изменить породу
     /// </summary>
-    /// <param name="species"></param>
-    /// <param name="session"></param>
     /// <returns></returns>
     /// <exception cref="AggregateException"></exception>
     /// <exception cref="ArgumentException"></exception>
-    public bool UpdateSpecies(CatSpecies species, string session)
+    public bool UpdateSpecies(int id, string speciesName, string session)
     {
         GetSpeciesFromDB();
+
+        if (HaveSpecies(speciesName)) { return false; }
+
         DataBaseDatas datas = NowConnectionString.ConnectionDatas;
         NpgsqlConnection connection = datas.Connection;
         connection.Open();
@@ -169,15 +185,15 @@ public class CatSpeciesList : List<CatSpecies>
         {
             if (!SessionsList.GetSessions().UserIsAdmin(session))
                 throw new AggregateException("Пользователь должен быть администратор");
-            if (!HaveSpeciesWithID(species.ID))
+            if (!HaveSpeciesWithID(id))
                 throw new ArgumentException("Данной породы не существует");
             
 
             NpgsqlCommand command = new NpgsqlCommand("Update \"CatSpecies\" " +
                                                       $"set \"CatSpeciesName\" = @species " +
-                                                      $"where \"CatSpeciesID\" = {species.ID}", connection);
+                                                      $"where \"CatSpeciesID\" = {id}", connection);
             command.Parameters.Clear();
-            command.Parameters.AddWithValue("@species", species.Name);
+            command.Parameters.AddWithValue("@species", speciesName);
 
             command.ExecuteNonQuery();
 

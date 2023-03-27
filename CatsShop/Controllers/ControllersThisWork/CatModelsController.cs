@@ -10,7 +10,7 @@ namespace CatsShop.Controllers;
 /// Функции API для работы с моделями котиков
 /// </summary>
 [ApiController]
-[Route("cats/api/cats/[controller]")]
+[Route("api/[controller]")]
 public class CatModelsController : ControllerBase
 {
     
@@ -27,33 +27,74 @@ public class CatModelsController : ControllerBase
     /// Спиоск моделей
     /// </summary>
     /// <returns></returns>
-    [HttpGet("CatModelsList")]
+    [HttpGet()]
     public List<CatModelFullDatas> GetList()
     {
         return CatModelList.GetModelsListFromDB().GetListFullDatas();
     }
-    
+
     /// <summary>
-    /// Получить модель по её ID
+    /// Получить список моделей котиков по ID цвета
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpGet("{id}/GetModel")]
-    public CatModelDatas GetModel(int id)
-    {
-        return CatModelList.GetModelsListFromDB().GetDatasFromID(id);
-    }
+    [HttpGet("By-Color/{id}")]
+    public List<CatModelFullDatas> GetByColor(int id)
+        => GetList().FindAll(model => model.ColorID ==  id);
+
+    /// <summary>
+    /// Получить список моделей котиков по ID породы
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet("By-Species/{id}")]
+    public List<CatModelFullDatas> GetBySpecies(int id)
+        => GetList().FindAll(model => model.SpeciesID == id);
+
+    /// <summary>
+    /// Получить список моделей котиков по ID пола
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet("By-Gender/{id}")]
+    public List<CatModelFullDatas> GetByGender(int id)
+        => GetList().FindAll(model => model.GenderID == id);
+
+
 
     /// <summary>
     /// Получить полную информацию о моделе по её ID
     /// </summary>
-    /// <param name="id"></para
-    [HttpGet("{id}/FullDatas")]
-    public CatModelFullDatas GetModelFullDatas(int id)
+    [HttpGet("By-ID/{id}")]
+    public ActionResult<CatModelFullDatas> GetModelFullDatas(int id)
     {
-        return CatModelFullDatas.GetModel(CatModelList.GetModelsListFromDB().GetModelFromID(id));
+        try
+        {
+            return Ok(CatModelFullDatas.GetModel(CatModelList.GetModelsListFromDB().GetModelFromID(id)));
+        }
+        catch
+        {
+            return NotFound();
+        }
     }
-    
+
+    /// <summary>
+    /// Получить полную информацию о моделе по ID котика
+    /// </summary>
+    [HttpGet("By-Cat/{id}")]
+    public ActionResult<CatModelFullDatas> GetModelByCat(int id)
+    {
+        try
+        {
+            int modelID = CatsList.GetCatsListFromDB().GetCatFromID(id).ModelID;
+            return CatModelFullDatas.GetModel(CatModelList.GetModelsListFromDB().GetModelFromID(modelID));
+        }
+        catch
+        {
+            return NotFound();
+        }
+    }
+
     /// <summary>
     /// Добавить модель
     /// </summary>
@@ -112,18 +153,6 @@ public class CatModelsController : ControllerBase
     public bool DeleteModel(string session, int id)
     {
         return CatModelList.GetModelsListFromDB().DeleteModel(id, session);
-    }
-
-    /// <summary>
-    /// Получить модель котика по его ID
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    [HttpGet("FromCat/{id}")]
-	public CatModelFullDatas GetModelFromCat(int id)
-    {
-        int idCat = CatsList.GetCatsListFromDB().GetCatFromID(id).ModelID;
-        return CatModelFullDatas.GetModel(CatModelList.GetModelsListFromDB().GetModelFromID(idCat));
     }
 
 }

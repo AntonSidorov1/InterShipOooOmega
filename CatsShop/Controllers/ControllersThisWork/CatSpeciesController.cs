@@ -1,5 +1,6 @@
 using CatsShop.Classes.Cats.CatColor;
 using CatsShop.Classes.Cats.CatModel;
+using CatsShop.Classes.Cats.Cats;
 using CatsShop.Classes.Cats.CatSpecies;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +10,7 @@ namespace CatsShop.Controllers;
 /// Функции API для работы с породами котиков
 /// </summary>
 [ApiController]
-[Route("cats/api/cats/[controller]")]
+[Route("api/[controller]")]
 public class CatSpeciesController : ControllerBase
 {
     
@@ -24,7 +25,7 @@ public class CatSpeciesController : ControllerBase
        /// Список пород
        /// </summary>
        /// <returns></returns>
-    [HttpGet("CatSpeciesList")]
+    [HttpGet()]
     public CatSpeciesList GetList()
     {
         CatSpeciesList species = new CatSpeciesList();
@@ -37,25 +38,61 @@ public class CatSpeciesController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpGet("{id}/GetName")]
-    public string GetSpecies(int id)
+    [HttpGet("By-ID/{id}")]
+    public CatSpecies? GetSpecies(int id)
     {
         CatSpeciesList species = new CatSpeciesList();
         species.GetSpeciesFromDB();
-        return species.GetSpeciesFromID(id).Name;
+        return species.GetSpeciesFromID(id);
     }
     
     /// <summary>
     /// Получить ID породы по её названию
     /// </summary>
-    /// <param name="name"></param>
     /// <returns></returns>
-    [HttpPut("GetSpeciesID")]
-    public int GetSpecies(CatSpeciesName name)
+    [HttpGet("By-Name/{speciesName}")]
+    public CatSpecies? GetSpecies(string speciesName)
     {
         CatSpeciesList species = new CatSpeciesList();
         species.GetSpeciesFromDB();
-        return species.GetSpeciesFromName(name).ID;
+        return species.GetSpeciesFromName(speciesName);
+    }
+
+    /// <summary>
+    /// Получить породу по ID модели котика
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet("By-Model/{id}")]
+    public ActionResult<CatSpecies> GetSpeciesFromModel(int id)
+    {
+        try
+        {
+            return Ok(CatModelList.GetModelsListFromDB().GetDatasFromID(id).GetSpecies());
+        }
+        catch
+        {
+            return NotFound();
+        }
+    }
+
+    /// <summary>
+    /// Получить породу по ID котика
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet("By-Cat/{id}")]
+    public ActionResult<CatSpecies> GetSpeciesFromCat(int id)
+    {
+        try
+        {
+            int modelID = CatsList.GetCatsListFromDB().GetCatFromID(id).ModelID;
+            return GetSpeciesFromModel(modelID);
+        }
+        catch
+        {
+            return NotFound();
+        }
     }
 
     /// <summary>
@@ -88,15 +125,6 @@ public class CatSpeciesController : ControllerBase
     public bool DeleteSpecies(int id, string session)
         => CatSpeciesList.GetSpecies().DeleteSpecies(id, session);
 
-    /// <summary>
-    /// Получить породу по ID модели котика
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-	[HttpGet("CatModelSpecies/{id}")]
-	public CatSpecies GetSpeciesFromModel(int id)
-		=> CatModelList.GetModelsListFromDB().GetDatasFromID(id).GetSpecies();
-		
 
 
 }

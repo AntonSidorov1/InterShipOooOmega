@@ -64,14 +64,16 @@ public class RolesList : List<Role>
     {
         return Find(p => p.ID == id);
     }
+
+    public RolesList GetRolesList() => this;
     
     /// <summary>
     /// Получить роль по её названию
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    public Role GetRoleFromName(string name)
+    public Role? GetRoleFromName(string name)
     {
-        return Find(p => p.Name.ToLower() == name.ToLower());
+        return GetRolesList().FirstOrDefault(p => p.Name.ToLower().Replace('_', ' ').Replace('-', ' ').Trim() == name.ToLower().Replace('_', ' ').Replace('-', ' ').Trim());
     }
 }

@@ -74,7 +74,7 @@ public class RolesController : ControllerBase
     public Role? GetRoleFromName(string name)
     {
         roles.GetRolesFromDB();
-        return roles.FirstOrDefault(r => r.Name.ToLower() == name.ToLower());
+        return roles.GetRoleFromName(name);
     }
 
     ///// <summary>
