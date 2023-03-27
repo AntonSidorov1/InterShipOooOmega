@@ -95,6 +95,8 @@ public class CatColorsList : List<CatColor>
         connection.Close();
     }
 
+    public CatColorsList GetCatColors() { return this; }
+
     /// <summary>
     /// Получить цвет по его ID
     /// </summary>
@@ -109,6 +111,8 @@ public class CatColorsList : List<CatColor>
     /// <returns></returns>
     public CatColor GetColorFromName(string name) => Find(p => p.Name.ToLower() == name.ToLower());
 
+    public bool HaveColor(string name) => GetCatColors().Any(color => color.Name.ToLower() == name.ToLower());
+
     /// <summary>
     /// Добавить цвет
     /// </summary>
@@ -118,6 +122,9 @@ public class CatColorsList : List<CatColor>
     /// <exception cref="AggregateException"></exception>
     public bool AddColor(string colorName, string session)
     {
+        GetColorsFromDB();
+        if(HaveColor(colorName)) { return false; }
+
         DataBaseDatas datas = NowConnectionString.ConnectionDatas;
         NpgsqlConnection connection = datas.Connection;
         connection.Open();
@@ -186,14 +193,13 @@ public class CatColorsList : List<CatColor>
     /// <summary>
     /// Обновить цвет
     /// </summary>
-    /// <param name="color"></param>
-    /// <param name="session"></param>
     /// <returns></returns>
     /// <exception cref="AggregateException"></exception>
     /// <exception cref="ArgumentException"></exception>
-    public bool UpdateColor(CatColor color, string session)
+    public bool UpdateColor(int id, string colorName, string session)
     {
         GetColorsFromDB();
+        if (HaveColor(colorName)) { return false; }
         DataBaseDatas datas = NowConnectionString.ConnectionDatas;
         NpgsqlConnection connection = datas.Connection;
         connection.Open();
@@ -201,16 +207,16 @@ public class CatColorsList : List<CatColor>
         {
             if (!SessionsList.GetSessions().UserIsAdmin(session))
                 throw new AggregateException("Пользователь должен быть администратор");
-            if (!HaveColorWithID(color.ID))
+            if (!HaveColorWithID(id))
                 throw new ArgumentException("Данного цвета не существует");
-            string name = GetColorFromID(color.ID).Name;
+            string name = GetColorFromID(id).Name;
             
 
             NpgsqlCommand command = new NpgsqlCommand("Update \"CatColor\" " +
                                                       $"set \"CatColorName\" = @color " +
-                                                      $"where \"CatColorID\" = {color.ID}", connection);
+                                                      $"where \"CatColorID\" = {id}", connection);
             command.Parameters.Clear();
-            command.Parameters.AddWithValue("@color", color.Name);
+            command.Parameters.AddWithValue("@color", colorName);
 
             command.ExecuteNonQuery();
 

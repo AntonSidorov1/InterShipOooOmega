@@ -2,7 +2,10 @@ using CatsShop.Classes.Cats.CatColor;
 using CatsShop.Classes.Cats.CatModel;
 using CatsShop.Classes.Cats.Cats;
 using CatsShop.Classes.Cats.CatsGender.CatGender;
+using CatsShop.Classes.Users.Accounts;
+using CatsShop.Classes.Users.Sessions;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace CatsShop.Controllers;
 
@@ -103,22 +106,40 @@ public class CatColorsController : ControllerBase
     /// <summary>
     /// Добавить цвет
     /// </summary>
-    /// <param name="color"></param>
-    /// <param name="session"></param>
     /// <returns></returns>
-    [HttpPost("Add")]
-    public bool AddColor(CatColorName color, string session)
-        => CatColorsList.GetColors().AddColor(color.Color, session);
+    [HttpPost()]
+    [RoleAutorithation(RoleConstraint = RoleDB.Admin, SaveSession = true, SaveAccount = false)]
+    public ActionResult<bool> AddColor([FromBody]string colorName )
+    {
+        try
+        {
+            string session = SessionNow.Session;
+            return CatColorsList.GetColors().AddColor(colorName, session)? Ok(true) : Conflict(false);
+        }
+        catch
+        {
+            return StatusCode((int)HttpStatusCode.Forbidden, false);
+        }
+    }
 
     /// <summary>
     /// Изменить цвет
     /// </summary>
-    /// <param name="color"></param>
-    /// <param name="session"></param>
     /// <returns></returns>
-    [HttpPut("Update")]
-    public bool UpdateColor(CatColor color, string session)
-        => CatColorsList.GetColors().UpdateColor(color, session);
+    [HttpPut("{id}")]
+    [RoleAutorithation(RoleConstraint = RoleDB.Admin, SaveSession = true, SaveAccount = false)]
+    public ActionResult<bool> UpdateColor(int id, string colorName)
+    {
+        try
+        {
+            string session = SessionNow.Session;
+            return CatColorsList.GetColors().UpdateColor(id, colorName, session) ? Ok(true) : Conflict(false);
+        }
+        catch
+        {
+            return StatusCode((int)HttpStatusCode.Forbidden, false);
+        }
+    }
 
     /// <summary>
     /// Удалить цвет
