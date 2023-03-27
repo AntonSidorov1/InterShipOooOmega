@@ -8,7 +8,7 @@ namespace CatsShop.Classes.Cats.Cats
     /// <summary>
     /// Список котиков
     /// </summary>
-    public class CatsList : List<Cat>
+    public class CatsList : List<CatWithModel>
     {
         /// <summary>
         /// Получить список
@@ -86,7 +86,7 @@ namespace CatsShop.Classes.Cats.Cats
                 {
                     while (reader.Read())
                     {
-                        Cat species = new Cat
+                        CatWithModel species = new CatWithModel
                         {
                             ID = reader.GetInt32(reader.GetOrdinal("CatID")),
                             Age = reader.GetInt32(reader.GetOrdinal("CatAge")),

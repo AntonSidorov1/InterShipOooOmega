@@ -10,7 +10,7 @@ namespace CatsShop.Controllers.ControllersThisWork
     /// Функции API для работы с котиками
     /// </summary>
     [ApiController]
-    [Route("cats/api/cats/[controller]", Name = "Cats")]
+    [Route("api/[controller]")]
     public class CatsController : ControllerBase
     {
 
@@ -22,10 +22,10 @@ namespace CatsShop.Controllers.ControllersThisWork
         }
 
         /// <summary>
-        /// Получить список
+        /// Получить список котиков
         /// </summary>
         /// <returns></returns>
-        [HttpGet("List", Name = "CatsList")]
+        [HttpGet]
         public CatsList GetList()
         {
             return CatsList.GetCatsListFromDB();
@@ -36,32 +36,10 @@ namespace CatsShop.Controllers.ControllersThisWork
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("{id}/Datas")]
-        public CatDatas GetDatas(int id)
-        {
-            return GetList().GetCatDatasFromID(id);
-        }
-
-        // <summary>
-        /// Получить котика по его ID
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpGet("{id}/Get")]
-        public Cat GetCat(int id)
-        {
-            return GetList().GetCatFromID(id);
-        }
-
-        /// <summary>
-        /// Оптимальный метод получения котика
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         [HttpGet("{id}")]
-        public Cat? GetCatOptimized(int id)
+        public CatWithModel? Get(int id)
         {
-            return GetList().FirstOrDefault(c => c.ID == id);
+            return GetList().FirstOrDefault(cat => cat.ID == id);
         }
 
         /// <summary>
