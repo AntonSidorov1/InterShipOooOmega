@@ -40,3 +40,4 @@ D:\RiderProjects\Practice\CatsShop\CatsShop\CatsShop\obj\Debug\net7.0\CatsShop.g
 D:\RiderProjects\Practice\CatsShop\CatsShop\CatsShop\obj\Debug\net7.0\ref\CatsShop.dll
 D:\RiderProjects\Practice\CatsShop\CatsShop\CatsShop\bin\Debug\net7.0\CatsShop.xml
 D:\RiderProjects\Practice\CatsShop\CatsShop\CatsShop\obj\Debug\net7.0\CatsShop.xml
+D:\RiderProjects\Practice\CatsShop\CatsShop\CatsShop\bin\Debug\net7.0\Npgsql.dll

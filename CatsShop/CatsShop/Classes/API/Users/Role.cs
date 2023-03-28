@@ -10,7 +10,7 @@
 
         string role = "";
 
-        public string RoleRus { get { return role; } set { role = value; } }
+        public string RoleRus { get { return role; } set { role = value.Replace('-', ' ').Replace('_', ' ').Trim(); } }
 
         public string RoleEng
         {

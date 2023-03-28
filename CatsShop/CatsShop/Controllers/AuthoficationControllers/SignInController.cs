@@ -32,7 +32,7 @@ namespace CatsShop
         [HttpPost()]
         public ActionResult Token([FromBody]User user)
         {
-            _appAuthService.Users = users;
+            _appAuthService.Users = UserList.CreateUsersFromDB();
             try
             {
                 Token? token = _appAuthService.Authenticate(user);

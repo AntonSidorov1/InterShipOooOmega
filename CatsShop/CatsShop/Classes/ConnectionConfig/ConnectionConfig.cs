@@ -4,7 +4,7 @@ namespace CatsShop
     public static class ConnectionConfig
     {
         static NpgsqlConnectionStringBuilder builder;
-        public static NpgsqlConnectionStringBuilder Builder { get => Builder; set => builder = value; }
+        public static NpgsqlConnectionStringBuilder Builder { get => builder; set => builder = value; }
 
 
         public static NpgsqlConnection Connection
@@ -20,7 +20,7 @@ namespace CatsShop
 
         public static NpgsqlConnection GetConnection()
         {
-            GetConnection();
+            GetConnectionString();
             return Connection;
         }
 

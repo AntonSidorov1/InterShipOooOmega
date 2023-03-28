@@ -40,6 +40,24 @@
             Контроллер для пользователя
             </summary>
         </member>
+        <member name="M:CatsShop.UsersController.Get">
+            <summary>
+            Получить список всех пользователей
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CatsShop.UsersController.Registrate(CatsShop.User)">
+            <summary>
+            Зарегистрироваться в системе
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CatsShop.UsersController.AddAdmin(CatsShop.User)">
+            <summary>
+            Добавить администратора
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:CatsShop.UsersController.GetLogin">
             <summary>
             Получить свой логин
@@ -49,6 +67,24 @@
         <member name="M:CatsShop.UsersController.GetRole">
             <summary>
             Получить свою роль
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CatsShop.UsersController.ChangePassword(System.String)">
+            <summary>
+            Сменить пароль
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CatsShop.UsersController.DropUser(System.String)">
+            <summary>
+            Удалить пользователя
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CatsShop.UsersController.DropUser">
+            <summary>
+            Удалить аккаунт
             </summary>
             <returns></returns>
         </member>

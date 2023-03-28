@@ -17,8 +17,8 @@ namespace CatsShop.Classes.API.Autotification
             {
                 throw new Exception("Данный логин не существует");
             }
-            UserWithRole userWithRole = Users.Find(account => account.Login == user.Login) ??new UserWithRole();
-            if(userWithRole.Password != user.Password)
+            UserWithRole userWithRole = Users.Find(account => StringNormalize.Normalize(account.Login) == StringNormalize.Normalize(user.Login)) ??new UserWithRole();
+            if(userWithRole.Password.Trim() != user.Password.Trim())
             {
                 throw new Exception("Неверный пароль");
             }
