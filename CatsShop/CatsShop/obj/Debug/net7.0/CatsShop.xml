@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CatsShop</name>
+    </assembly>
+    <members>
+        <member name="F:CatsShop.LoginOptions.ISSUER">
+            <summary>
+            издатель токена
+            </summary>
+        </member>
+        <member name="F:CatsShop.LoginOptions.AUDIENCE">
+            <summary>
+            потребитель токена
+            </summary>
+        </member>
+        <member name="F:CatsShop.LoginOptions.KEY">
+            <summary>
+            ключ для шифрации
+            </summary>
+        </member>
+        <member name="F:CatsShop.LoginOptions.LIFETIME">
+            <summary>
+            время жизни токена - 1 минута
+            </summary>
+        </member>
+        <member name="T:CatsShop.SignInController">
+            <summary>
+            Контроллер для авторизации
+            </summary>
+        </member>
+        <member name="M:CatsShop.SignInController.Token(CatsShop.User)">
+            <summary>
+            Авторизировать пользователя в системе
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:CatsShop.UsersController">
+            <summary>
+            Контроллер для пользователя
+            </summary>
+        </member>
+        <member name="M:CatsShop.UsersController.GetLogin">
+            <summary>
+            Получить свой логин
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CatsShop.UsersController.GetRole">
+            <summary>
+            Получить свою роль
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
