@@ -5,7 +5,7 @@
 -- Dumped from database version 13.3 (Debian 13.3-1.pgdg100+1)
 -- Dumped by pg_dump version 15.2
 
--- Started on 2023-03-28 00:00:17
+-- Started on 2023-03-28 22:31:35
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -118,7 +118,7 @@ CREATE TABLE public."Pozition" (
 ALTER TABLE public."Pozition" OWNER TO postgres;
 
 --
--- TOC entry 211 (class 1259 OID 24928)
+-- TOC entry 210 (class 1259 OID 24928)
 -- Name: CatPozition; Type: VIEW; Schema: public; Owner: postgres
 --
 
@@ -179,7 +179,7 @@ ALTER TABLE public."Pozition" ALTER COLUMN "PozitionID" ADD GENERATED ALWAYS AS 
 
 CREATE TABLE public."Role" (
     "RoleID" integer NOT NULL,
-    "RoleName" character(100) NOT NULL
+    "RoleName" character varying(100) NOT NULL
 );
 
 
@@ -217,7 +217,7 @@ CREATE TABLE public."User" (
 ALTER TABLE public."User" OWNER TO postgres;
 
 --
--- TOC entry 210 (class 1259 OID 24924)
+-- TOC entry 211 (class 1259 OID 24939)
 -- Name: UserRole; Type: VIEW; Schema: public; Owner: postgres
 --
 
@@ -288,8 +288,8 @@ INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionPrice", "
 -- Data for Name: Role; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public."Role" ("RoleID", "RoleName") OVERRIDING SYSTEM VALUE VALUES (1, 'Клиент                                                                                              ');
-INSERT INTO public."Role" ("RoleID", "RoleName") OVERRIDING SYSTEM VALUE VALUES (2, 'Админ                                                                                               ');
+INSERT INTO public."Role" ("RoleID", "RoleName") OVERRIDING SYSTEM VALUE VALUES (1, 'Клиент');
+INSERT INTO public."Role" ("RoleID", "RoleName") OVERRIDING SYSTEM VALUE VALUES (2, 'Админ');
 
 
 --
@@ -300,8 +300,9 @@ INSERT INTO public."Role" ("RoleID", "RoleName") OVERRIDING SYSTEM VALUE VALUES 
 
 INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") OVERRIDING SYSTEM VALUE VALUES (1, 'Anton', 'password', 1);
 INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") OVERRIDING SYSTEM VALUE VALUES (2, 'User', 'password', 1);
-INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") OVERRIDING SYSTEM VALUE VALUES (3, 'AntonSidorov', 'password', 2);
 INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") OVERRIDING SYSTEM VALUE VALUES (4, 'Sidorov', '123', 1);
+INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") OVERRIDING SYSTEM VALUE VALUES (8, '12345', '12345', 1);
+INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") OVERRIDING SYSTEM VALUE VALUES (10, 'admin', '1', 2);
 
 
 --
@@ -346,7 +347,7 @@ SELECT pg_catalog.setval('public."Role_RoleID_seq"', 8, true);
 -- Name: User_UserID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."User_UserID_seq"', 5, true);
+SELECT pg_catalog.setval('public."User_UserID_seq"', 10, true);
 
 
 --
@@ -395,7 +396,7 @@ ALTER TABLE ONLY public."Role"
 
 
 --
--- TOC entry 2842 (class 2606 OID 24848)
+-- TOC entry 2842 (class 2606 OID 24933)
 -- Name: Role RoleUN; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -458,7 +459,7 @@ REVOKE USAGE ON SCHEMA public FROM PUBLIC;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2023-03-28 00:00:19
+-- Completed on 2023-03-28 22:31:41
 
 --
 -- PostgreSQL database dump complete
