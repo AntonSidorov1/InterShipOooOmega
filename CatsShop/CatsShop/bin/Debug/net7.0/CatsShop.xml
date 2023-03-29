@@ -125,6 +125,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:CatsShop.Controllers.CatsController.CatsController.Buy(System.Int32)">
+            <summary>
+            Купить котика
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:CatsShop.CatsGendersController">
             <summary>
             Функции для показа полов котиков
