@@ -27,6 +27,13 @@ namespace CatsShop.Controllers.CatsController
         public Cat? Get(int id) => Get().GetCatFromID(id);
 
         /// <summary>
+        /// Существует ли в системе пользователь с логином name в системе
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        private bool HaveLogin(string name) => UserList.CreateUsersFromDB().HaveLogin(name);
+
+        /// <summary>
         /// Добавить котика
         /// </summary>
         /// <param name="cat"></param>
@@ -36,7 +43,7 @@ namespace CatsShop.Controllers.CatsController
         public ActionResult<bool> Add([FromBody] Cat cat)
         {
             string name = User.Identity.Name ?? "";
-            if (!UserList.CreateUsersFromDB().HaveLogin(name))
+            if (!HaveLogin(name))
             {
                 return Unauthorized("Ваш логин больше не существует в системе");
             }
@@ -53,7 +60,7 @@ namespace CatsShop.Controllers.CatsController
         public ActionResult<bool> Update(int id, [FromBody] Cat cat)
         {
             string name = User.Identity.Name ?? "";
-            if (!UserList.CreateUsersFromDB().HaveLogin(name))
+            if (!HaveLogin(name))
             {
                 return Unauthorized("Ваш логин больше не существует в cистеме");
             }
@@ -69,7 +76,7 @@ namespace CatsShop.Controllers.CatsController
         public ActionResult<bool> Delete(int id)
         {
             string name = User.Identity.Name ?? "";
-            if (!UserList.CreateUsersFromDB().HaveLogin(name))
+            if (!HaveLogin(name))
             {
                 return Unauthorized("Ваш логин больше не существует в cистеме");
             }
@@ -85,7 +92,7 @@ namespace CatsShop.Controllers.CatsController
         public ActionResult<bool> Buy(int id)
         {
             string name = User.Identity.Name ?? "";
-            if (!UserList.CreateUsersFromDB().HaveLogin(name))
+            if (!HaveLogin(name))
             {
                 return Unauthorized("Ваш логин больше не существует в системе");
             }

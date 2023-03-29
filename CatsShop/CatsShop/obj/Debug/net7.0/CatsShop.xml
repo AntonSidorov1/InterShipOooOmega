@@ -46,6 +46,27 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:CatsShop.UsersController.GetUsers">
+            <summary>
+            Получить список всех пользователей
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CatsShop.UsersController.HaveLogin(System.String)">
+            <summary>
+            Существует ли пользователь с логином name в системе
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CatsShop.UsersController.AddUser(CatsShop.User,System.Int32)">
+            <summary>
+            Добавить пользователя в систему с ролью roleID
+            </summary>
+            <param name="user"></param>
+            <param name="roleID"></param>
+            <returns></returns>
+        </member>
         <member name="M:CatsShop.UsersController.Registrate(CatsShop.User)">
             <summary>
             Зарегистрироваться в системе

@@ -23,16 +23,40 @@ namespace CatsShop
             try
             {
                 string name = User.Identity.Name ?? "";
-                if (!UserList.CreateUsersFromDB().HaveLogin(name))
+                if (!HaveLogin(name))
                 {
                     throw new Exception("Данный пользователь не существует в системе");
                 }
-                return Ok(UserList.CreateUsersFromDB());
+                return Ok(GetUsers());
             }
             catch (Exception ex)
             {
                 return NotFound(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// Получить список всех пользователей
+        /// </summary>
+        /// <returns></returns>
+        private UserList GetUsers() => UserList.CreateUsersFromDB();
+
+        /// <summary>
+        /// Существует ли пользователь с логином name в системе
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        private bool HaveLogin(string name) => GetUsers().HaveLogin(name);
+
+        /// <summary>
+        /// Добавить пользователя в систему с ролью roleID
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="roleID"></param>
+        /// <returns></returns>
+        private ActionResult AddUser(User user, int roleID)
+        {
+            return GetUsers().AddUser(user, roleID) ? Ok(true) : Conflict(false);
         }
 
         /// <summary>
@@ -43,7 +67,7 @@ namespace CatsShop
         [AllowAnonymous]
         public ActionResult Registrate([FromBody]User user) 
         {
-            return UserList.CreateUsersFromDB().AddUser(user, 1) ? Ok(true) : Conflict(false);
+            return AddUser(user, 1);
         }
 
         /// <summary>
@@ -57,11 +81,11 @@ namespace CatsShop
             try
             {
                 string name = User.Identity.Name ?? "";
-                if (!UserList.CreateUsersFromDB().HaveLogin(name))
+                if (!HaveLogin(name))
                 {
                     throw new Exception("Данный пользователь не существует в системе");
                 }
-                return UserList.CreateUsersFromDB().AddUser(user, 2) ? Ok(true) : Conflict(false);
+                return AddUser(user, 2);
             }
             catch (Exception ex)
             {
@@ -77,7 +101,7 @@ namespace CatsShop
         public IActionResult GetLogin()
         {
             string name = User.Identity.Name??"";
-            if (UserList.CreateUsersFromDB().HaveLogin(name))
+            if (HaveLogin(name))
                 return Ok(name);
             else
                 return NotFound();
@@ -91,7 +115,7 @@ namespace CatsShop
         public IActionResult GetRole()
         {
             string name = User.Identity.Name??"";
-            if (UserList.CreateUsersFromDB().HaveLogin(name))
+            if (HaveLogin(name))
             {
                 Claim? claim = ((ClaimsIdentity)User.Identity).FindFirst(claim => claim.Type == ClaimsIdentity.DefaultRoleClaimType);
                 Role role = new Role();
@@ -121,7 +145,7 @@ namespace CatsShop
         [HttpPatch("change-password")]
         public ActionResult ChangePassword([FromBody] string password)
         {
-            return UserList.CreateUsersFromDB().ChangePassword(User.Identity.Name??"", password) ? Ok(true) : Conflict(false);
+            return GetUsers().ChangePassword(User.Identity.Name??"", password) ? Ok(true) : Conflict(false);
         }
 
         /// <summary>
@@ -133,11 +157,11 @@ namespace CatsShop
         public ActionResult DropUser(string login)
         {
             string name = User.Identity.Name ?? "";
-            if (!UserList.CreateUsersFromDB().HaveLogin(name))
+            if (HaveLogin(name))
             {
                 return Unauthorized("Ваш логин больше не существует с cистеме");
             }
-            return UserList.CreateUsersFromDB().DeleteUser(login) ? Ok(true) : NotFound(false);
+            return GetUsers().DeleteUser(login) ? Ok(true) : NotFound(false);
         }
 
         /// <summary>
@@ -147,7 +171,7 @@ namespace CatsShop
         [HttpDelete()]
         public ActionResult DropUser()
         {
-            return UserList.CreateUsersFromDB().DeleteUser(User.Identity.Name ?? "") ? Ok(true) : NotFound(false);
+            return GetUsers().DeleteUser(User.Identity.Name ?? "") ? Ok(true) : NotFound(false);
         }
     }
 }
