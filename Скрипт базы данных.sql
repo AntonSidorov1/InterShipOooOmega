@@ -5,7 +5,7 @@
 -- Dumped from database version 13.3 (Debian 13.3-1.pgdg100+1)
 -- Dumped by pg_dump version 15.2
 
--- Started on 2023-03-28 22:31:35
+-- Started on 2023-03-29 22:53:06
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -258,7 +258,12 @@ ALTER TABLE public."User" ALTER COLUMN "UserID" ADD GENERATED ALWAYS AS IDENTITY
 
 INSERT INTO public."Cat" ("CatID", "CatColor", "CatSpecies", "CatGenderID", "CatAge") OVERRIDING SYSTEM VALUE VALUES (1, 'Красный', 'Тойгер', 1, 12);
 INSERT INTO public."Cat" ("CatID", "CatColor", "CatSpecies", "CatGenderID", "CatAge") OVERRIDING SYSTEM VALUE VALUES (2, 'Розовый', 'Тойгер', 1, 12);
-INSERT INTO public."Cat" ("CatID", "CatColor", "CatSpecies", "CatGenderID", "CatAge") OVERRIDING SYSTEM VALUE VALUES (3, 'Розовый', 'Тойгер', 2, 5);
+INSERT INTO public."Cat" ("CatID", "CatColor", "CatSpecies", "CatGenderID", "CatAge") OVERRIDING SYSTEM VALUE VALUES (4, 'Белый', 'Бомбейская кошка', 2, 8);
+INSERT INTO public."Cat" ("CatID", "CatColor", "CatSpecies", "CatGenderID", "CatAge") OVERRIDING SYSTEM VALUE VALUES (5, 'Бирюзовый', 'Американский кёрл', 1, 15);
+INSERT INTO public."Cat" ("CatID", "CatColor", "CatSpecies", "CatGenderID", "CatAge") OVERRIDING SYSTEM VALUE VALUES (7, 'коралловый', 'кёрл', 1, 12);
+INSERT INTO public."Cat" ("CatID", "CatColor", "CatSpecies", "CatGenderID", "CatAge") OVERRIDING SYSTEM VALUE VALUES (8, 'Бирюзово-коралловый', 'Бомбейская кошка', 1, 14);
+INSERT INTO public."Cat" ("CatID", "CatColor", "CatSpecies", "CatGenderID", "CatAge") OVERRIDING SYSTEM VALUE VALUES (6, 'red', 'toyger', 1, 14);
+INSERT INTO public."Cat" ("CatID", "CatColor", "CatSpecies", "CatGenderID", "CatAge") OVERRIDING SYSTEM VALUE VALUES (11, 'red', 'toyger', 1, 14);
 
 
 --
@@ -279,7 +284,12 @@ INSERT INTO public."Gender" ("GenderID", "GenderName") OVERRIDING SYSTEM VALUE V
 
 INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionPrice", "PozitionDateAdded", "PozitionDateChanged", "PozitionBought") OVERRIDING SYSTEM VALUE VALUES (1, 1, '$120.00', '2023-03-27 20:48:02.771323', '2023-03-27 20:48:02.771323', false);
 INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionPrice", "PozitionDateAdded", "PozitionDateChanged", "PozitionBought") OVERRIDING SYSTEM VALUE VALUES (2, 2, '$450.00', '2023-03-27 20:48:25.476708', '2023-03-27 20:48:25.476708', false);
-INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionPrice", "PozitionDateAdded", "PozitionDateChanged", "PozitionBought") OVERRIDING SYSTEM VALUE VALUES (3, 3, '$200.00', '2023-03-27 20:48:51.127561', '2023-03-27 20:48:51.127561', false);
+INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionPrice", "PozitionDateAdded", "PozitionDateChanged", "PozitionBought") OVERRIDING SYSTEM VALUE VALUES (5, 5, '$1,200.00', '2023-03-29 10:03:38.22732', '2023-03-29 10:03:38.22732', false);
+INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionPrice", "PozitionDateAdded", "PozitionDateChanged", "PozitionBought") OVERRIDING SYSTEM VALUE VALUES (7, 7, '$123.45', '2023-03-29 10:44:36.00332', '2023-03-29 10:44:36.00332', false);
+INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionPrice", "PozitionDateAdded", "PozitionDateChanged", "PozitionBought") OVERRIDING SYSTEM VALUE VALUES (4, 4, '$200.00', '2023-03-29 07:11:56.64185', '2023-03-29 15:45:59.707112', true);
+INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionPrice", "PozitionDateAdded", "PozitionDateChanged", "PozitionBought") OVERRIDING SYSTEM VALUE VALUES (8, 8, '$450.00', '2023-03-29 15:10:53.304014', '2023-03-29 15:10:53.304014', false);
+INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionPrice", "PozitionDateAdded", "PozitionDateChanged", "PozitionBought") OVERRIDING SYSTEM VALUE VALUES (6, 6, '$120.00', '2023-03-29 10:03:50.047178', '2023-03-29 20:49:01.805987', false);
+INSERT INTO public."Pozition" ("PozitionID", "PozitionCatID", "PozitionPrice", "PozitionDateAdded", "PozitionDateChanged", "PozitionBought") OVERRIDING SYSTEM VALUE VALUES (11, 11, '$120.00', '2023-03-29 18:01:29.436667', '2023-03-29 21:06:30.772948', true);
 
 
 --
@@ -303,6 +313,10 @@ INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") 
 INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") OVERRIDING SYSTEM VALUE VALUES (4, 'Sidorov', '123', 1);
 INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") OVERRIDING SYSTEM VALUE VALUES (8, '12345', '12345', 1);
 INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") OVERRIDING SYSTEM VALUE VALUES (10, 'admin', '1', 2);
+INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") OVERRIDING SYSTEM VALUE VALUES (11, 'antonsidorov', 'password', 2);
+INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") OVERRIDING SYSTEM VALUE VALUES (12, 'anton12345', '12345', 1);
+INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") OVERRIDING SYSTEM VALUE VALUES (13, 'anton123', '123', 1);
+INSERT INTO public."User" ("UserID", "UserLogin", "UserPassword", "UserRoleID") OVERRIDING SYSTEM VALUE VALUES (14, 'admin123', '123', 2);
 
 
 --
@@ -320,7 +334,7 @@ SELECT pg_catalog.setval('public."CatGender_CatGenderID_seq"', 2, true);
 -- Name: Cat_catID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Cat_catID_seq"', 3, true);
+SELECT pg_catalog.setval('public."Cat_catID_seq"', 11, true);
 
 
 --
@@ -329,7 +343,7 @@ SELECT pg_catalog.setval('public."Cat_catID_seq"', 3, true);
 -- Name: Pozition_PozitionID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Pozition_PozitionID_seq"', 3, true);
+SELECT pg_catalog.setval('public."Pozition_PozitionID_seq"', 11, true);
 
 
 --
@@ -347,7 +361,7 @@ SELECT pg_catalog.setval('public."Role_RoleID_seq"', 8, true);
 -- Name: User_UserID_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."User_UserID_seq"', 10, true);
+SELECT pg_catalog.setval('public."User_UserID_seq"', 14, true);
 
 
 --
@@ -459,7 +473,7 @@ REVOKE USAGE ON SCHEMA public FROM PUBLIC;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2023-03-28 22:31:41
+-- Completed on 2023-03-29 22:53:06
 
 --
 -- PostgreSQL database dump complete
