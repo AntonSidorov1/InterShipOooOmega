@@ -13,7 +13,7 @@ namespace CatsShop.Classes.API.Autotification
         public Token Authenticate(User user)
         {
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json");
-                if(!users.Any(account => account.Login == user.Login))
+                if(!users.Any(account => StringNormalize.Normalize(account.Login) == StringNormalize.Normalize(user.Login)))
             {
                 throw new Exception("Данный логин не существует");
             }

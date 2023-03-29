@@ -54,7 +54,19 @@ namespace CatsShop
         [Authorize(Roles = "Admin")]
         public ActionResult AddAdmin([FromBody]User user)
         {
-            return UserList.CreateUsersFromDB().AddUser(user, 2) ? Ok(true) : Conflict(false);
+            try
+            {
+                string name = User.Identity.Name ?? "";
+                if (!UserList.CreateUsersFromDB().HaveLogin(name))
+                {
+                    throw new Exception("Данный пользователь не существует в системе");
+                }
+                return UserList.CreateUsersFromDB().AddUser(user, 2) ? Ok(true) : Conflict(false);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         /// <summary>
@@ -120,6 +132,11 @@ namespace CatsShop
         [Authorize(Roles = "Admin")]
         public ActionResult DropUser(string login)
         {
+            string name = User.Identity.Name ?? "";
+            if (!UserList.CreateUsersFromDB().HaveLogin(name))
+            {
+                return Unauthorized("Ваш логин больше не существует с вистеме");
+            }
             return UserList.CreateUsersFromDB().DeleteUser(login) ? Ok(true) : NotFound(false);
         }
 

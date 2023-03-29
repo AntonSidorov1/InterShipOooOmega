@@ -24,12 +24,12 @@
             время жизни токена - 1 минута
             </summary>
         </member>
-        <member name="T:CatsShop.SignInController">
+        <member name="T:CatsShop.AutotificationController">
             <summary>
             Контроллер для авторизации
             </summary>
         </member>
-        <member name="M:CatsShop.SignInController.Token(CatsShop.User)">
+        <member name="M:CatsShop.AutotificationController.Token(CatsShop.User)">
             <summary>
             Авторизировать пользователя в системе
             </summary>
@@ -85,6 +85,66 @@
         <member name="M:CatsShop.UsersController.DropUser">
             <summary>
             Удалить аккаунт
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:CatsShop.Controllers.CatsController.CatsController">
+            <summary>
+            Список функций для котиков
+            </summary>
+        </member>
+        <member name="M:CatsShop.Controllers.CatsController.CatsController.Get">
+            <summary>
+            Получить список котиков
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CatsShop.Controllers.CatsController.CatsController.Get(System.Int32)">
+            <summary>
+            Получить котика по его ID
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:CatsShop.Controllers.CatsController.CatsController.Add(CatsShop.Cat)">
+            <summary>
+            Добавить котика
+            </summary>
+            <param name="cat"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CatsShop.Controllers.CatsController.CatsController.Update(System.Int32,CatsShop.Cat)">
+            <summary>
+            Изменить котика
+            </summary>
+            <param name="cat"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CatsShop.Controllers.CatsController.CatsController.Delete(System.Int32)">
+            <summary>
+            Удалить котика
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:CatsShop.CatsGendersController">
+            <summary>
+            Функции для показа полов котиков
+            </summary>
+        </member>
+        <member name="M:CatsShop.CatsGendersController.Get">
+            <summary>
+            Получить список всех полов
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CatsShop.CatsGendersController.Get(System.Int32)">
+            <summary>
+            Получить пол по его ID
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CatsShop.CatsGendersController.Get(System.String)">
+            <summary>
+            Получить пол по его названию
             </summary>
             <returns></returns>
         </member>
