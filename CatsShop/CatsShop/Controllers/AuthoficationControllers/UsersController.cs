@@ -135,7 +135,7 @@ namespace CatsShop
             string name = User.Identity.Name ?? "";
             if (!UserList.CreateUsersFromDB().HaveLogin(name))
             {
-                return Unauthorized("Ваш логин больше не существует с вистеме");
+                return Unauthorized("Ваш логин больше не существует с cистеме");
             }
             return UserList.CreateUsersFromDB().DeleteUser(login) ? Ok(true) : NotFound(false);
         }
