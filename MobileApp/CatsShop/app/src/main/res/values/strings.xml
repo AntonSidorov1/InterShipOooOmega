@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CatsShop</string>
+    <string name="ApiName">CatsShop</string>
+    <string name="ApiNameRus">Магазин котиков</string>
+    <string name="AuthorName">Сидоров Антон Дмитриевич</string>
+    <string name="addressUrlDefault">URL</string>
 </resources>
