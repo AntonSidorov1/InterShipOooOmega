@@ -1,12 +1,15 @@
 package com.example.catsshop;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.DB.Helper;
@@ -20,12 +23,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         url = findViewById(R.id.textViewURL);
 
-        GetURL();
+        GetDatas();
     }
 
     public Context GetContext()
     {
         return this;
+    }
+
+    public void GetDatas()
+    {
+        GetURL();
     }
 
     public void GetURL()
@@ -47,7 +55,19 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
-        return super.onContextItemSelected(item);
+        return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        GetDatas();
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void UrlEdit_Click(View v)
+    {
+        Intent i = new Intent(this, UrlEditActivity.class);
+        startActivityForResult(i, 200);
+    }
 }

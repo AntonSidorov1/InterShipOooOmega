@@ -8,4 +8,11 @@
     <string name="YourLogin">Ваш логин</string>
     <string name="YourRoleRus">Ваша роль</string>
     <string name="YourRoleEng">Your role</string>
+    <string name="urlEdit">Редактировать URL-ссылку</string>
+    <string name="Back">Назад</string>
+    <string name="Protocol">Протокол</string>
+    <string name="Path">Путь</string>
+    <string name="DefaultUrlAddress">url.sidorov</string>
+    <string name="TextCancel">Отмена</string>
+    <string name="TextSave">Сохранить</string>
 </resources>

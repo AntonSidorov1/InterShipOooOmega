@@ -22,6 +22,22 @@ public class ApiHelper
 
     public void on_ready(ResultOfAPI res)
     {
+        try {
+            ready_result(res);
+        } catch (Exception e) {
+            e.printStackTrace();
+            on_fail(res, e.getMessage());
+        }
+    }
+
+    public void ready_result(ResultOfAPI res) throws Exception
+    {
+
+    }
+
+    public void on_fail(ResultOfAPI res, String message)
+    {
+
     }
 
     public void on_fail()
