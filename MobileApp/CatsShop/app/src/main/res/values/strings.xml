@@ -4,4 +4,8 @@
     <string name="ApiNameRus">Магазин котиков</string>
     <string name="AuthorName">Сидоров Антон Дмитриевич</string>
     <string name="addressUrlDefault">URL</string>
+    <string name="textview">TextView</string>
+    <string name="YourLogin">Ваш логин</string>
+    <string name="YourRoleRus">Ваша роль</string>
+    <string name="YourRoleEng">Your role</string>
 </resources>

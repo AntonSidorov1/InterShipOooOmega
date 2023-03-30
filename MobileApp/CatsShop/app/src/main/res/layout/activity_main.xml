@@ -49,6 +49,29 @@
                 android:layout_height="wrap_content"
                 android:text="@string/addressUrlDefault"
                 android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/YourLogin"
+                android:textAlignment="center"
+                tools:text="Ваш логин" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/YourRoleRus"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/YourRoleEng"
+                android:textAlignment="center" />
+
         </LinearLayout>
     </ScrollView>
 
