@@ -126,6 +126,13 @@
             </summary>
             <param name="id"></param>
         </member>
+        <member name="M:CatsShop.Controllers.CatsController.CatsController.HaveLogin(System.String)">
+            <summary>
+            Существует ли в системе пользователь с логином name в системе
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
         <member name="M:CatsShop.Controllers.CatsController.CatsController.Add(CatsShop.Cat)">
             <summary>
             Добавить котика
