@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".UrlEditActivity">
+    tools:context=".SignInActivity"
+    tools:menu="@menu/main_manu">
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textViewCatsShop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/ApiName"
@@ -17,34 +19,43 @@
         android:textStyle="bold|italic" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/textView13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/ApiNameRus"
-        android:textAlignment="center"
         android:textSize="16sp"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold|italic"
+        android:textAlignment="center" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/textView14"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/AuthorName"
         android:textAlignment="center" />
 
     <TextView
-        android:id="@+id/textViewUrlEdit"
+        android:id="@+id/textViewSignInURL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/addressUrlDefault"
         android:textAlignment="center" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="Exit_Click"
         android:text="@string/Back" />
+
+    <TextView
+        android:id="@+id/textViewSignInDoing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Authorization"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        android:textAlignment="center" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -58,20 +69,21 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/textView17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/Protocol"
+                android:text="@string/LoginText"
                 android:textAlignment="textEnd"/>
 
-            <Spinner
-                android:id="@+id/spinnerProtocols"
-                android:layout_width="171dp"
+            <EditText
+                android:id="@+id/editTextLoginInput"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:minHeight="48dp"
-                tools:ignore="SpeakableTextPresentCheck" />
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="@string/YourLogin" />
         </LinearLayout>
 
         <LinearLayout
@@ -80,24 +92,41 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/textView18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/Path"
+                android:text="@string/PasswordText"
                 android:textAlignment="textEnd" />
 
             <EditText
-                android:id="@+id/editTextAddress"
+                android:id="@+id/editTextTextPersonName2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:importantForAutofill="no"
                 android:inputType="textPersonName"
-                android:text="@string/DefaultUrlAddress"
-                tools:ignore="TouchTargetSizeCheck" />
+                android:text="@string/YourPassword" />
+
         </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/checkBoxShowPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ShowPassword" />
+
+        <CheckBox
+            android:id="@+id/checkBoxSaveAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/SaveAccount" />
+
+        <CheckBox
+            android:id="@+id/checkBoxSignInYes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/SignInYes" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -105,21 +134,20 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/button10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/TextCancel"
-                android:onClick="Cancel_Click" />
+                android:onClick="Exit_Click" />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/buttonSignIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/TextSave"
-                android:onClick="Save_Click" />
+                android:text="@string/SignIn" />
         </LinearLayout>
-    </LinearLayout>
 
+    </LinearLayout>
 </LinearLayout>

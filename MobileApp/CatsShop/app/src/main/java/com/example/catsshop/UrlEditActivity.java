@@ -13,7 +13,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.DB.DB;
 import com.example.DB.Helper;
+import com.example.URL.URL;
 
 import java.util.ArrayList;
 
@@ -98,12 +100,17 @@ public class UrlEditActivity extends AppCompatActivity {
 
     public void Cancel_Click(View v)
     {
-
+        GetDatas();
     }
 
     public void Save_Click(View v)
     {
-
+        int index = protocols.getSelectedItemPosition();
+        String protocol = protocolsList.get(index);
+        String path = address.getText().toString();
+        Helper.URL = new URL(protocol, path);
+        DB.GetDB(this).SaveUrl();
+        Cancel_Click(v);
     }
 
 }

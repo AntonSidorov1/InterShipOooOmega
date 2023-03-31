@@ -15,4 +15,16 @@
     <string name="DefaultUrlAddress">url.sidorov</string>
     <string name="TextCancel">Отмена</string>
     <string name="TextSave">Сохранить</string>
+    <string name="SignIn">Войти</string>
+    <string name="SignOut">Выйти</string>
+    <string name="Registrate">Зарегистрироваться</string>
+    <string name="SignInToSystem">Войти в систему</string>
+    <string name="SignOutFromSystem">Выйти из системы</string>
+    <string name="Authorization">Авторизация</string>
+    <string name="LoginText">Логин</string>
+    <string name="PasswordText">Пароль</string>
+    <string name="YourPassword">Ваш пароль</string>
+    <string name="ShowPassword">Показывать пароль</string>
+    <string name="SaveAccount">Сохранить аккаунт</string>
+    <string name="SignInYes">Войти в систему</string>
 </resources>

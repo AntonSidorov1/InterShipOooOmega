@@ -70,4 +70,24 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, UrlEditActivity.class);
         startActivityForResult(i, 200);
     }
+
+
+    public void SignIn_Click(View v)
+    {
+        Intent i = new Intent(this, SignInActivity.class);
+        i.putExtra("Doing", "input");
+        i.putExtra("doingText", "Авторизация");
+        i.putExtra("buttonSignIn", "Войти");
+        startActivityForResult(i, 200);
+    }
+
+
+    public void Registrate_Click(View v)
+    {
+        Intent i = new Intent(this, SignInActivity.class);
+        i.putExtra("Doing", "client");
+        i.putExtra("doingText", "Регистрация");
+        i.putExtra("buttonSignIn", "Зарегистрироваться");
+        startActivityForResult(i, 200);
+    }
 }

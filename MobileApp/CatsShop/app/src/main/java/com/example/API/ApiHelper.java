@@ -15,6 +15,16 @@ public class ApiHelper
 {
     public Activity ctx;
 
+    public Activity GetActivity()
+    {
+        return ctx;
+    }
+
+    public void SetActivity(Activity ctx)
+    {
+        this.ctx = ctx;
+    }
+
     public ApiHelper(Activity ctx)
     {
         this.ctx = ctx;
@@ -70,7 +80,9 @@ public class ApiHelper
         con.setDoInput(true);
 
         BufferedOutputStream out = new BufferedOutputStream(con.getOutputStream());
-        out.write(outmsg);
+        if(!method.equals("GET")) {
+            out.write(outmsg);
+        }
         out.flush();
 
         int code = con.getResponseCode();
@@ -134,6 +146,25 @@ public class ApiHelper
                 });
             }
         }
+    }
+
+    public void SendAutorization(String req, String payload, String method)
+    {
+        send(req, payload, method, true);
+    }
+
+    public void SendNoAutorization(String req, String payload, String method)
+    {
+        send(req, payload, method, false);
+    }
+
+    public void send(ApiParameters parameters)
+    {
+        String method = parameters.Method;
+        String address = parameters.GetURL();
+        String body = parameters.Body;
+        Boolean authorization = parameters.Authorization;
+        send(address, body, method, authorization);
     }
 
     public void send(String req, String payload, String method, Boolean authorization)

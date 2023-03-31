@@ -79,6 +79,26 @@
                 android:onClick="UrlEdit_Click"
                 android:text="@string/urlEdit" />
 
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="SignIn_Click"
+                android:text="@string/SignInToSystem" />
+
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/SignOutFromSystem" />
+
+            <Button
+                android:id="@+id/button7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="Registrate_Click"
+                android:text="@string/Registrate" />
+
         </LinearLayout>
     </ScrollView>
 
