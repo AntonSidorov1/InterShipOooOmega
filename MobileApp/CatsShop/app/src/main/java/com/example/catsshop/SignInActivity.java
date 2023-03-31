@@ -23,6 +23,8 @@ public class SignInActivity extends AppCompatActivity {
     CheckBox showPassword, saveAccount, signInWithAccount;
 
     Button signIn;
+    String doingText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,10 +36,18 @@ public class SignInActivity extends AppCompatActivity {
         doing = findViewById(R.id.textViewSignInDoing);
         signIn = findViewById(R.id.buttonSignIn);
 
+        doingText = i.getStringExtra("Doing");
+
         showPassword = findViewById(R.id.checkBoxShowPassword);
         saveAccount = findViewById(R.id.checkBoxSaveAccount);
         signInWithAccount = findViewById(R.id.checkBoxSignInYes);
-        signInWithAccount.setVisibility(View.INVISIBLE);
+        if(!doingText.equals("client")) {
+            signInWithAccount.setVisibility(View.INVISIBLE);
+        }
+        if(!doingText.equals("input"))
+        {
+            saveAccount.setVisibility(View.VISIBLE);
+        }
 
         doing.setText(i.getStringExtra("doingText"));
         SetButtonText(i.getStringExtra("buttonSignIn"));
