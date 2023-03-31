@@ -42,6 +42,8 @@ public class DB extends SQLiteOpenHelper {
     public void PutToken(String token)
     {
         TokenClear();
+        if(token.length() < 1)
+            return;
         SQLiteDatabase db = getWritableDatabase();
         String sql = "Insert Into Token (tokenKey) Values ('"+token+"')";
         db.execSQL(sql);
@@ -70,8 +72,8 @@ public class DB extends SQLiteOpenHelper {
             return GetTokenKey();
         } catch (Exception e) {
             e.printStackTrace();
-            PutToken(ConnectConfig.Token);
-            return GetToken();
+
+            return "";
         }
     }
 

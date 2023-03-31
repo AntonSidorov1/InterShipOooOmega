@@ -51,7 +51,7 @@
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/textViewLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/YourLogin"
@@ -59,14 +59,14 @@
                 tools:text="Ваш логин" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/textViewRoleRus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/YourRoleRus"
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/textViewRoleEng"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/YourRoleEng"

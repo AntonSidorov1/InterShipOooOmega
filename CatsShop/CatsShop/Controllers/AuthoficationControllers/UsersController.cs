@@ -98,13 +98,13 @@ namespace CatsShop
         /// </summary>
         /// <returns></returns>
         [HttpGet("get-login")]
-        public IActionResult GetLogin()
+        public ActionResult<string> GetLogin()
         {
             string name = User.Identity.Name??"";
             if (HaveLogin(name))
                 return Ok(name);
             else
-                return NotFound();
+                return NotFound("null");
         }
 
         /// <summary>

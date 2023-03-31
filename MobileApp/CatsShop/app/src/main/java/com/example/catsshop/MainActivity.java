@@ -12,16 +12,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.API.ConnectConfig;
+import com.example.DB.DB;
 import com.example.DB.Helper;
+import com.example.Users.LoginAPI;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView url;
+    TextView url, login, roleRus, roleEng;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         url = findViewById(R.id.textViewURL);
+
+        login = findViewById(R.id.textViewLogin);
+        roleRus = findViewById(R.id.textViewRoleRus);
+        roleEng = findViewById(R.id.textViewRoleEng);
 
         GetDatas();
     }
@@ -34,11 +41,35 @@ public class MainActivity extends AppCompatActivity {
     public void GetDatas()
     {
         GetURL();
+        GetLogin();
     }
 
     public void GetURL()
     {
         url.setText(Helper.GetUrlAddress(GetContext()));
+    }
+
+    public void GetLogin()
+    {
+        login.setText("");
+        TextView textViewLogin = login;
+        String token = ConnectConfig.GetToken(this);
+        if(token.length() > 0)
+        {
+            LoginAPI loginAPI = new LoginAPI(this)
+            {
+                @Override
+                public void on_fail(String req) {
+                    DB.GetDB(GetContext()).TokenClear();
+                }
+
+                @Override
+                public void GetLogin(String login) {
+                    textViewLogin.setText(login);
+                }
+            };
+            loginAPI.send(Helper.GetUrlAddress(this) + "/users/get-login");
+        }
     }
 
     @Override

@@ -139,7 +139,7 @@ public class SignInActivity extends AppCompatActivity {
         String login = this.login.getText().toString();
         String password = this.password.getText().toString();
 
-        String address = Helper.URL.GetURL() + "/autotification";
+        String address = Helper.URL.GetURL() + "/autotification/sign-in";
         signIn.send(address, login, password);
 
     }

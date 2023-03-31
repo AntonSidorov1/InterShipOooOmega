@@ -24,6 +24,12 @@ public class ConnectConfig {
 
     public static String Token;
 
+    public static String SetToken(Context context, String token)
+    {
+        DB.GetDB(context).PutToken(token);
+        return GetToken(context);
+    }
+
     public static String GetToken(Context context)
     {
         DB.GetDB(context).GetTokenToConfig();

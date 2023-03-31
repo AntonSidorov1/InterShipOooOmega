@@ -9,6 +9,9 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
 import  com.example.API.ConnectConfig;
 
 public class ApiHelper
@@ -50,7 +53,7 @@ public class ApiHelper
 
     }
 
-    public void on_fail()
+    public void on_fail(String req)
     {
     }
 /*
@@ -59,54 +62,86 @@ public class ApiHelper
     }
     */
 
+    public String ErrorMessage() {
+        return "В данный момент существуют проблемы с приложением \n" +
+                "   - Проверьте подключение к сети \n" +
+                "   - Обратитесь в службу поддержки";
+    }
+
     ResultOfAPI http_get(String req, String payload, String method, Boolean authorization) throws IOException
     {
         URL url = new URL(req);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
-        byte[] outmsg = payload.getBytes("utf-8");
+        try {
+            byte[] outmsg = payload.getBytes("utf-8");
 
-        con.setRequestMethod(method);
-        con.setRequestProperty("Content-Type", "application/json");
-        con.setRequestProperty("Content-Length", String.valueOf(outmsg.length));
+            con.setRequestMethod(method);
+            if(method.equals("POST") || method.equals("PUT")) {
+                con.setRequestProperty("Content-Type", "application/json");
+            }
+            else if(method.equals("GET"))
+            {
+                con.setRequestProperty("accept", "text/plain");
+            }
+            con.setRequestProperty("Content-Length", String.valueOf(outmsg.length));
 
-        if(authorization)
+            if (authorization) {
+                String token = "Bearer " + ConnectConfig.Token;
+                /*
+                con.setRequestProperty("Authorization", token);
+                con.addRequestProperty("Authorization", token);
+                 */
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", token);
+
+                for(String key : headers.keySet())
+                {
+                    con.setRequestProperty(key, headers.get(key));
+                }
+            }
+
+            con.setDoOutput(true);
+            con.setDoInput(true);
+
+            BufferedOutputStream out = new BufferedOutputStream(con.getOutputStream());
+            if (!method.equals("GET")) {
+                out.write(outmsg);
+            }
+            out.flush();
+
+            int code = con.getResponseCode();
+            String res = "";
+
+            try {
+                BufferedInputStream inp = new BufferedInputStream(con.getInputStream());
+
+                byte[] buf = new byte[512];
+
+                while (true) {
+                    int num = inp.read(buf);
+                    if (num < 0) break;
+
+                    res += new String(buf, 0, num);
+                }
+            } catch (Exception e) {
+                res = e.getMessage();
+            }
+
+            con.disconnect();
+
+            ResultOfAPI api = new ResultOfAPI();
+            api.Code = code;
+            api.Body = res;
+            api.URL = req;
+
+            return api;
+        }
+        catch(Exception e)
         {
-            String token = "Bearer "+ ConnectConfig.Token;
-            con.setRequestProperty("Authorization", token);
+            con.disconnect();
+            throw e;
         }
-
-        con.setDoOutput(true);
-        con.setDoInput(true);
-
-        BufferedOutputStream out = new BufferedOutputStream(con.getOutputStream());
-        if(!method.equals("GET")) {
-            out.write(outmsg);
-        }
-        out.flush();
-
-        int code = con.getResponseCode();
-
-        BufferedInputStream inp = new BufferedInputStream(con.getInputStream());
-
-        byte[] buf = new byte[512];
-        String res = "";
-
-        while (true)
-        {
-            int num = inp.read(buf);
-            if (num < 0) break;
-
-            res += new String(buf, 0, num);
-        }
-
-        con.disconnect();
-
-        ResultOfAPI api = new ResultOfAPI();
-        api.Code = code;
-        api.Body = res;
-
-        return api;
     }
 
 
@@ -141,7 +176,7 @@ public class ApiHelper
                 ctx.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        on_fail();
+                        on_fail(req);
                     }
                 });
             }
