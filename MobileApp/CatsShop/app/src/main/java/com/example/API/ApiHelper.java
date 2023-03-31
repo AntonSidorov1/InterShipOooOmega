@@ -71,6 +71,7 @@ public class ApiHelper
     ResultOfAPI http_get(String req, String payload, String method, Boolean authorization) throws IOException
     {
         URL url = new URL(req);
+		// url.given(); - Возможный вариант для авторизации и Headers
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
         try {
