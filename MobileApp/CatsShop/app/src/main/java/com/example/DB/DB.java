@@ -94,7 +94,7 @@ public class DB extends SQLiteOpenHelper {
     }
 
 
-    public void ClearTable()
+    public void ClearAccount()
     {
         try {
             String sql = "Delete From Account;";
@@ -123,7 +123,7 @@ public class DB extends SQLiteOpenHelper {
 
     public void SaveAccount(String login, String password)
     {
-        ClearTable();
+        ClearAccount();
         String sql = "Insert Into Account (login, password) Values ('"+login+"', '"+password+"');";
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(sql);
@@ -172,6 +172,17 @@ public class DB extends SQLiteOpenHelper {
 
 
         return  account;
+    }
+
+    public boolean HaveAccount()
+    {
+        try {
+            ToAccount();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public void GetAccount()

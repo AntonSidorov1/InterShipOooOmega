@@ -24,6 +24,7 @@ import com.example.API.ApiClient;
 import com.example.API.ApiClientWithMessage;
 import com.example.API.ResultOfAPI;
 import com.example.Authofication.SignIn;
+import com.example.DB.DB;
 import com.example.DB.Helper;
 
 public class SignInActivity extends AppCompatActivity {
@@ -108,6 +109,15 @@ public class SignInActivity extends AppCompatActivity {
                     SignIn_Click(v);
                 }
             });
+
+            saveAccount.setChecked(DB.GetDB(this).HaveAccount());
+            boolean save = saveAccount.isChecked();
+            if(save)
+            {
+                DB.GetDB(this).GetAccount();
+                login.setText(Helper.Account.login);
+                password.setText(Helper.Account.password);
+            }
         }
         else {
             if (doingText.equals("client")) {
@@ -138,6 +148,7 @@ public class SignInActivity extends AppCompatActivity {
         {
             @Override
             public void EndSend() {
+                AfterSignIn();
                 finish();
             }
         };
@@ -150,26 +161,53 @@ public class SignInActivity extends AppCompatActivity {
 
     }
 
+    void AfterSignIn()
+    {
+        DB.GetDB(this).ClearAccount();
+        boolean save = saveAccount.isChecked();
+        if(save)
+        {
+            String login = this.login.getText().toString();
+            String password = this.password.getText().toString();
+            DB.GetDB(this).SaveAccount(login, password);
+        }
+    }
+
     public void Registrate_Click(View v)
     {
         ApiClientWithMessage api = new ApiClientWithMessage(this)
         {
             @Override
             public void GetResultReady(ResultOfAPI res) {
-
+                AfterReadyRegistrate(v);
             }
         };
         api.TitleMessage = "Регистрация в системе";
         api.MessageReady = "Вы успешно зарегистрировались";
         api.MessageFail = "Не удалось зарегистрироваться \n" +
                 "   - Возможно логин уже существует в системе \n" +
-                "   - Возможно пароль совпадает с названием одной из ролей";
+                "   - Возможно пароль совпадает с названием одной из ролей \n" +
+                "   - Возможно логин пустой (должен быть, хотя бы один символ)";
         api.POST(Helper.URL.GetURL() + "/users/registrate",
                 "{" +
                         "\"login\": \"" + login.getText().toString() + "\"," +
                         "\"password\": \"" + password.getText().toString() + "\"" +
                         "}",
                 false);
+    }
+
+    void AfterReadyRegistrate(View v)
+    {
+        Boolean signIn = signInWithAccount.isChecked();
+        if(!signIn)
+        {
+            finish();
+        }
+        else
+        {
+            SignIn_Click(v);
+            return;
+        }
     }
 
     public void AddAdmin_Click(View v)
