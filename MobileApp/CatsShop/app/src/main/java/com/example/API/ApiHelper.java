@@ -1,6 +1,7 @@
 package com.example.API;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.example.API.ResultOfAPI;
 
@@ -77,38 +78,45 @@ public class ApiHelper
         try {
             byte[] outmsg = payload.getBytes("utf-8");
 
-            con.setRequestMethod(method);
-            if(method.equals("POST") || method.equals("PUT")) {
-                con.setRequestProperty("Content-Type", "application/json");
-            }
-            else if(method.equals("GET"))
-            {
-                con.setRequestProperty("accept", "text/plain");
-            }
-            con.setRequestProperty("Content-Length", String.valueOf(outmsg.length));
-
             if (authorization) {
-                String token = "Bearer " + ConnectConfig.Token;
-                /*
-                con.setRequestProperty("Authorization", token);
-                con.addRequestProperty("Authorization", token);
-                 */
-                Map<String, String> headers = new HashMap<>();
-                headers.put("Authorization", token);
+                con.setRequestProperty("accept", "text/plain");
 
-                for(String key : headers.keySet())
-                {
-                    con.setRequestProperty(key, headers.get(key));
-                }
+
+                String token = "Bearer " + ConnectConfig.Token;
+                con.setRequestProperty("Authorization", token);
+
             }
+
+            con.setRequestMethod(method);
+                con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestProperty("Content-Length", String.valueOf(outmsg.length));
 
             con.setDoOutput(true);
             con.setDoInput(true);
 
             BufferedOutputStream out = new BufferedOutputStream(con.getOutputStream());
-            if (!method.equals("GET")) {
+            if (!method.equals("GET") && !method.equals("DELETE")) {
                 out.write(outmsg);
             }
+/*
+            try {
+                Log.e("auth: ", con.getHeaderField("Authorization"));
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            try {
+                Log.e("auth: ", con.getRequestProperty("Authorization"));
+            }
+            catch (Exception e)
+            {
+
+            }
+
+ */
+
             out.flush();
 
             int code = con.getResponseCode();
