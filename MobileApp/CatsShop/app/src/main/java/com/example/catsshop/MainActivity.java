@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,9 @@ import com.example.Users.UsersHelper;
 public class MainActivity extends AppCompatActivity {
 
     TextView url, login, roleRus, roleEng;
+
+    Button signIn, signOut, registarte;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

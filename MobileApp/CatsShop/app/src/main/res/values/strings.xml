@@ -27,4 +27,9 @@
     <string name="ShowPassword">Показывать пароль</string>
     <string name="SaveAccount">Сохранить аккаунт</string>
     <string name="SignInYes">Войти в систему</string>
+    <string name="title_activity_main_menu">MainMenuActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="UserSettings">Настройки</string>
 </resources>
