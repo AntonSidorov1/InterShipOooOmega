@@ -18,6 +18,7 @@ namespace CatsShop
 
         public bool HaveLogin(string login)
         {
+            
             return GetList().Any(user => StringNormalize.Normalize(user.Login) == StringNormalize.Normalize(login));
         }
 
@@ -78,7 +79,7 @@ namespace CatsShop
             return roles.Any(role => StringNormalize.Normalize(role) == StringNormalize.Normalize(password));
         }
 
-        public bool ErrorUsers(User user) => HaveLogin(user) || PasswordIsRole(user);
+        public bool ErrorUsers(User user) => HaveLogin(user) || PasswordIsRole(user) || StringNormalize.Normalize(user.Login).Length < 1;
 
         public bool AddUser(User user, int roleID)
         {

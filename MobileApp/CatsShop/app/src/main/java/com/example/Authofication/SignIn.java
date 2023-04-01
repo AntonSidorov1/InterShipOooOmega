@@ -7,14 +7,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.example.API.ApiHelper;
+import com.example.API.ApiClient;
 import com.example.API.ConnectConfig;
-import com.example.API.MethodApiHelper.PostApiHelper;
 import com.example.API.ResultOfAPI;
 
 import org.json.JSONObject;
 
-public class SignIn extends PostApiHelper {
+public class SignIn extends ApiClient {
 
     public SignIn(Activity ctx) {
         super(ctx);
@@ -31,7 +30,7 @@ public class SignIn extends PostApiHelper {
                 "\"login\": \""+login+"\", " +
                 "\"password\": \""+password+"\"" +
                 "}";
-        SendNoAutorization(url, body);
+        POST(url, body, false);
     }
 
     @Override

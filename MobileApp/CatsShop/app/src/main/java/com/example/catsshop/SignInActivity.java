@@ -1,9 +1,11 @@
 package com.example.catsshop;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -16,7 +18,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.API.ApiClient;
+import com.example.API.ApiClientWithMessage;
+import com.example.API.ResultOfAPI;
 import com.example.Authofication.SignIn;
 import com.example.DB.Helper;
 
@@ -146,7 +152,24 @@ public class SignInActivity extends AppCompatActivity {
 
     public void Registrate_Click(View v)
     {
+        ApiClientWithMessage api = new ApiClientWithMessage(this)
+        {
+            @Override
+            public void GetResultReady(ResultOfAPI res) {
 
+            }
+        };
+        api.TitleMessage = "Регистрация в системе";
+        api.MessageReady = "Вы успешно зарегистрировались";
+        api.MessageFail = "Не удалось зарегистрироваться \n" +
+                "   - Возможно логин уже существует в системе \n" +
+                "   - Возможно пароль совпадает с названием одной из ролей";
+        api.POST(Helper.URL.GetURL() + "/users/registrate",
+                "{" +
+                        "\"login\": \"" + login.getText().toString() + "\"," +
+                        "\"password\": \"" + password.getText().toString() + "\"" +
+                        "}",
+                false);
     }
 
     public void AddAdmin_Click(View v)

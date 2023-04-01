@@ -18,8 +18,8 @@
     <string name="SignIn">Войти</string>
     <string name="SignOut">Выйти</string>
     <string name="Registrate">Зарегистрироваться</string>
-    <string name="SignInToSystem">Войти в систему</string>
-    <string name="SignOutFromSystem">Выйти из системы</string>
+    <string name="SignInToSystem">Войти в аккаунт</string>
+    <string name="SignOutFromSystem">Выйти из аккаунта</string>
     <string name="Authorization">Авторизация</string>
     <string name="LoginText">Логин</string>
     <string name="PasswordText">Пароль</string>

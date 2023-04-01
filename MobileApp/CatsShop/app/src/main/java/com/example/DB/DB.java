@@ -77,6 +77,11 @@ public class DB extends SQLiteOpenHelper {
         }
     }
 
+    public boolean HaveToken()
+    {
+        return GetToken().length() > 0;
+    }
+
     public void GetTokenToConfig()
     {
         ConnectConfig.Token = GetToken();
