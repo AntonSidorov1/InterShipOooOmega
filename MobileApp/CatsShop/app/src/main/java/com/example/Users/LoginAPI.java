@@ -3,16 +3,17 @@ package com.example.Users;
 import android.app.Activity;
 
 import com.example.API.ApiHelper;
+import com.example.API.MethodApiHelper.GetApiHelper;
 import com.example.API.ResultOfAPI;
 
-public class LoginAPI extends ApiHelper {
+public class LoginAPI extends GetApiHelper {
     public LoginAPI(Activity ctx) {
         super(ctx);
     }
 
-    public void send(String req)
+    public void send(String url)
     {
-        SendAutorization(req, "", "GET");
+        SendAutorization(url);
     }
 
     @Override

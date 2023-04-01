@@ -8,6 +8,7 @@ import com.example.API.ResultOfAPI;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
@@ -15,7 +16,7 @@ import java.util.Map;
 
 import  com.example.API.ConnectConfig;
 
-public class ApiHelper
+public abstract class ApiHelper
 {
     public Activity ctx;
 
@@ -69,8 +70,11 @@ public class ApiHelper
                 "   - Обратитесь в службу поддержки";
     }
 
-    ResultOfAPI http_get(String req, String payload, String method, Boolean authorization) throws IOException
-    {
+    protected abstract ResultOfAPI queary(String address, String body, Boolean authorization) throws Exception;
+   /* {
+        String method = "GET";
+        String req = address;
+        String payload = body;
         URL url = new URL(req);
 		// url.given(); - Возможный вариант для авторизации и Headers
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -98,24 +102,6 @@ public class ApiHelper
             if (!method.equals("GET") && !method.equals("DELETE")) {
                 out.write(outmsg);
             }
-/*
-            try {
-                Log.e("auth: ", con.getHeaderField("Authorization"));
-            }
-            catch (Exception e)
-            {
-
-            }
-
-            try {
-                Log.e("auth: ", con.getRequestProperty("Authorization"));
-            }
-            catch (Exception e)
-            {
-
-            }
-
- */
 
             out.flush();
 
@@ -152,6 +138,34 @@ public class ApiHelper
             throw e;
         }
     }
+    */
+
+    public static String GetStringFromBuffer(BufferedInputStream inp)
+    {
+        String res = "";
+        try {
+
+            byte[] buf = new byte[512];
+
+            while (true) {
+                int num = inp.read(buf);
+                if (num < 0) break;
+
+                res += new String(buf, 0, num);
+            }
+        } catch (Exception e) {
+            res = e.getMessage();
+        }
+        return res;
+    }
+
+    public static void SetStringToBody(HttpURLConnection con, String text) throws Exception {
+        byte[] outmsg = text.getBytes("utf-8");
+        con.setRequestProperty("Content-Length", String.valueOf(outmsg.length));
+        BufferedOutputStream out = new BufferedOutputStream(con.getOutputStream());
+        out.write(outmsg);
+        out.flush();
+    }
 
 
     public ResultOfAPI res;
@@ -170,7 +184,7 @@ public class ApiHelper
         {
             try
             {
-                final ResultOfAPI res = http_get(req, payload, method, authorization);
+                final ResultOfAPI res = queary(req, payload, authorization);
 
                 ctx.runOnUiThread(new Runnable() {
                     @Override
@@ -192,36 +206,34 @@ public class ApiHelper
         }
     }
 
-    public void SendAutorization(String req, String payload, String method)
+    public void SendAutorization(String address, String body)
     {
-        send(req, payload, method, true);
+        send(address, body, true);
     }
 
-    public void SendNoAutorization(String req, String payload, String method)
+    public void SendNoAutorization(String address, String body)
     {
-        send(req, payload, method, false);
+        send(address, body, false);
     }
 
     public void send(ApiParameters parameters)
     {
-        String method = parameters.Method;
         String address = parameters.GetURL();
         String body = parameters.Body;
         Boolean authorization = parameters.Authorization;
-        send(address, body, method, authorization);
+        send(address, body, authorization);
     }
 
-    public void send(String req, String payload, String method, Boolean authorization)
+    public void send(String address, String body, Boolean authorization)
     {
-        send(req, payload, method, authorization, false);
+        send(address, body, authorization, false);
     }
 
-    public void send(String req, String payload, String method, Boolean authorization, boolean stop)
+    public void send(String req, String payload, Boolean authorization, boolean stop)
     {
         NetOp nop = new NetOp();
         nop.req = req;
         nop.payload = payload;
-        nop.method = method;
         nop.authorization = authorization;
 
         Thread th = new Thread(nop);

@@ -9,11 +9,12 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.example.API.ApiHelper;
 import com.example.API.ConnectConfig;
+import com.example.API.MethodApiHelper.PostApiHelper;
 import com.example.API.ResultOfAPI;
 
 import org.json.JSONObject;
 
-public class SignIn extends ApiHelper {
+public class SignIn extends PostApiHelper {
 
     public SignIn(Activity ctx) {
         super(ctx);
@@ -30,7 +31,7 @@ public class SignIn extends ApiHelper {
                 "\"login\": \""+login+"\", " +
                 "\"password\": \""+password+"\"" +
                 "}";
-        SendNoAutorization(url, body, "POST");
+        SendNoAutorization(url, body);
     }
 
     @Override
