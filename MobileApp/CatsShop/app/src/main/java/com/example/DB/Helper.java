@@ -16,7 +16,7 @@ public class Helper {
 
     public static Account Account = new Account();
 
-    public static URL URL = new URL("https://192.168.0.15:7073/api");
+    public static URL URL = new URL("http://192.168.0.15:5284/api");
 
     public static URL GetURL(Context context)
     {
