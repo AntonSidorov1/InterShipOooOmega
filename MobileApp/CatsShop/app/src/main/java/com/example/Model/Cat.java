@@ -26,7 +26,7 @@ public class Cat {
             Species += "...";
         }
 
-        return String.valueOf(ID) + " - " + Color + " - " + Species + " - " + Gender + " - " + String.format("0.00", Price);
+        return String.valueOf(ID) + " - " + Color + " - " + Species + " - " + Gender + " - " + String.valueOf(Price);
     }
 
     @Override
