@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.API.ConnectConfig;
+import com.example.Configuration.FormatClass;
 import com.example.DB.DB;
 import com.example.DB.Helper;
 import com.example.Users.LoginAPI;
@@ -27,7 +29,17 @@ public class MainActivity extends AppCompatActivity {
 
     TextView url, login, roleRus, roleEng;
 
-    Button signIn, signOut, registarte;
+    Button signIn, signOut, registarte, urlEdit;
+
+    boolean run = true, run1 = true;
+
+    boolean visibleButton = false;
+
+    @Override
+    public void finish() {
+        run = false;
+        super.finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,17 +51,37 @@ public class MainActivity extends AppCompatActivity {
         roleRus = findViewById(R.id.textViewRoleRus);
         roleEng = findViewById(R.id.textViewRoleEng);
 
+        signIn = findViewById(R.id.buttonLogIn);
+        signOut = findViewById(R.id.buttonLogOut);
+        registarte = findViewById(R.id.buttonRegistrate);
+        urlEdit = findViewById(R.id.buttonUrlEdit);
+
         GetDatas();
+        //RunTokenUpdate();
     }
 
-    public Context GetContext()
+    public Activity GetContext()
     {
         return this;
     }
 
     public void GetDatas()
     {
+        run1 = true;
         UsersHelper.GetDatas(url, login, roleRus, roleEng, this);
+        boolean visibleButton = DB.GetDB(this).HaveToken();
+        int visible = FormatClass.GetVisibleByBool(visibleButton);
+        int noVisible = FormatClass.GetNoVisibleByBool(visibleButton);
+        signIn.setVisibility(noVisible);
+        registarte.setVisibility(noVisible);
+        urlEdit.setVisibility(noVisible);
+        signOut.setVisibility(visible);
+    }
+
+    @Override
+    public void startActivityForResult(@NonNull Intent intent, int requestCode) {
+        GetDatas();
+        super.startActivityForResult(intent, requestCode);
     }
 
     @Override

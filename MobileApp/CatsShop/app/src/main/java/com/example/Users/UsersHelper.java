@@ -14,8 +14,19 @@ public class UsersHelper {
     public static void GetDatas(TextView ulr, TextView login, TextView roleRus, TextView roleEng, Activity context)
     {
         GetURL(ulr, context);
-        GetLogin(login, context);
-        GetRole(roleRus, roleEng, login, context);
+
+        if(!DB.GetDB(context).HaveToken())
+        {
+            login.setText("");
+            roleRus.setText("");
+            roleEng.setText("");
+        }
+        else
+        {
+            GetLogin(login, context);
+            GetRole(roleRus, roleEng, login, context);
+
+        }
     }
 
 
@@ -27,7 +38,7 @@ public class UsersHelper {
 
     public static void GetLogin(TextView login, Activity context)
     {
-        login.setText("");
+
         TextView textViewLogin = login;
         String token = ConnectConfig.GetToken(context);
         if(token.length() > 0)
@@ -36,6 +47,7 @@ public class UsersHelper {
             {
                 @Override
                 public void on_fail(String req) {
+                    login.setText("");
                     DB.GetDB(context).TokenClear();
                 }
 
@@ -50,8 +62,6 @@ public class UsersHelper {
 
     public static void GetRole(TextView roleEng, TextView roleRus, TextView login, Activity context)
     {
-        roleEng.setText("");
-        roleRus.setText("");
 
 
         String token = ConnectConfig.GetToken(context);
@@ -59,6 +69,9 @@ public class UsersHelper {
             RoleApi roleAPI = new RoleApi(context) {
                 @Override
                 public void on_fail(String req) {
+
+                    roleEng.setText("");
+                    roleRus.setText("");
                     DB.GetDB(context).TokenClear();
                     GetLogin(login, context);
                 }

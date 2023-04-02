@@ -73,28 +73,28 @@
                 android:textAlignment="center" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/buttonUrlEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="UrlEdit_Click"
                 android:text="@string/urlEdit" />
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/buttonLogIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="SignIn_Click"
                 android:text="@string/SignInToSystem" />
 
             <Button
-                android:id="@+id/button6"
+                android:id="@+id/buttonLogOut"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="SignOut_Click"
                 android:text="@string/SignOutFromSystem" />
 
             <Button
-                android:id="@+id/button7"
+                android:id="@+id/buttonRegistrate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="Registrate_Click"
