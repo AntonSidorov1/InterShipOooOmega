@@ -41,4 +41,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/AddCat"/>
+
+    <ListView
+        android:id="@+id/listCats"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

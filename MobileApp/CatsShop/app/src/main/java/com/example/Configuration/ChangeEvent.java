@@ -10,7 +10,12 @@ public class ChangeEvent {
 
     public void Run(Role role)
     {
-        
+
+    }
+
+    public void Run(String text)
+    {
+
     }
 
 }

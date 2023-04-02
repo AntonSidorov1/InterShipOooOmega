@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.API.ConnectConfig;
+import com.example.Configuration.ChangeEvent;
 import com.example.DB.DB;
 import com.example.DB.Helper;
 
@@ -13,11 +14,23 @@ public class UsersHelper {
 
     public static void GetDatas(Activity context)
     {
-        TextView view = new EditText(context);
-        GetDatas(view, view, view, view, context);
+        GetDatas(context, new ChangeEvent());
     }
 
-    public static void GetDatas(TextView ulr, TextView login, TextView roleRus, TextView roleEng, Activity context)
+    public static void GetDatas(Activity context, ChangeEvent event)
+    {
+        TextView view = new EditText(context);
+        GetDatas(view, view, view, view, context, event);
+    }
+
+    public static void GetDatas
+            (TextView ulr, TextView login, TextView roleRus, TextView roleEng, Activity context)
+    {
+        GetDatas(ulr, login, roleRus, roleEng, context, new ChangeEvent());
+    }
+
+    public static void GetDatas
+            (TextView ulr, TextView login, TextView roleRus, TextView roleEng, Activity context, ChangeEvent event)
     {
         GetURL(ulr, context);
 
@@ -26,11 +39,14 @@ public class UsersHelper {
             login.setText("");
             roleRus.setText("");
             roleEng.setText("");
+            Role role = new Role();
+            event.Run("");
+            event.Run(role);
         }
         else
         {
-            GetLogin(login, context);
-            GetRole(roleRus, roleEng, login, context);
+            GetLogin(login, context, event);
+            GetRole(roleRus, roleEng, login, context, event);
 
         }
     }
@@ -41,8 +57,12 @@ public class UsersHelper {
         url.setText(Helper.GetUrlAddress(context));
     }
 
-
     public static void GetLogin(TextView login, Activity context)
+    {
+        GetLogin(login, context, new ChangeEvent());
+    }
+
+    public static void GetLogin(TextView login, Activity context, ChangeEvent event)
     {
 
         TextView textViewLogin = login;
@@ -60,6 +80,7 @@ public class UsersHelper {
                 @Override
                 public void GetLogin(String login) {
                     textViewLogin.setText(login);
+                    event.Run(login);
                 }
             };
             loginAPI.Get(Helper.GetUrlAddress(context) + "/users/get-login");
@@ -67,6 +88,11 @@ public class UsersHelper {
     }
 
     public static void GetRole(TextView roleEng, TextView roleRus, TextView login, Activity context)
+    {
+        GetRole(roleEng, roleRus, login, context, new ChangeEvent());
+    }
+
+    public static void GetRole(TextView roleEng, TextView roleRus, TextView login, Activity context, ChangeEvent event)
     {
 
 
@@ -87,6 +113,7 @@ public class UsersHelper {
                     roleRus.setText(nameRus);
                     roleEng.setText(nameEng);
                     Role = role;
+                    event.Run(Role);
                 }
             };
             roleAPI.Get(Helper.GetUrlAddress(context) + "/users/get-role");
@@ -125,7 +152,7 @@ public class UsersHelper {
         }
         catch (Exception e)
         {
-            return true;
+            return false;
         }
     }
 
