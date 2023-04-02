@@ -8,6 +8,7 @@ public class Cat {
     public String DateAdded = "";
     public String DateUpdated = "";
     public double Price = 0;
+    public int Age = 0;
 
     public String Datas()
     {
@@ -18,11 +19,11 @@ public class Cat {
         Species = Species.substring(0, species);
         if(color < this.Color.length())
         {
-            Color += " ...";
+            Color += "...";
         }
         if(species < this.Species.length())
         {
-            Species += " ...";
+            Species += "...";
         }
 
         return Color + " " + Species + " (" + Gender + ") " + String.format("2c", Price);
