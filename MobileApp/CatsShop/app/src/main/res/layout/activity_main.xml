@@ -33,6 +33,13 @@
         android:text="@string/AuthorName"
         android:textAlignment="center" />
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Back"
+        android:onClick="Exit"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -99,6 +106,13 @@
                 android:layout_height="wrap_content"
                 android:onClick="Registrate_Click"
                 android:text="@string/Registrate" />
+
+            <Button
+                android:id="@+id/buttonChangeProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ChangeProfile"
+                android:onClick="ChangeProfile_Click"/>
 
         </LinearLayout>
     </ScrollView>

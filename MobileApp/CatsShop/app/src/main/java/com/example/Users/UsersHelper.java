@@ -2,6 +2,7 @@ package com.example.Users;
 
 import android.app.Activity;
 import android.content.Context;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.API.ConnectConfig;
@@ -10,6 +11,11 @@ import com.example.DB.Helper;
 
 public class UsersHelper {
 
+    public static void GetDatas(Activity context)
+    {
+        TextView view = new EditText(context);
+        GetDatas(view, view, view, view, context);
+    }
 
     public static void GetDatas(TextView ulr, TextView login, TextView roleRus, TextView roleEng, Activity context)
     {
@@ -77,14 +83,50 @@ public class UsersHelper {
                 }
 
                 @Override
-                public void GetRole(String nameRus, String nameEng) {
+                public void GetRole(String nameRus, String nameEng, Role role) {
                     roleRus.setText(nameRus);
                     roleEng.setText(nameEng);
+                    Role = role;
                 }
             };
             roleAPI.Get(Helper.GetUrlAddress(context) + "/users/get-role");
         }
     }
 
+    public static Role Role;
+
+    public static boolean RoleIsAdmin(Context context)
+    {
+        if(!DB.GetDB(context).HaveToken())
+        {
+            return false;
+        }
+        try
+        {
+            String role = Role.NameEng;
+            return role.equals("admin") || role.equals("Admin");
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
+
+    public static boolean RoleIsClient(Context context)
+    {
+        if(!DB.GetDB(context).HaveToken())
+        {
+            return false;
+        }
+        try
+        {
+            String role = Role.NameEng;
+            return role.equals("client") || role.equals("Client");
+        }
+        catch (Exception e)
+        {
+            return true;
+        }
+    }
 
 }

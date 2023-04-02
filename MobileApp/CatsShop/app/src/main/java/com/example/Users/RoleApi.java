@@ -42,10 +42,10 @@ public class RoleApi extends ApiClient {
 
     public void GetRole(Role role)
     {
-        GetRole(role.NameRus, role.NameEng);
+        GetRole(role.NameRus, role.NameEng, role);
     }
 
-    public void GetRole(String nameRus, String nameEng)
+    public void GetRole(String nameRus, String nameEng, Role role)
     {
 
     }

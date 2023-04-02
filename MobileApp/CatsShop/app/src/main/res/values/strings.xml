@@ -32,4 +32,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="UserSettings">Настройки</string>
+    <string name="ProfileAndSettings">Профиль и настройки</string>
+    <string name="AddCat">Добавить котика</string>
+    <string name="ChangeProfile">Сменить аккаунт</string>
 </resources>

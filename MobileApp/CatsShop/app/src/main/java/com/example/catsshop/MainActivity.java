@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView url, login, roleRus, roleEng;
 
-    Button signIn, signOut, registarte, urlEdit;
+    Button signIn, signOut, registarte, urlEdit, changeProfile;
 
     boolean run = true, run1 = true;
 
@@ -41,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
         super.finish();
     }
 
+    public void Exit(View v)
+    {
+        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,13 +53,17 @@ public class MainActivity extends AppCompatActivity {
         url = findViewById(R.id.textViewURL);
 
         login = findViewById(R.id.textViewLogin);
+        login.setText("");
         roleRus = findViewById(R.id.textViewRoleRus);
+        roleRus.setText("");
         roleEng = findViewById(R.id.textViewRoleEng);
+        roleEng.setText("");
 
         signIn = findViewById(R.id.buttonLogIn);
         signOut = findViewById(R.id.buttonLogOut);
         registarte = findViewById(R.id.buttonRegistrate);
         urlEdit = findViewById(R.id.buttonUrlEdit);
+        changeProfile = findViewById(R.id.buttonChangeProfile);
 
         GetDatas();
         //RunTokenUpdate();
@@ -76,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         registarte.setVisibility(noVisible);
         urlEdit.setVisibility(noVisible);
         signOut.setVisibility(visible);
+        changeProfile.setVisibility(visible);
     }
 
     @Override
@@ -124,7 +134,55 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(i, 200);
     }
 
+    public void ChangeProfile_Click(View v)
+    {
+        SignOut_Click(v, true);
+    }
+
     public void SignOut_Click(View v)
+    {
+        SignOut_Click(v, false);
+    }
+    
+    public void ChangeProfile(View v)
+    {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Смена аккаунта");
+
+        builder.setNegativeButton("Зарегистрироваться", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                DB.GetDB(GetContext()).TokenClear();
+                GetDatas();
+                Registrate_Click(v);
+            }
+        });
+
+        builder.setPositiveButton("Войти", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                GetDatas();
+                SignIn_Click(v);
+            }
+
+        });
+
+        builder.setNeutralButton("Отмена", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                GetDatas();
+            }
+
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.setMessage("Каким образом вы хотите сменить аккаунт?");
+        dialog.show();
+    }
+
+    public void SignOut_Click(View v, boolean change)
     {
         if(!DB.GetDB(this).HaveToken())
         {
@@ -136,6 +194,10 @@ public class MainActivity extends AppCompatActivity {
             dialog.setMessage("Вы не авторизированы в системе");
             dialog.show();
             Toast.makeText(this, "Вы не авторизированы в системе", Toast.LENGTH_SHORT).show();
+            if(change)
+            {
+                ChangeProfile(v);
+            }
             return;
         }
 
@@ -147,6 +209,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 DB.GetDB(GetContext()).TokenClear();
                 GetDatas();
+                if(change)
+                {
+                    ChangeProfile(v);
+                }
             }
         });
 
