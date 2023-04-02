@@ -13,8 +13,8 @@ public class Cat {
     public String Datas()
     {
         String Color = this.Color, Species = this.Species;
-        int color = Math.max(15, Color.length());
-        int species = Math.max(15, Species.length());
+        int color = Math.min(15, Color.length());
+        int species = Math.min(15, Species.length());
         Color = Color.substring(0, color);
         Species = Species.substring(0, species);
         if(color < this.Color.length())
@@ -26,7 +26,7 @@ public class Cat {
             Species += "...";
         }
 
-        return Color + " " + Species + " (" + Gender + ") " + String.format("2c", Price);
+        return String.valueOf(ID) + " - " + Color + " - " + Species + " - " + Gender + " - " + String.format("0.00", Price);
     }
 
     @Override
