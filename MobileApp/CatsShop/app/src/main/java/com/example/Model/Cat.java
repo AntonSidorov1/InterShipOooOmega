@@ -1,5 +1,9 @@
 package com.example.Model;
 
+import com.example.Configuration.FormatClass;
+
+import java.util.Date;
+
 public class Cat {
     public int ID = 0;
     public String Gender = "";
@@ -15,6 +19,13 @@ public class Cat {
     }
 
     public int Age = 0;
+
+    public void DatesChangeFormat()
+    {
+        DateAdded = FormatClass.FormatDate(DateAdded);
+        DateUpdated = FormatClass.FormatDate(DateUpdated);
+    }
+
 
     public String Datas()
     {

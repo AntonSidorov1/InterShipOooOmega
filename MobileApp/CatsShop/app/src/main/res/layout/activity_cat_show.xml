@@ -62,17 +62,23 @@
                 android:id="@+id/textViewColorText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/ColorLable"
-                android:textSize="18sp"
-                android:textStyle="bold|italic" />
+                android:text="@string/ColorLable" />
             <TextView
                 android:id="@+id/textViewColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/ColorLable" />
+                android:text="@string/ColorLable"
+                android:textSize="18sp"
+                android:textStyle="bold|italic" />
 
             <TextView
                 android:id="@+id/textViewSpeciesText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/SpeciesText" />
+
+            <TextView
+                android:id="@+id/textViewSpecies"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/SpeciesText"
@@ -80,13 +86,13 @@
                 android:textStyle="bold|italic" />
 
             <TextView
-                android:id="@+id/textViewSpecies"
+                android:id="@+id/textViewGenderText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/SpeciesText" />
+                android:text="@string/GenderText" />
 
             <TextView
-                android:id="@+id/textViewGenderText"
+                android:id="@+id/textViewGender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/GenderText"
@@ -94,13 +100,13 @@
                 android:textStyle="bold|italic" />
 
             <TextView
-                android:id="@+id/textViewGender"
+                android:id="@+id/textViewAgeText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/GenderText" />
+                android:text="@string/AgeText" />
 
             <TextView
-                android:id="@+id/textViewAgeText"
+                android:id="@+id/textViewAge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/AgeText"
@@ -108,13 +114,13 @@
                 android:textStyle="bold|italic" />
 
             <TextView
-                android:id="@+id/textViewAge"
+                android:id="@+id/textViewPriceText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/AgeText" />
+                android:text="@string/PriceText" />
 
             <TextView
-                android:id="@+id/textViewPriceText"
+                android:id="@+id/textViewPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/PriceText"
@@ -122,18 +128,10 @@
                 android:textStyle="bold|italic" />
 
             <TextView
-                android:id="@+id/textViewPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/PriceText" />
-
-            <TextView
                 android:id="@+id/textViewDateAddedText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/DateAddedText"
-                android:textSize="18sp"
-                android:textStyle="bold|italic" />
+                android:text="@string/DateAddedText" />
 
             <TextView
                 android:id="@+id/textViewDateAdded"
@@ -145,9 +143,7 @@
                 android:id="@+id/textViewDateUpdatedText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/DateUpdatedText"
-                android:textSize="18sp"
-                android:textStyle="bold|italic" />
+                android:text="@string/DateUpdatedText" />
 
             <TextView
                 android:id="@+id/textViewDateUpdated"

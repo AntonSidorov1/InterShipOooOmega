@@ -116,7 +116,7 @@ public class CatShowActivity extends AppCompatActivity {
             public void Run(Role role) {
 
                 int visible = FormatClass.GetVisibleByBool(UsersHelper.RoleIsAdmin(GetContext()));
-                int inVisible = FormatClass.GetNoVisibleByBool(UsersHelper.RoleIsClient(GetContext()));
+                int inVisible = FormatClass.GetVisibleByBool(UsersHelper.RoleIsClient(GetContext()));
                 try {
                     deleteCat.setVisibility(visible);
                 }
@@ -159,6 +159,7 @@ public class CatShowActivity extends AppCompatActivity {
             cat.Gender = object.getString("gender");
             cat.DateAdded = object.getString("dateAdded");
             cat.DateUpdated = object.getString("dateUpdated");
+            cat.DatesChangeFormat();
         } catch (Exception e) {
             e.printStackTrace();
         }
