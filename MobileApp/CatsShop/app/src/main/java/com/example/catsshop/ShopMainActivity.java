@@ -10,11 +10,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.API.ApiClient;
 import com.example.API.ResultOfAPI;
@@ -69,6 +71,16 @@ public class ShopMainActivity extends AppCompatActivity {
 
         GetDatas();
         RunGetCatsFromApi();
+
+        listCats.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int idCat = catsAdapter.getItem(position).ID;
+                Intent i = new Intent(GetContext(), CatShowActivity.class);
+                i.putExtra("IdCat", idCat);
+                startActivityForResult(i, 200);
+            }
+        });
     }
 
     public Activity GetContext()
@@ -147,6 +159,22 @@ public class ShopMainActivity extends AppCompatActivity {
                                     if (res.Code != 200)
                                         throw new Exception();
                                     GetGats(res.Body);
+                                }
+
+                                @Override
+                                public void on_fail(ResultOfAPI res, String message) {
+                                    on_fail(message);
+                                }
+
+                                @Override
+                                public void on_fail(String req) {
+                                    cats.clear();
+
+                                    Toast.makeText(GetContext(),
+                                            ErrorMessage(),
+                                            Toast.LENGTH_SHORT);
+
+                                    ListChange();
                                 }
                             };
                             api.GET(Helper.GetURL(GetContext()).GetURL() + "/cats", false);

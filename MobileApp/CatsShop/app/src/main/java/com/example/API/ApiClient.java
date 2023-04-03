@@ -51,7 +51,7 @@ public class ApiClient
     {
     }
 
-    public String ErrorMessage() {
+    public static String ErrorMessage() {
         return "В данный момент существуют проблемы с приложением \n" +
                 "   - Проверьте подключение к сети \n" +
                 "   - Обратитесь в службу поддержки";

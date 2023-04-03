@@ -35,4 +35,15 @@
     <string name="ProfileAndSettings">Профиль и настройки</string>
     <string name="AddCat">Добавить котика</string>
     <string name="ChangeProfile">Сменить аккаунт</string>
+    <string name="Cat">Котик</string>
+    <string name="deletecat">Удалить котика</string>
+    <string name="updateCat">Изменить котика</string>
+    <string name="buyCat">Купить котика</string>
+    <string name="ColorLable">Цвет:</string>
+    <string name="SpeciesText">Порода:</string>
+    <string name="GenderText">Пол:</string>
+    <string name="AgeText">Возраст:</string>
+    <string name="DateAddedText">Дата добавления:</string>
+    <string name="DateUpdatedText">Дата изменения:</string>
+    <string name="PriceText">Цена:</string>
 </resources>

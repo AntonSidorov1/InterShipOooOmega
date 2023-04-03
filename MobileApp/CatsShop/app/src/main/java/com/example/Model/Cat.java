@@ -8,6 +8,12 @@ public class Cat {
     public String DateAdded = "";
     public String DateUpdated = "";
     public double Price = 0;
+
+    public String GetPrice()
+    {
+        return String.format("%.2f р", Price);
+    }
+
     public int Age = 0;
 
     public String Datas()
@@ -26,7 +32,12 @@ public class Cat {
             Species += "...";
         }
 
-        return String.valueOf(ID) + " - " + Color + " - " + Species + " - " + Gender + " - " + String.valueOf(Price);
+        return String.valueOf(ID) + ") ==================== \n" +
+                "Цвет - " + Color + "\n" +
+                "Порода - " + Species + "\n" +
+                "Пол - " + Gender + " \n " +
+                "Возраст - " + Age + " \n" +
+                String.format("Цена - %.2f р", Price);
     }
 
     @Override

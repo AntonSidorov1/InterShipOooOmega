@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CatShowActivity">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Cat"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold|italic" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Back"
+        android:onClick="Exit_Click"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonDeleteCat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/deletecat" />
+
+        <Button
+            android:id="@+id/buttonUpdateCat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/updateCat" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonBuyCat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/buyCat" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textViewColorText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ColorLable"
+                android:textSize="18sp"
+                android:textStyle="bold|italic" />
+            <TextView
+                android:id="@+id/textViewColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ColorLable" />
+
+            <TextView
+                android:id="@+id/textViewSpeciesText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/SpeciesText"
+                android:textSize="18sp"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:id="@+id/textViewSpecies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/SpeciesText" />
+
+            <TextView
+                android:id="@+id/textViewGenderText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/GenderText"
+                android:textSize="18sp"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:id="@+id/textViewGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/GenderText" />
+
+            <TextView
+                android:id="@+id/textViewAgeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/AgeText"
+                android:textSize="18sp"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:id="@+id/textViewAge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/AgeText" />
+
+            <TextView
+                android:id="@+id/textViewPriceText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/PriceText"
+                android:textSize="18sp"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:id="@+id/textViewPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/PriceText" />
+
+            <TextView
+                android:id="@+id/textViewDateAddedText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/DateAddedText"
+                android:textSize="18sp"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:id="@+id/textViewDateAdded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/DateAddedText" />
+
+            <TextView
+                android:id="@+id/textViewDateUpdatedText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/DateUpdatedText"
+                android:textSize="18sp"
+                android:textStyle="bold|italic" />
+
+            <TextView
+                android:id="@+id/textViewDateUpdated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/DateUpdatedText" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
