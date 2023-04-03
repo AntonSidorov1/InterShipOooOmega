@@ -35,6 +35,7 @@ public class CatShowActivity extends AppCompatActivity {
     Button deleteCat, updateCat, buyCat;
 
     TextView color, species, gender, age, dateAdded, dateUpdated, price;
+    TextView textViewCat;
 
     @Override
     public void finish() {
@@ -97,6 +98,10 @@ public class CatShowActivity extends AppCompatActivity {
         dateAdded.setText("");
         dateUpdated = findViewById(R.id.textViewDateUpdated);
         dateUpdated.setText("");
+
+        textViewCat = findViewById(R.id.textViewCat);
+        String cat = textViewCat.getText().toString();
+        textViewCat.setText(cat + " " + String.valueOf(idCat));
 
         GetDatas();
         RunGetCatsFromApi();

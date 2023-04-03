@@ -22,12 +22,28 @@ public class FormatClass {
     }
 
 
-    public static String FormatDate(String date)
-    {
+    public static String FormatDate(String date) {
         date = date.replace("T", " ");
         date = date.replace("Т", " ");
-        date = date.split(".")[0];
-        return date;
+        date = date.replace('.', '_');
+        date = date.split("_")[0];
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date time = format.parse(date);
+            date = new SimpleDateFormat("dd-MM-yyyy HH:mm").format(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        try
+        {
+            return date.replace("-", ".");
+        }
+        catch(Exception e)
+        {
+            return date;
+        }
     }
 
 }

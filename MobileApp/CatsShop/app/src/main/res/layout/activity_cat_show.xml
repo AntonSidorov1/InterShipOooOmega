@@ -8,7 +8,7 @@
     tools:context=".CatShowActivity">
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textViewCat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/Cat"

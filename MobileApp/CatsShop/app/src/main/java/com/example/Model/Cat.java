@@ -20,6 +20,23 @@ public class Cat {
 
     public int Age = 0;
 
+    public String GetAge()
+    {
+        String age = String.valueOf(Age);
+        int length = age.length();
+        String part = "";
+        if(length < 3)
+        {
+            part = age;
+        }
+        else
+        {
+            part = age.substring(age.length()-2, 2);
+        }
+
+        return part;
+    }
+
     public void DatesChangeFormat()
     {
         DateAdded = FormatClass.FormatDate(DateAdded);
