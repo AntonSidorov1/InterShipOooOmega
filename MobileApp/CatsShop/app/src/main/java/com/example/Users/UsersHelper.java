@@ -42,6 +42,7 @@ public class UsersHelper {
             Role role = new Role();
             event.Run("");
             event.Run(role);
+            event.Run();
         }
         else
         {

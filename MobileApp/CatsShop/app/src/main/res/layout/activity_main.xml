@@ -114,6 +114,20 @@
                 android:text="@string/ChangeProfile"
                 android:onClick="ChangeProfile_Click"/>
 
+            <Button
+                android:id="@+id/buttonCahngePassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Changepassword"
+                android:onClick="ChangePassword_Click"/>
+
+            <Button
+                android:id="@+id/buttonDropAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/DropAccount"
+                android:onClick="DropAccount_Click"/>
+
         </LinearLayout>
     </ScrollView>
 

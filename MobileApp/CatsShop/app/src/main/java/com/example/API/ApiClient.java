@@ -208,6 +208,11 @@ public class ApiClient
         send(address, body, "POST", authorization);
     }
 
+    public void PUT(String address, Boolean authorization)
+    {
+        PUT(address, "", authorization);
+    }
+
     public void PUT(String address, String body, Boolean authorization)
     {
         send(address, body, "PUT", authorization);
@@ -278,6 +283,10 @@ public class ApiClient
 
     protected ResultOfAPI methodWithBody(String address, String body, String method, Boolean authorization) throws Exception
     {
+        if(body.equals(""))
+        {
+            return methodWithOutBody(address, method, authorization);
+        }
         URL url = new URL(address);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
 

@@ -46,4 +46,6 @@
     <string name="DateAddedText">Дата добавления:</string>
     <string name="DateUpdatedText">Дата изменения:</string>
     <string name="PriceText">Цена:</string>
+    <string name="Changepassword">Сменить пароль</string>
+    <string name="DropAccount">Удалить аккаунт</string>
 </resources>

@@ -91,7 +91,7 @@ public class ApiClientWithMessage extends ApiClient{
     public void on_fail(ResultOfAPI res, String message) {
 
         AlertDialog.Builder dialog = new AlertDialog.Builder(GetActivity());
-        dialog.setTitle(message);
+        dialog.setTitle(message + " (Ошибка!!!)");
         dialog.setCancelable(false);
         dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override

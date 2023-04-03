@@ -35,6 +35,7 @@ public class SignInActivity extends AppCompatActivity {
     Button signIn;
     String doingText;
     EditText login, password;
+    TextView loginText, passwordText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,8 @@ public class SignInActivity extends AppCompatActivity {
 
         login = findViewById(R.id.editTextLoginInput);
         password = findViewById(R.id.editTextPasswordInput);
+        loginText = findViewById(R.id.textViewLoginInputText);
+        passwordText = findViewById(R.id.textViewPasswordInputText);
 
         login.setText("");
         password.setText("");
@@ -137,9 +140,41 @@ public class SignInActivity extends AppCompatActivity {
                     }
                 });
             }
+            else if(doingText.equals("password"))
+            {
+                login.setVisibility(View.INVISIBLE);
+                loginText.setText(i.getStringExtra("login"));
+                passwordText.setText("Новый пароль");
+
+                signIn.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        ChangePassword_Click(v);
+                    }
+                });
+            }
         }
 
         GetDatas();
+    }
+
+    public void ChangePassword_Click(View v)
+    {
+        ApiClientWithMessage api = new ApiClientWithMessage(this)
+        {
+            @Override
+            public void GetResultReady(ResultOfAPI res) {
+                finish();
+            }
+        };
+        api.TitleMessage = "Смена пароля";
+        api.MessageReady = "Пароль успешно сменен";
+        api.MessageFail = "Не удалось зарегистрироваться \n" +
+                "   - Возможно вы уже неавторизированы в системе \n" +
+                "   - Возможно пароль совпадает с названием одной из ролей \n";
+        api.PATCH(Helper.GetURL(this).GetURL()+"/users/change-password", "\""+password.getText().toString()+ "\"", true);
+
     }
 
     public void SignIn_Click(View v)

@@ -17,11 +17,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.API.ApiClientWithMessage;
 import com.example.API.ConnectConfig;
+import com.example.API.ResultOfAPI;
+import com.example.Configuration.ChangeEvent;
 import com.example.Configuration.FormatClass;
 import com.example.DB.DB;
 import com.example.DB.Helper;
 import com.example.Users.LoginAPI;
+import com.example.Users.Role;
 import com.example.Users.RoleApi;
 import com.example.Users.UsersHelper;
 
@@ -29,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView url, login, roleRus, roleEng;
 
-    Button signIn, signOut, registarte, urlEdit, changeProfile;
+    Button signIn, signOut, registarte, urlEdit, changeProfile, changePassword, dropAccount;
 
     boolean run = true, run1 = true;
 
@@ -64,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
         registarte = findViewById(R.id.buttonRegistrate);
         urlEdit = findViewById(R.id.buttonUrlEdit);
         changeProfile = findViewById(R.id.buttonChangeProfile);
+        changePassword = findViewById(R.id.buttonCahngePassword);
+        dropAccount = findViewById(R.id.buttonDropAccount);
 
         GetDatas();
         //RunTokenUpdate();
@@ -77,15 +83,26 @@ public class MainActivity extends AppCompatActivity {
     public void GetDatas()
     {
         run1 = true;
-        UsersHelper.GetDatas(url, login, roleRus, roleEng, this);
-        boolean visibleButton = DB.GetDB(this).HaveToken();
-        int visible = FormatClass.GetVisibleByBool(visibleButton);
-        int noVisible = FormatClass.GetNoVisibleByBool(visibleButton);
-        signIn.setVisibility(noVisible);
-        registarte.setVisibility(noVisible);
-        urlEdit.setVisibility(noVisible);
-        signOut.setVisibility(visible);
-        changeProfile.setVisibility(visible);
+
+        ChangeEvent event = new ChangeEvent()
+        {
+            @Override
+            public void Run() {
+                boolean visibleButton = DB.GetDB(GetContext()).HaveToken();
+                int visible = FormatClass.GetVisibleByBool(visibleButton);
+                int noVisible = FormatClass.GetNoVisibleByBool(visibleButton);
+                signIn.setVisibility(noVisible);
+                registarte.setVisibility(noVisible);
+                urlEdit.setVisibility(noVisible);
+                signOut.setVisibility(visible);
+                changeProfile.setVisibility(visible);
+                dropAccount.setVisibility(visible);
+                changePassword.setVisibility(visible);
+            }
+        };
+
+        UsersHelper.GetDatas(url, login, roleRus, roleEng, this, event);
+        event.Run();
     }
 
     @Override
@@ -186,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
     {
         if(!DB.GetDB(this).HaveToken())
         {
-
+            GetDatas();
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Выход из аккаунта (Ошибка!!!)");
 
@@ -238,5 +255,67 @@ public class MainActivity extends AppCompatActivity {
         i.putExtra("doingText", "Регистрация");
         i.putExtra("buttonSignIn", "Зарегистрироваться");
         startActivityForResult(i, 200);
+    }
+
+    public void ChangePassword_Click(View v)
+    {
+        Intent i = new Intent(this, SignInActivity.class);
+        i.putExtra("Doing", "password");
+        i.putExtra("doingText", "Смена пароля");
+        i.putExtra("buttonSignIn", "Сменить пароль");
+        startActivityForResult(i, 200);
+    }
+
+    public void DropAccount_Click(View v)
+    {
+        if(!DB.GetDB(this).HaveToken())
+        {
+            GetDatas();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Удаление аккаунта (Ошибка!!!)");
+
+            AlertDialog dialog = builder.create();
+            dialog.setMessage("Вы не авторизированы в системе");
+            dialog.show();
+            Toast.makeText(this, "Вы не авторизированы в системе", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Удаление аккаунта");
+
+        builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ApiClientWithMessage api = new ApiClientWithMessage(GetContext())
+                {
+                    @Override
+                    public void GetResult(ResultOfAPI res) {
+                        DB.GetDB(GetContext()).ClearToken();
+                        DB.GetDB(GetContext()).ClearAccount();
+                        GetDatas();
+                    }
+                };
+                api.TitleMessage = "Удаление аккаунта";
+                api.MessageReady = "Аккаунт успешно удалён";
+                api.MessageFail = "Не удалось удалить аккаунт";
+                api.DELETE(Helper.GetURL(GetContext()).GetURL() + "/users", true);
+            }
+        });
+
+        builder.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                GetDatas();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.setMessage("Вы действительно хотите удалить аккаунт?");
+        dialog.show();
+
+
     }
 }

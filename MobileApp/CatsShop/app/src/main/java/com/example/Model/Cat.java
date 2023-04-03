@@ -22,19 +22,24 @@ public class Cat {
 
     public String GetAge()
     {
-        String age = String.valueOf(Age);
-        int length = age.length();
-        String part = "";
-        if(length < 3)
+        int count = Age % 100;
+        if(count > 4 && count < 21)
         {
-            part = age;
+            return Age + " лет";
+        }
+        count %= 10;
+        if(count == 1)
+        {
+            return Age + " год";
+        }
+        else if(count > 1 && count < 5)
+        {
+            return Age + " года";
         }
         else
         {
-            part = age.substring(age.length()-2, 2);
+            return Age + " лет";
         }
-
-        return part;
     }
 
     public void DatesChangeFormat()
@@ -64,7 +69,7 @@ public class Cat {
                 "Цвет - " + Color + "\n" +
                 "Порода - " + Species + "\n" +
                 "Пол - " + Gender + " \n " +
-                "Возраст - " + Age + " \n" +
+                "Возраст - " + GetAge() + " \n" +
                 String.format("Цена - %.2f р", Price);
     }
 

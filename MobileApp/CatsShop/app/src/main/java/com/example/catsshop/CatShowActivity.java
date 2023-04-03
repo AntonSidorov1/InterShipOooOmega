@@ -2,9 +2,11 @@ package com.example.catsshop;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.API.ApiClient;
+import com.example.API.ApiClientWithMessage;
 import com.example.API.ResultOfAPI;
 import com.example.Configuration.ChangeEvent;
 import com.example.Configuration.FormatClass;
@@ -68,7 +71,7 @@ public class CatShowActivity extends AppCompatActivity {
         color.setText(String.valueOf(cat.Color));
         species.setText(String.valueOf(cat.Species));
         gender.setText(String.valueOf(cat.Gender));
-        age.setText(String.valueOf(cat.Age));
+        age.setText(String.valueOf(cat.GetAge()));
         price.setText(String.valueOf(cat.GetPrice()));
         dateAdded.setText(String.valueOf(cat.DateAdded));
         dateUpdated.setText(String.valueOf(cat.DateUpdated));
@@ -106,6 +109,59 @@ public class CatShowActivity extends AppCompatActivity {
         GetDatas();
         RunGetCatsFromApi();
     }
+
+    public void BuyClick(View v)
+    {
+        run1 = false;
+        if(!UsersHelper.RoleIsClient(this))
+        {
+            run1 = true;
+            return;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setTitle("Покупка котика");
+        builder.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                run1 = true;
+            }
+        });
+        builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                BuyCat();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.setMessage("Купить котика");
+        dialog.show();
+    }
+
+    public void BuyCat()
+    {
+        ApiClientWithMessage api = new ApiClientWithMessage(this)
+        {
+            @Override
+            public void GetResult(ResultOfAPI res) {
+                AfterBought();
+            }
+        };
+
+        api.TitleMessage = "Покупка котика";
+        api.MessageReady = "Котик успешно куплен";
+        api.MessageFail = "Не удалось купить котика";
+
+        api.PUT(Helper.GetURL(this).GetURL()+"/cats/buy/"+idCat, true);
+
+    }
+
+    public void AfterBought()
+    {
+        run1 = true;
+    }
+
 
     public Activity GetContext()
     {
