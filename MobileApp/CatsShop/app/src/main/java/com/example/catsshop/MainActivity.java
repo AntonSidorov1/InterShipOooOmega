@@ -292,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     @Override
                     public void GetResult(ResultOfAPI res) {
-                        DB.GetDB(GetContext()).ClearToken();
+                        DB.GetDB(GetContext()).TokenClear();
                         DB.GetDB(GetContext()).ClearAccount();
                         GetDatas();
                     }
