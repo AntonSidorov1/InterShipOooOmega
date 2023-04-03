@@ -2,6 +2,7 @@ package com.example.Configuration;
 
 import android.view.View;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -23,8 +24,10 @@ public class FormatClass {
 
     public static String FormatDate(String date)
     {
-        Date time = new Date(Date.parse(date));
-        return new SimpleDateFormat("dd.MM.yyyy hh:mm:ss").format(time);
+        date = date.replace("T", " ");
+        date = date.replace("Т", " ");
+        date = date.split(".")[0];
+        return date;
     }
 
 }
