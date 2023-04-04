@@ -106,7 +106,7 @@ public class UsersListActivity extends AppCompatActivity {
                         run1 = true;
                     }
                 });
-                builder.setNegativeButton("Да", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("Удалить", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         DeleteUser(user);
@@ -129,7 +129,7 @@ public class UsersListActivity extends AppCompatActivity {
         builder.setTitle("Удаление пользователя");
         builder.setCancelable(false);
 
-        builder.setPositiveButton("Удалить", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 ApiClientWithMessage api = new ApiClientWithMessage(GetContext())
