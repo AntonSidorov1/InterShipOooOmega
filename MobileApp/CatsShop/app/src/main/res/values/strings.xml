@@ -48,4 +48,5 @@
     <string name="PriceText">Цена:</string>
     <string name="Changepassword">Сменить пароль</string>
     <string name="DropAccount">Удалить аккаунт</string>
+    <string name="ProgramInfo">О приложении</string>
 </resources>

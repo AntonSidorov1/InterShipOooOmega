@@ -33,7 +33,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/deletecat" />
+            android:text="@string/deletecat"
+            android:onClick="DeleteCat_Click"/>
 
         <Button
             android:id="@+id/buttonUpdateCat"

@@ -19,6 +19,7 @@ import com.example.API.ApiClientWithMessage;
 import com.example.API.ResultOfAPI;
 import com.example.Configuration.ChangeEvent;
 import com.example.Configuration.FormatClass;
+import com.example.DB.DB;
 import com.example.DB.Helper;
 import com.example.Model.Cat;
 import com.example.Users.Role;
@@ -292,6 +293,44 @@ public class CatShowActivity extends AppCompatActivity {
         };
         Thread thread = new Thread(run);
         thread.start();
+    }
+
+    public void DeleteCat_Click(View v)
+    {
+        run1 = false;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Удаление котика");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ApiClientWithMessage api = new ApiClientWithMessage(GetContext())
+                {
+                    @Override
+                    public void GetResult(ResultOfAPI res) {
+                        run1 = true;
+                    }
+                };
+                api.TitleMessage = "Удаление котика";
+                api.MessageReady = "Котик успешно удалён";
+                api.MessageFail = "Не удалось удалить котика";
+                api.DELETE(Helper.GetURL(GetContext()).GetURL() + "/cats/"+idCat, true);
+            }
+        });
+
+        builder.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                run1 = true;
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.setMessage("Вы действительно хотите удалить аккаунт?");
+        dialog.show();
+
     }
 
 }

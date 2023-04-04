@@ -220,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Выход из аккаунта");
+        builder.setCancelable(false);
 
         builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
             @Override
@@ -284,6 +285,7 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Удаление аккаунта");
+        builder.setCancelable(false);
 
         builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
             @Override
@@ -315,7 +317,27 @@ public class MainActivity extends AppCompatActivity {
         dialog.setCancelable(false);
         dialog.setMessage("Вы действительно хотите удалить аккаунт?");
         dialog.show();
+    }
 
+    public void ProgramInfo_Click(View v)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("О приложении");
+        builder.setCancelable(false);
 
+        builder.setPositiveButton("ОК", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                GetDatas();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.setMessage("Название приложения - CatsShop \n" +
+                "Назначение - Магазин котиков \n" +
+                "Автор - Сидоров Антон Дмитриевич \n" +
+                "URL-адрес сервера - " + Helper.GetUrlAddress(GetContext()));
+        dialog.show();
     }
 }
