@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView url, login, roleRus, roleEng;
 
-    Button signIn, signOut, registarte, urlEdit, changeProfile, changePassword, dropAccount;
+    Button signIn, signOut, registarte, urlEdit, changeProfile, changePassword, dropAccount, userManagment;
 
     boolean run = true, run1 = true;
 
@@ -70,9 +70,39 @@ public class MainActivity extends AppCompatActivity {
         changeProfile = findViewById(R.id.buttonChangeProfile);
         changePassword = findViewById(R.id.buttonCahngePassword);
         dropAccount = findViewById(R.id.buttonDropAccount);
+        userManagment = findViewById(R.id.buttonUserManagment);
 
         GetDatas();
-        //RunTokenUpdate();
+        RunDatasChange();
+    }
+
+    public void RunDatasChange()
+    {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                while(run)
+                {
+                    if(run1)
+                    {
+                        GetContext().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                GetDatas();
+                            }
+                        });
+                    }
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+
+        Thread thread = new Thread(runnable);
+        thread.start();
     }
 
     public Activity GetContext()
@@ -98,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 changeProfile.setVisibility(visible);
                 dropAccount.setVisibility(visible);
                 changePassword.setVisibility(visible);
+                userManagment.setVisibility(FormatClass.GetVisibleByBool(UsersHelper.RoleIsAdmin(GetContext())));
             }
         };
 
@@ -132,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         GetDatas();
+        run1 = true;
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -141,6 +173,11 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(i, 200);
     }
 
+    @Override
+    public void startActivityForResult(@NonNull Intent intent, int requestCode, @Nullable Bundle options) {
+        run1 = false;
+        super.startActivityForResult(intent, requestCode, options);
+    }
 
     public void SignIn_Click(View v)
     {
@@ -339,5 +376,17 @@ public class MainActivity extends AppCompatActivity {
                 "Автор - Сидоров Антон Дмитриевич \n" +
                 "URL-адрес сервера - " + Helper.GetUrlAddress(GetContext()));
         dialog.show();
+    }
+
+    public void UsersManagment_Click(View v)
+    {
+        GetDatas();
+        if(!UsersHelper.RoleIsAdmin(this))
+        {
+            Toast.makeText(this, "Вы не являетесь админом", Toast.LENGTH_SHORT);
+            return;
+        }
+        Intent i = new Intent(this, UsersListActivity.class);
+        startActivityForResult(i, 200);
     }
 }

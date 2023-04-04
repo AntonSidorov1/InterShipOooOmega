@@ -1,5 +1,8 @@
 package com.example.DB;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Account {
 
     public String login = "";
@@ -9,7 +12,7 @@ public class Account {
 
     @Override
     public String toString() {
-        return ID + ": " + login;
+        return login;
     }
 
     public Account Copy()
@@ -20,4 +23,44 @@ public class Account {
         account.password = password;
         return account;
     }
+
+    public Account()
+    {
+
+    }
+
+
+    public Account(JSONObject object)
+    {
+        this();
+        SetJson(object);
+    }
+
+    public Account(String object)
+    {
+        this();
+        SetJson(object);
+    }
+
+    public void SetJson(JSONObject json)
+    {
+        try {
+            JSONObject object = json;
+            login = object.getString("login");
+            password = object.getString("password");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void SetJson(String json)
+    {
+        try {
+            SetJson(new JSONObject(json));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

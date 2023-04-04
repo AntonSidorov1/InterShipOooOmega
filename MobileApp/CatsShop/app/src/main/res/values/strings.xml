@@ -50,4 +50,6 @@
     <string name="DropAccount">Удалить аккаунт</string>
     <string name="ProgramInfo">О приложении</string>
     <string name="zero">0</string>
+    <string name="UserManagment">Управление пользователями</string>
+    <string name="AddAdminUser">Добавить админа</string>
 </resources>

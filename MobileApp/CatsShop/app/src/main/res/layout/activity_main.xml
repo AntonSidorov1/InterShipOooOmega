@@ -135,6 +135,13 @@
                 android:text="@string/ProgramInfo"
                 android:onClick="ProgramInfo_Click"/>
 
+            <Button
+                android:id="@+id/buttonUserManagment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/UserManagment"
+                android:onClick="UsersManagment_Click"/>
+
         </LinearLayout>
     </ScrollView>
 
