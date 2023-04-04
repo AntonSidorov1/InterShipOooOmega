@@ -19,27 +19,31 @@ public class User extends Account {
         super();
     }
 
-    public Role Role = new Role();
+    public Role Role;
 
     @Override
     public void SetJson(JSONObject json) {
         try
         {
-            super.SetJson(json);
-            Role = new Role(json.getJSONObject("role"));
+            JSONObject object = json;
+            login = object.getString("login");
+            password = object.getString("password");
+            this.Role = new Role();
+            this.Role.NameEng = object.getString("roleEng");
+            this.Role.NameRus = object.getString("roleRus");
         }
         catch (Exception e)
         {
             super.SetJson(json);
-            Role = new Role();
+            this.Role = new Role();
         }
     }
 
     @Override
     public String toString() {
         return super.toString() + " - "
-                + Role.NameRus + " (" +
-                Role.NameEng +")";
+                + GetRoleRus() + " (" +
+                GetRoleEng() +")";
     }
 
     public String GetInfo()
@@ -51,11 +55,11 @@ public class User extends Account {
 
     public String GetRoleRus()
     {
-        return Role.NameRus;
+        return this.Role.NameRus;
     }
 
     public String GetRoleEng()
     {
-        return Role.NameEng;
+        return this.Role.NameEng;
     }
 }

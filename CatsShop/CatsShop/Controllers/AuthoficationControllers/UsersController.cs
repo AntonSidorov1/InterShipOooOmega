@@ -157,7 +157,7 @@ namespace CatsShop
         public ActionResult DropUser(string login)
         {
             string name = User.Identity.Name ?? "";
-            if (HaveLogin(name))
+            if (!HaveLogin(name))
             {
                 return Unauthorized("Ваш логин больше не существует с cистеме");
             }

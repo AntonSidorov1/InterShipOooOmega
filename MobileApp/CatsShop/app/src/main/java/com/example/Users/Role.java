@@ -7,8 +7,8 @@ import java.util.Set;
 
 public class Role {
 
-    public String NameEng;
-    public String NameRus;
+    public String NameEng = "";
+    public String NameRus = "";
 
     public Role()
     {
