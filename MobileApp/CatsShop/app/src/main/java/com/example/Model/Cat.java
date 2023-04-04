@@ -193,7 +193,7 @@ public class Cat {
             Age = object.getInt("age");
             Color = object.getString("color");
             Species = object.getString("species");
-            Gender = object.getString("Gender");
+            Gender = object.getString("gender");
             Price = object.getDouble("price");
             try
             {

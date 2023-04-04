@@ -78,6 +78,20 @@ public class CatShowActivity extends AppCompatActivity {
         dateUpdated.setText(String.valueOf(cat.DateUpdated));
     }
 
+    public void UpdateCat_Click(View v)
+    {
+        Intent i = new Intent(this, CatEditActivity.class);
+        i.putExtra("do", 1);
+        try {
+            i.putExtra("cat", cat.GetJsonWithID());
+            startActivityForResult(i, 200);
+        }
+        catch (Exception e)
+        {
+
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

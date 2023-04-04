@@ -40,7 +40,8 @@
         android:id="@+id/buttonAddCat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/AddCat"/>
+        android:text="@string/AddCat"
+        android:onClick="AddCat_Click"/>
 
     <ListView
         android:id="@+id/listCats"

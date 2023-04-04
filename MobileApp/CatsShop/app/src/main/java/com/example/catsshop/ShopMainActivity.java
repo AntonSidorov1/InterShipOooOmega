@@ -211,6 +211,13 @@ public class ShopMainActivity extends AppCompatActivity {
         super.startActivityForResult(intent, requestCode);
     }
 
+    public void AddCat_Click(View v)
+    {
+        Intent i = new Intent(this, CatEditActivity.class);
+        i.putExtra("do", 0);
+        startActivityForResult(i, 200);
+    }
+
     public void RunSettings(View v)
     {
         Intent i = new Intent(this, MainActivity.class);

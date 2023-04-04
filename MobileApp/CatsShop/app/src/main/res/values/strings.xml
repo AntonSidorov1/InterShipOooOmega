@@ -49,4 +49,5 @@
     <string name="Changepassword">Сменить пароль</string>
     <string name="DropAccount">Удалить аккаунт</string>
     <string name="ProgramInfo">О приложении</string>
+    <string name="zero">0</string>
 </resources>
