@@ -237,4 +237,24 @@ public class Cat {
         String json = GetJsonWithDates(true);
         return GetFromJson(json);
     }
+
+    public Gender GetGender(GendersList genders)
+    {
+        return genders.get(Gender);
+    }
+
+    public void SetGender(Gender gender)
+    {
+        Gender = gender.Name;
+    }
+
+    public void SetGenderByIndex(GendersList genders, int index)
+    {
+        SetGender(genders.get(index));
+    }
+
+    public void SetGenderByID(GendersList genders, int genderID)
+    {
+        SetGender(genders.get(genderID, true));
+    }
 }

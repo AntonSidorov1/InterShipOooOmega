@@ -17,6 +17,7 @@ import com.example.API.ResultOfAPI;
 import com.example.DB.Helper;
 import com.example.Model.Cat;
 import com.example.Model.GendersList;
+import com.example.Users.UsersHelper;
 
 public class CatEditActivity extends AppCompatActivity {
 
@@ -61,6 +62,11 @@ public class CatEditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cat_edit);
+
+        if(!UsersHelper.RoleIsAdmin(this))
+        {
+            finish();
+        }
 
         Intent i = getIntent();
         doID = i.getIntExtra("do", 0);
@@ -139,14 +145,12 @@ public class CatEditActivity extends AppCompatActivity {
         api.GET(Helper.GetURL(this).GetURL()+"/cats-genders", false);
     }
 
-    public void RunEdit(View v)
-    {
+    public void RunEdit(View v) {
         String title = doingCatName;
         String doing = doCatName.replace('У', 'у').replace('Д', 'д');
         String did = this.did[doID].replace('У', 'у').replace('Д', 'д');
 
-        ApiClientWithMessage api = new ApiClientWithMessage(this)
-        {
+        ApiClientWithMessage api = new ApiClientWithMessage(this) {
             @Override
             public void GetResult(ResultOfAPI res) {
                 finish();
@@ -154,10 +158,34 @@ public class CatEditActivity extends AppCompatActivity {
         };
         api.TitleMessage = title;
         api.MessageReady = "Котик успешно " + did;
-        api.MessageFail = "Не удалось "+doing;
+        api.MessageFail = "Не удалось " + doing;
 
-        
+        int catID = cat.ID;
+        cat.Color = editColor.getText().toString();
+        cat.Species = editSpecies.getText().toString();
+        try {
+            cat.Age = Integer.parseInt(editAge.getText().toString());
+        } catch (Exception e) {
+        }
+        try {
+            cat.Price = Double.parseDouble(editPrice.getText().toString());
+        } catch (Exception e) {
+        }
 
+        try {
+            cat.SetGenderByIndex(genders, spinnerGenders.getSelectedItemPosition());
+        } catch (Exception e) {
+
+        }
+
+        String body = cat.GetJsonWithOutID();
+        String url = Helper.GetURL(this).GetURL() + "/cats";
+
+        if (catID < 1) {
+            api.POST(url, body, true);
+        } else {
+            api.PUT(url + "/" + catID, body, true);
+        }
 
     }
 }
