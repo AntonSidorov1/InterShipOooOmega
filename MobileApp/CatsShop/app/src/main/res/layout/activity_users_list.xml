@@ -27,7 +27,8 @@
         android:id="@+id/button11"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/AddAdminUser" />
+        android:text="@string/AddAdminUser"
+        android:onClick="AddAdmin_Click" />
 
     <ListView
         android:id="@+id/listViewUsers"

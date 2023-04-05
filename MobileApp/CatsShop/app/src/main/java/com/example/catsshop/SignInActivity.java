@@ -24,6 +24,7 @@ import com.example.API.ApiClient;
 import com.example.API.ApiClientWithMessage;
 import com.example.API.ResultOfAPI;
 import com.example.Authofication.SignIn;
+import com.example.DB.Account;
 import com.example.DB.DB;
 import com.example.DB.Helper;
 
@@ -247,7 +248,26 @@ public class SignInActivity extends AppCompatActivity {
 
     public void AddAdmin_Click(View v)
     {
-
+        Account account = new Account();
+        account.login = login.getText().toString();
+        account.password = password.getText().toString();
+        ApiClientWithMessage api = new ApiClientWithMessage(this)
+        {
+            @Override
+            public void GetResult(ResultOfAPI res) {
+                finish();
+            }
+        };
+        api.TitleMessage = "РДобавление админа";
+        api.MessageReady = "Админ успешно добавлен";
+        api.MessageFail = "Не удалось добавить админа \n" +
+                "   - Возможно логин уже существует в системе \n" +
+                "   - Возможно пароль совпадает с названием одной из ролей \n" +
+                "   - Возможно логин пустой (должен быть, хотя бы один символ) \n" +
+                "   - Возможно, вы не являетесь админом, или больше не авторизированы в системе";
+        api.POST(Helper.URL.GetURL() + "/users/admins",
+                account.GetJson(),
+                true);
     }
 
     void SetButtonText(String text)

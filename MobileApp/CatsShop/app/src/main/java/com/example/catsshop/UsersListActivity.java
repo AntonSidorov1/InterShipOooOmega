@@ -165,6 +165,19 @@ public class UsersListActivity extends AppCompatActivity {
         finish();
     }
 
+    public void AddAdmin_Click(View v)
+    {
+        if(!UsersHelper.RoleIsAdmin(this))
+        {
+            finish();
+        }
+        Intent i = new Intent(this, SignInActivity.class);
+        i.putExtra("Doing", "admin");
+        i.putExtra("doingText", "Добавление админа");
+        i.putExtra("buttonSignIn", "Добавить");
+        startActivityForResult(i, 200);
+    }
+
 
     public void GetUsers(String res)
     {

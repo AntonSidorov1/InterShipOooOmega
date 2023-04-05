@@ -62,5 +62,19 @@ public class Account {
         }
     }
 
+    public String GetJson()
+    {
+        try {
+            JSONObject object = new JSONObject();
+            object.put("login", login);
+            object.put("password", password);
+            return object.toString();
+        }
+        catch (Exception e)
+        {
+            return "";
+        }
+    }
+
 
 }
